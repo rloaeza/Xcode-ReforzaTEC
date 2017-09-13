@@ -43,6 +43,18 @@ class Materia: NSObject {
         
         return materiasDescargadas
     }
+    
+    static func ejemplos () {
+        var materiasDescargadas : [Materia] = []
+        materiasDescargadas.append(Materia(nombre: "Matematicas", descripcion: "Aqui podras apredner los secretos de la lengua espanola asi como inglesa."))
+        materiasDescargadas.append(Materia(nombre: "Redes", descripcion: "Por que existe esta materia?!?!"))
+        materiasDescargadas.append(Materia(nombre: "Defensa Personal", descripcion: nil))
+        materiasDescargadas.append(Materia(nombre: "Fisica ll", descripcion: "Todo lo que puedas esperar de la fisica."))
+        materiasDescargadas.append(Materia(nombre: "Conjuros 1", descripcion: "Aprende a realizar conjuros y encantamientos de todo nivel. Busquen sus nuevos libros en la biblioteca por favor!"))
+        materiasDescargadas.append(Materia(nombre:"Lorem Ipsum", descripcion : "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."))
+        return    materiasDescargadas.reverse()
+        
+    }
 
     
     

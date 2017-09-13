@@ -43,12 +43,13 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="2Kf-Sl-TVA"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VlV-9C-a8a">
                             <connections>
-                                <segue destination="udn-RV-yHy" kind="show" id="vYS-cZ-fci"/>
+                                <action selector="HaciaMateriasDisponibles:" destination="IRd-6T-GpT" id="PyQ-Ej-HWA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2Sk-Lj-FJb" id="35I-m9-kca"/>
+                        <segue destination="udn-RV-yHy" kind="show" identifier="1" id="lTb-Fq-yop"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2b-lv-JTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
