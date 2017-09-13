@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="OpcionTableCell" customModule="ReforzaTecv1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Texto de mi etiqueta" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gd-8q-UyF">
+                        <rect key="frame" x="8" y="0.0" width="304" height="56"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4gd-8q-UyF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="09m-K4-rqX"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4gd-8q-UyF" secondAttribute="bottom" id="7nb-Ky-RQm"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="4gd-8q-UyF" secondAttribute="trailing" id="Bw1-nx-CbC"/>
+                    <constraint firstItem="4gd-8q-UyF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="F4k-aQ-idr"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="etiqueta" destination="4gd-8q-UyF" id="3sh-oC-m9L"/>
+            </connections>
+            <point key="canvasLocation" x="16" y="36.5"/>
+        </tableViewCell>
+    </objects>
+</document>
