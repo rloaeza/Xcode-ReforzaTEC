@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MisMateriasViewController.swift"
-            timestampString = "527033996.689935"
+            timestampString = "527070142.308206"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "longTouchHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -135,44 +135,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "526898086.683897"
+            timestampString = "527112992.114732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "descargarMaterias()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "527031889.510322"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "MateriasDisponiblesViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReforzaTecv1/MisMateriasViewController.swift"
-            timestampString = "527033541.787988"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "HaciaMateriasDisponibles(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

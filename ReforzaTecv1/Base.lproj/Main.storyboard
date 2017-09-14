@@ -44,12 +44,13 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VlV-9C-a8a">
                             <connections>
                                 <action selector="HaciaMateriasDisponibles:" destination="IRd-6T-GpT" id="PyQ-Ej-HWA"/>
+                                <segue destination="udn-RV-yHy" kind="show" id="ybL-EN-yWP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2Sk-Lj-FJb" id="35I-m9-kca"/>
-                        <segue destination="udn-RV-yHy" kind="show" identifier="1" id="lTb-Fq-yop"/>
+                        <segue destination="RgS-nj-sRd" kind="show" identifier="segueContenido" id="Rbx-b8-pC3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2b-lv-JTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -86,10 +87,9 @@
                             <outlet property="delegate" destination="RgS-nj-sRd" id="R4a-lc-fkP"/>
                         </connections>
                     </tableView>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <segue destination="6YB-eh-6gM" kind="show" identifier="EjerciciosSegue" id="B91-uU-oV7"/>
-                        <segue destination="Te2-Dt-Ps1" kind="show" identifier="WebSegue" id="JpL-d2-e4E"/>
+                        <segue destination="6YB-eh-6gM" kind="show" identifier="segueEjercicios" id="u9Z-oy-U0D"/>
+                        <segue destination="Te2-Dt-Ps1" kind="show" identifier="segueWeb" id="Own-pe-bCi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieO-Od-DRJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,31 +187,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBb-DD-6qm" userLabel="preguntaTextV">
-                                <rect key="frame" x="16" y="89" width="343" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="W4E-se-Yp2"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-Ev-vpJ" userLabel="opcionesTableV">
-                                <rect key="frame" x="0.0" y="249" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="193" width="375" height="420"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="6YB-eh-6gM" id="vhE-2q-S1i"/>
                                     <outlet property="delegate" destination="6YB-eh-6gM" id="dPE-pq-8bd"/>
                                 </connections>
                             </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBb-DD-6qm" userLabel="preguntaTextV">
+                                <rect key="frame" x="16" y="93" width="343" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="998" constant="80" id="SC7-Sd-El1"/>
+                                </constraints>
+                                <string key="text">Aguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilar</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bcb-Ev-vpJ" firstAttribute="leading" secondItem="ZWf-bD-eIX" secondAttribute="leading" id="4kc-LI-deU"/>
+                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="top" secondItem="aBb-DD-6qm" secondAttribute="bottom" constant="20" id="FHi-PB-w7D"/>
                             <constraint firstItem="3OH-e5-BX9" firstAttribute="top" secondItem="bcb-Ev-vpJ" secondAttribute="bottom" constant="10" id="Gmd-5K-9KE"/>
-                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="top" secondItem="aBb-DD-6qm" secondAttribute="bottom" constant="60" id="c0K-Lh-bys"/>
-                            <constraint firstItem="aBb-DD-6qm" firstAttribute="top" secondItem="Wyk-Wj-gk8" secondAttribute="bottom" constant="25" id="jot-x5-fpW"/>
+                            <constraint firstItem="aBb-DD-6qm" firstAttribute="top" secondItem="Wyk-Wj-gk8" secondAttribute="bottom" constant="29" id="jot-x5-fpW"/>
                             <constraint firstAttribute="trailing" secondItem="bcb-Ev-vpJ" secondAttribute="trailing" id="rfC-Zz-gek"/>
                             <constraint firstItem="aBb-DD-6qm" firstAttribute="leading" secondItem="ZWf-bD-eIX" secondAttribute="leadingMargin" id="v0d-Ss-Sw4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aBb-DD-6qm" secondAttribute="trailing" id="yVU-gs-sGp"/>

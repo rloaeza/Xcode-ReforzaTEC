@@ -5,17 +5,6 @@
 //  Created by Omar Rico on 7/25/17.
 //  Copyright © 2017 TecUruapan. All rights reserved.
 //
-
-/*
- Por hacer la proxima vez:
- 
- intenta sustituir todos los segues automaticos de la interfaz a segues manuales efectuados con id desde la escena 1
- */
-
-
-
-
-
 import UIKit
 
 class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
@@ -31,6 +20,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.allowsSelection = true
         colorear()
     }
     
@@ -108,7 +98,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         }
     }
 
-    
+    //Dependiendo de la fila escojida nos lleva a la vista
     func abrir (actividad: String, enUnidad: Int) {
         switch actividad {
         case "Teoria":
@@ -116,11 +106,11 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
 //            let view = PDFWebViewController()
 //            view.color = self.color
 //            navigationController?.pushViewController(view, animated: true)
-            self.performSegue(withIdentifier: "WebSegue", sender: self)
+            self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
             print("Abrir ejercicios")
-            navigationController?.performSegue(withIdentifier: "EjerciciosSegue", sender: self)
-//            performSegue(withIdentifier: "EjerciciosSegue", sender: self)
+            //navigationController?.performSegue(withIdentifier: "EjerciciosSegue",
+            self.performSegue(withIdentifier: "segueEjercicios", sender: self)
         default:
             print("Actividad desconocida: '\(actividad)'")
         }

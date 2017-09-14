@@ -20,10 +20,10 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //que demonios hacia esto?
-//        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
-//        self.navigationController?.navigationBar.tintColor = color
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
+        //Restablece la barra de estado y el tinte a color transparente (lol)y negro, si no, cuando regresas de una materia, la barra conservaria el color pasado.
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.tintColor = color
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
 
     }
   
@@ -34,11 +34,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         configurarTabla()
     }
     
-    @IBAction func HaciaMateriasDisponibles(_ sender: Any) {
-        
-        self.performSegue(withIdentifier: "1", sender: self)
-        
-    }
+  
     
     func configurarTabla() {
         tableView.estimatedRowHeight = 80
@@ -81,16 +77,29 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         abrirMateria(indexPath.row)
     }
-    
+    //MARK: Remover boton de las celdas
     //curr in use
     func abrirMateria (_ numero: Int) {
-        print("Vamos a abrir una materia")
-        let contenidoView = ContenidoMateria()
-        contenidoView.titulo = materiasDescargadas[numero].mNombre
-        contenidoView.color = materiasDescargadas[numero].mColor
-        self.navigationController?.pushViewController(contenidoView, animated: true)
+        self.performSegue(withIdentifier: "segueContenido", sender: self)
+//        let contenidoView = ContenidoMateria()
+//        contenidoView.titulo = materiasDescargadas[numero].mNombre
+//        contenidoView.color = materiasDescargadas[numero].mColor
+//        print("alo")
+//        contenidoView.navigationController?.performSegue(withIdentifier: "segueContenido", sender: self)
+//        self.navigationController?.pushViewController(contenidoView, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueContenido" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let contenidoView = segue.destination as! ContenidoMateria
+                contenidoView.titulo = materiasDescargadas[indexPath.row].mNombre
+                contenidoView.color = materiasDescargadas[indexPath.row].mColor
+            }
+        }
+    }
+    
+    //Forma antigua de abrir una materia, ahora es cuando se selecciona cualquier parte de la materia
 //    func abrirMateria(sender: UIButton) {
 //        let contenidoView = ContenidoMateria()
 //        contenidoView.titulo = materiasDescargadas[sender.tag].mNombre

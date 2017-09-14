@@ -24,7 +24,9 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         //llenar materias de ejemplo desde la clase materia
         //materiasDescargadas = Materia.llenarConEjemplos()
        // configurarTabla()
-        descargarMaterias()
+        //descargarMaterias()
+        materiasDescargadas = Materia.llenarConEjemplos()
+        configurarTabla()
         
     }
     
@@ -62,8 +64,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         return cell
     }
     
- 
-   
+  
     func expandirCelda(numero : Int) {
         self.tableView.beginUpdates()
         
