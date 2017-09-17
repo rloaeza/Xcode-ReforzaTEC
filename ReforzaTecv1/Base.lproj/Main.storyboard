@@ -96,10 +96,10 @@
             </objects>
             <point key="canvasLocation" x="3215.1999999999998" y="72.413793103448285"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Teoria-->
         <scene sceneID="rwZ-u4-X4g">
             <objects>
-                <viewController storyboardIdentifier="WebViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Te2-Dt-Ps1" customClass="PDFWebViewController" customModule="ReforzaTecv1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewVC" title="Teoria" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Te2-Dt-Ps1" customClass="PDFWebViewController" customModule="ReforzaTecv1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HAA-ko-rRY"/>
                         <viewControllerLayoutGuide type="bottom" id="7c9-fU-eij"/>
@@ -187,46 +187,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-Ev-vpJ" userLabel="opcionesTableV">
-                                <rect key="frame" x="0.0" y="193" width="375" height="420"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="6YB-eh-6gM" id="vhE-2q-S1i"/>
-                                    <outlet property="delegate" destination="6YB-eh-6gM" id="dPE-pq-8bd"/>
-                                </connections>
-                            </tableView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBb-DD-6qm" userLabel="preguntaTextV">
-                                <rect key="frame" x="16" y="93" width="343" height="80"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1v-VG-IEB">
+                                <rect key="frame" x="16" y="74" width="343" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="998" constant="80" id="SC7-Sd-El1"/>
+                                    <constraint firstAttribute="height" constant="150" id="gf8-m0-1TK"/>
                                 </constraints>
-                                <string key="text">Aguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilarAguilar aguilar aguilar aguilar</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-Ev-vpJ" userLabel="opcionesTableV">
+                                <rect key="frame" x="0.0" y="234" width="375" height="389"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6YB-eh-6gM" id="Tcb-Ft-OD8"/>
+                                    <outlet property="delegate" destination="6YB-eh-6gM" id="RGP-Ja-wiT"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="leading" secondItem="ZWf-bD-eIX" secondAttribute="leading" id="4kc-LI-deU"/>
-                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="top" secondItem="aBb-DD-6qm" secondAttribute="bottom" constant="20" id="FHi-PB-w7D"/>
-                            <constraint firstItem="3OH-e5-BX9" firstAttribute="top" secondItem="bcb-Ev-vpJ" secondAttribute="bottom" constant="10" id="Gmd-5K-9KE"/>
-                            <constraint firstItem="aBb-DD-6qm" firstAttribute="top" secondItem="Wyk-Wj-gk8" secondAttribute="bottom" constant="29" id="jot-x5-fpW"/>
-                            <constraint firstAttribute="trailing" secondItem="bcb-Ev-vpJ" secondAttribute="trailing" id="rfC-Zz-gek"/>
-                            <constraint firstItem="aBb-DD-6qm" firstAttribute="leading" secondItem="ZWf-bD-eIX" secondAttribute="leadingMargin" id="v0d-Ss-Sw4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aBb-DD-6qm" secondAttribute="trailing" id="yVU-gs-sGp"/>
+                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="leading" secondItem="ZWf-bD-eIX" secondAttribute="leading" id="18C-eO-RPA"/>
+                            <constraint firstItem="bcb-Ev-vpJ" firstAttribute="top" secondItem="u1v-VG-IEB" secondAttribute="bottom" constant="10" id="1th-g0-R86"/>
+                            <constraint firstItem="u1v-VG-IEB" firstAttribute="top" secondItem="Wyk-Wj-gk8" secondAttribute="bottom" constant="10" id="ATi-6F-olt"/>
+                            <constraint firstAttribute="trailing" secondItem="bcb-Ev-vpJ" secondAttribute="trailing" id="DAk-EZ-kRA"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="u1v-VG-IEB" secondAttribute="leading" id="EfM-4w-DnE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="u1v-VG-IEB" secondAttribute="trailing" id="bu3-Sh-iYa"/>
+                            <constraint firstItem="3OH-e5-BX9" firstAttribute="top" secondItem="bcb-Ev-vpJ" secondAttribute="bottom" id="k56-ax-Q5Q"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="preguntaTextView" destination="aBb-DD-6qm" id="1m5-4d-4cD"/>
+                        <outlet property="preguntaTextView" destination="u1v-VG-IEB" id="kZU-xd-Gue"/>
                         <outlet property="tableView" destination="bcb-Ev-vpJ" id="XUr-wL-Kex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aku-xE-naF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4196" y="72"/>
+            <point key="canvasLocation" x="4196" y="71.514242878560722"/>
         </scene>
     </scenes>
 </document>

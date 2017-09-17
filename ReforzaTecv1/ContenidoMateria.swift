@@ -103,16 +103,26 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         switch actividad {
         case "Teoria":
             print("Abrir Teoria")
-//            let view = PDFWebViewController()
-//            view.color = self.color
-//            navigationController?.pushViewController(view, animated: true)
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
             print("Abrir ejercicios")
-            //navigationController?.performSegue(withIdentifier: "EjerciciosSegue",
             self.performSegue(withIdentifier: "segueEjercicios", sender: self)
         default:
             print("Actividad desconocida: '\(actividad)'")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case "segueEjercicios":
+            let ejerciciosView = segue.destination as! EjercicioOpMulVC
+            ejerciciosView.color = self.color
+        case "segueWeb":
+            let webView = segue.destination as! PDFWebViewController
+            webView.color = self.color
+            
+        default:
+            print("Segue desconocido.")
         }
     }
 }
