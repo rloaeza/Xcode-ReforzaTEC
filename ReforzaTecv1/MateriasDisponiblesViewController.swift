@@ -22,11 +22,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         //llenar materias de ejemplo desde la clase materia
-        //materiasDescargadas = Materia.llenarConEjemplos()
-       // configurarTabla()
-        //descargarMaterias()
         materiasDescargadas = Materia.llenarConEjemplos()
         configurarTabla()
+        //descargarMaterias()
+      
         
     }
     
