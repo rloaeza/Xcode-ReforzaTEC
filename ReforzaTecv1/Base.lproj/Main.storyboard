@@ -143,7 +143,14 @@
                             <outletCollection property="gestureRecognizers" destination="LSQ-Eh-Le7" appends="YES" id="tG3-rp-M2E"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Materias Disponibles" id="fPQ-ck-wuW"/>
+                    <navigationItem key="navigationItem" title="Materias Disponibles" id="fPQ-ck-wuW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="zI3-vD-cst">
+                            <color key="tintColor" red="1" green="0.26746119270000002" blue="0.13069117999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="borrarTodo" destination="udn-RV-yHy" id="LpI-Yo-xgp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="LVz-8D-PEC" id="IN0-pu-TYz"/>
                     </connections>

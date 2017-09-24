@@ -8,34 +8,57 @@
 
 import UIKit
 
-class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BtnBorrarMateriaDelegate {
     
     let color : UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-   
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @IBOutlet weak var tableView: CustomUITableView!
     var materiasDescargadas : [Materia] = []
-    
     var lastCell : CustomTableViewCell = CustomTableViewCell ()//guarda la celda que esta expandida?
     var tagCeldaExpandida = -1//identifica a la celda abierta
     
+    
+    //lo puse en view did appear por que en view did load no funcionaba?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //Restablece la barra de estado y el tinte a color transparente (lol)y negro, si no, cuando regresas de una materia, la barra conservaria el color pasado.
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.tintColor = color
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
-
+        //tal vez poner aqui lo de recuperar la informacion de Core
+        recuperarData()
+        tableView.reloadData()
     }
-  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        materiasDescargadas = Materia.llenarConEjemplos()
+        //materiasDescargadas = MateriaObj.llenarConEjemplos()
         configurarTabla()
     }
     
+    func recuperarData(){
+        do {
+            materiasDescargadas = try context.fetch(Materia.fetchRequest())
+            for m in materiasDescargadas{
+                print("Recuperada la materia de \(m.nombre!)")
+            }
+        } catch {
+            print("Error al recuperar las materias")
+        }
+    }
+    //Si el toque largo se hizo sobre una celda, esta se expandira
+    @IBAction func longTouchHandler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            var touchPoint = sender.location(in: self.view)
+            touchPoint.y -= 70
+            //seria mejor restarle la altura de la barra de navegacion + barra de estado?
+            if let rowIndex = tableView.indexPathForRow(at:touchPoint) {
+                expandirCelda(numero: rowIndex.row)
+            }
+        }
+    }
   
-    
+    //MARK:- Cositas Table View
     func configurarTabla() {
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -45,10 +68,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
     }
-    
    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return materiasDescargadas.count
     }
@@ -59,11 +79,13 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         
         if !cell.cellExists {
             let m = materiasDescargadas[indexPath.row]
-            cell.nombreLabel.text = m.mNombre
-            cell.descripcionTextView.text = m.mDescripcion
+            cell.nombreLabel.text = m.nombre
+            cell.descripcionTextView.text = m.descripcion
             cell.cellExists = true
-            cell.detailsView.backgroundColor = m.mColor
-            cell.titleView.backgroundColor = m.mColor
+            cell.detailsView.backgroundColor = Utils.colorHash(m.nombre!)
+            cell.titleView.backgroundColor = cell.detailsView.backgroundColor
+            cell.delegate = self
+            cell.referenciaCD = m
             //cell.openButton.addTarget(self, action: #selector(abrirContenido(sender:)), for: .touchUpInside)
             //para saber cual boton pertenece a cual materia
             cell.openButton.tag = indexPath.row
@@ -77,35 +99,33 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         abrirMateria(indexPath.row)
     }
-    //MARK: Remover boton de las celdas
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete) {
+            materiasDescargadas.remove(at: indexPath.row)//tal vez esto deberia estar en eliminarMateria(celda)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+        }
+    }
+    
+    //MARK:- Cositas Segue
+
     //curr in use
     func abrirMateria (_ numero: Int) {
         self.performSegue(withIdentifier: "segueContenido", sender: self)
-//        let contenidoView = ContenidoMateria()
-//        contenidoView.titulo = materiasDescargadas[numero].mNombre
-//        contenidoView.color = materiasDescargadas[numero].mColor
-//        print("alo")
-//        contenidoView.navigationController?.performSegue(withIdentifier: "segueContenido", sender: self)
-//        self.navigationController?.pushViewController(contenidoView, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueContenido" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let contenidoView = segue.destination as! ContenidoMateria
-                contenidoView.titulo = materiasDescargadas[indexPath.row].mNombre
-                contenidoView.color = materiasDescargadas[indexPath.row].mColor
+                let selectedRow = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+                contenidoView.titulo = selectedRow.nombreLabel.text!
+                contenidoView.color = selectedRow.detailsView.backgroundColor
             }
         }
     }
     
-    //Forma antigua de abrir una materia, ahora es cuando se selecciona cualquier parte de la materia
-//    func abrirMateria(sender: UIButton) {
-//        let contenidoView = ContenidoMateria()
-//        contenidoView.titulo = materiasDescargadas[sender.tag].mNombre
-//        contenidoView.color = materiasDescargadas[sender.tag].mColor
-//        self.navigationController?.pushViewController(contenidoView, animated: true)
-//    }
+    //MARK:- Cosas extra
     
     func expandirCelda(numero : Int) {
         self.tableView.beginUpdates()
@@ -133,23 +153,25 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.endUpdates()
     }
 
-   
-
-    
-
-    
-    @IBAction func longTouchHandler(_ sender: UILongPressGestureRecognizer) {
-        
-        if sender.state == UIGestureRecognizerState.began {
-            var touchPoint = sender.location(in: self.view)
-            touchPoint.y -= 70
-            //seria mejor restarle la altura de la barra de navegacion + barra de estado?
-            if let rowIndex = tableView.indexPathForRow(at:touchPoint) {
-                    expandirCelda(numero: rowIndex.row)
-            }
-        }
+    //Cumpliendo con el delegado del CustomTableView para que al darle en el boton de borrar de la celda se llame aqui esto y se borre
+    //Elimina la materia de coreData y la celda del tableview
+    func eliminarMateria(_ celda : CustomTableViewCell) {
+        print("Eliminando la materia de: \(celda.nombreLabel.text!)")
+        let indexPath = tableView.indexPath(for: celda)!
+        //para que la celda se cierre antes de ser eliminada y
+        //para que no esten variables indicando que hay celda abierta
+       // expandirCelda(numero: indexPath.row)
+        let coreData = celda.referenciaCD!
+        self.tableView(tableView, commit: .delete, forRowAt: indexPath)
+        context.delete(coreData)
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        /*
+        do{
+            materiasDescargadas = try context.fetch(Materia.fetchRequest())
+        } catch{
+            print("Error al recuperar materias")
+        }*/
     }
-    
     
   
 

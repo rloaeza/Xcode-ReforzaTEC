@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol BtnBorrarMateriaDelegate : class {
+    func eliminarMateria (_ materia: CustomTableViewCell)
+}
+
 class CustomTableViewCell: UITableViewCell {
-    
+    var referenciaCD : Materia?
+    weak var delegate:BtnBorrarMateriaDelegate?
     var cellExists : Bool = false
     
     @IBOutlet weak var titleView: UIView!
@@ -52,8 +57,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     @IBAction func removeMateria(_ sender: Any) {
-        print("\(nombreLabel.text!) is goiong to be deleted")
+       // print("\(nombreLabel.text!) is goiong to be deleted")
+        delegate?.eliminarMateria(self)
+        
     }
-
     
 }
+
+

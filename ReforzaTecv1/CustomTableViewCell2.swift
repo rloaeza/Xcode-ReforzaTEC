@@ -8,8 +8,21 @@
 
 import UIKit
 
+//Para que al presionar el boton de la vista de esta clase, se llame la funcion de descargar en 
+//MateriasDsponiblesViewController y se descargue
+protocol BtnMateriaDelegate : class {
+    func btnDescargarDelegate (_ row : CustomTableViewCell2)
+}
+
+//tienen dentro un MateriaObj
+//clase donde pongo todo lo de la materia para mostrar junto
+//con ese MateriaObj inicializo coredata si se guarda
+//Deveria renombrar esta clase a algo mejor,
 class CustomTableViewCell2: UITableViewCell {
         //deberia lelvar un objeto tipo Materia?
+    var objMateria : MateriaObj?//borrar? no, representacion de la materia antes de ser descargada
+    weak var delegate :BtnMateriaDelegate?
+    
     var cellExists : Bool = false
     //let touchThing = UILongPressGestureRecognizer(target: self, action: #selector(MateriasDisponiblesViewController.cellOpened(sender:)))
     
@@ -29,10 +42,14 @@ class CustomTableViewCell2: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        
     }
  
     @IBAction func descargar(_ sender: Any) {
-        print("Descargando la materia de \(nombreLabel.text!)")
+        //print("Vamos a descargar la materia de \(nombreLabel.text!)")
+        
+        delegate?.btnDescargarDelegate(self)
     }
     
  

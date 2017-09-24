@@ -9,123 +9,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ReforzaTecv1/Materia.swift"
-            timestampString = "526894422.014021"
+            filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
+            timestampString = "527850185.217862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "init(nombre:descripcion:)"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "guardarMateria(_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReforzaTecv1/MisMateriasViewController.swift"
-            timestampString = "527070142.308206"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "longTouchHandler(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpcionTableCell.swift"
-            timestampString = "523389164.428249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "11"
-            endingLineNumber = "11"
-            landmarkName = "posiblesEstados"
-            landmarkType = "13">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReforzaTecv1.OpcionTableCell.__deallocating_deinit"
-                  moduleName = "ReforzaTecv1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/OpcionTableCell.swift"
-                  timestampString = "523389165.615738"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReforzaTecv1.OpcionTableCell.init (style : __C.UITableViewCellStyle, reuseIdentifier : Swift.Optional&lt;Swift.String&gt;) -&gt; ReforzaTecv1.OpcionTableCell"
-                  moduleName = "ReforzaTecv1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/OpcionTableCell.swift"
-                  timestampString = "523389165.628975"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "70">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReforzaTecv1.OpcionTableCell.__allocating_init (style : __C.UITableViewCellStyle, reuseIdentifier : Swift.Optional&lt;Swift.String&gt;) -&gt; ReforzaTecv1.OpcionTableCell"
-                  moduleName = "ReforzaTecv1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/OpcionTableCell.swift"
-                  timestampString = "523389165.634912"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "23">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReforzaTecv1.OpcionTableCell.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;ReforzaTecv1.OpcionTableCell&gt;"
-                  moduleName = "ReforzaTecv1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/OpcionTableCell.swift"
-                  timestampString = "523389165.640715"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ReforzaTecv1.OpcionTableCell.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;ReforzaTecv1.OpcionTableCell&gt;"
-                  moduleName = "ReforzaTecv1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/OpcionTableCell.swift"
-                  timestampString = "523389165.646867"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -135,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "527319906.71763"
+            timestampString = "527850185.217862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "descargarMaterias()"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "guardarMateria(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -20,7 +20,7 @@ class Utils :  NSObject {
         hash3 = hash3 >> 8;
         var hash4: Int = hash&0b111111110000000000000000;
         hash4 = hash4 >> 16;
-        return UIColor(red: CGFloat(Float(hash2)/255), green: CGFloat(Float(hash3)/255), blue: CGFloat(Float(hash4)/255), alpha: 0.8);
+        return UIColor(red:CGFloat(Float(hash2)/255) , green:  CGFloat(Float(hash3)/255), blue:  CGFloat(Float(hash4)/255), alpha: 0.8);
         
     }
 }
