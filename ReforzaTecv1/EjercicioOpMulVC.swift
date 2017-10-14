@@ -16,7 +16,8 @@ import UIKit
 //      y centrar el texto en ese espacio designado,lo mismo pensaba con las opciones de respuesta 
 
 class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+//para no estar descomentando cosas y probar rapido con breakpoints
+    var debugVar = false
    
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
@@ -33,7 +34,9 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         respuesta = opcionesDeRespuesta.shuffled()[0]
         //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
         //por alguna razon el textview sale mas abajo, esto lo corrige
-        preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
+        if(debugVar) {
+            preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
+        }
         // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
     }
     
@@ -45,9 +48,11 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
         opcionesDeRespuesta = opcionesDeRespuesta.shuffled()
         //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
-        preguntaTextView.translatesAutoresizingMaskIntoConstraints = true
-        preguntaTextView.sizeToFit()
-        preguntaTextView.isScrollEnabled = false
+        if(debugVar){
+            preguntaTextView.translatesAutoresizingMaskIntoConstraints = true
+            preguntaTextView.sizeToFit()
+            preguntaTextView.isScrollEnabled = false
+        }
         configurarTabla()
     }
     
@@ -89,6 +94,17 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func cambiarEjercicio() {
+        self.performSegue(withIdentifier: "segueOrdenar", sender: self)
         print("cambiando de segue")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case "segueOrdenar":
+            let view = segue.destination as! EjercicioOrdenarVC
+            view.color = self.color
+        default:
+            print("Segue desconocido.")
+        }
     }
 }

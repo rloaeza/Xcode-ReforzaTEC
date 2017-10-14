@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "527850185.217862"
+            timestampString = "529107213.343089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "guardarMateria(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,12 +26,122 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "527850185.217862"
+            timestampString = "529107213.343089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "guardarMateria(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReforzaTecv1/EjercicioOpMulVC.swift"
+            timestampString = "527927389.998907"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "EjercicioOpMulVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReforzaTecv1.EjercicioOpMulVC.debugVar.getter : Swift.Bool"
+                  moduleName = "ReforzaTecv1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/ReforzaTecv1/EjercicioOpMulVC.swift"
+                  timestampString = "529109629.830402"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReforzaTecv1.EjercicioOpMulVC.debugVar.setter : Swift.Bool"
+                  moduleName = "ReforzaTecv1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/ReforzaTecv1/EjercicioOpMulVC.swift"
+                  timestampString = "529109629.833925"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReforzaTecv1.EjercicioOpMulVC.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; ReforzaTecv1.EjercicioOpMulVC"
+                  moduleName = "ReforzaTecv1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/ReforzaTecv1/EjercicioOpMulVC.swift"
+                  timestampString = "529109629.838024"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReforzaTecv1.EjercicioOpMulVC.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;ReforzaTecv1.EjercicioOpMulVC&gt;"
+                  moduleName = "ReforzaTecv1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mar/Desktop/ReforzaTecv1/ReforzaTecv1/EjercicioOpMulVC.swift"
+                  timestampString = "529109629.841358"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReforzaTecv1/EjercicioOpMulVC.swift"
+            timestampString = "527927483.652882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "viewDidLayoutSubviews()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
+            timestampString = "529107731.846085"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "mostrarEmptyView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

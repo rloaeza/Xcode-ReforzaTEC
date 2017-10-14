@@ -17,7 +17,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     var lastCell : CustomTableViewCell = CustomTableViewCell ()//guarda la celda que esta expandida?
     var tagCeldaExpandida = -1//identifica a la celda abierta
     
-    
+    //deberia dejarle el color por defecto al tinte (azul) a los view controlers este y el de descargas? 
     //lo puse en view did appear por que en view did load no funcionaba?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -155,25 +155,21 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
 
     //Cumpliendo con el delegado del CustomTableView para que al darle en el boton de borrar de la celda se llame aqui esto y se borre
     //Elimina la materia de coreData y la celda del tableview
+    //primero muestra
     func eliminarMateria(_ celda : CustomTableViewCell) {
-        print("Eliminando la materia de: \(celda.nombreLabel.text!)")
-        let indexPath = tableView.indexPath(for: celda)!
-        //para que la celda se cierre antes de ser eliminada y
-        //para que no esten variables indicando que hay celda abierta
-       // expandirCelda(numero: indexPath.row)
-        let coreData = celda.referenciaCD!
-        self.tableView(tableView, commit: .delete, forRowAt: indexPath)
-        context.delete(coreData)
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
-        /*
-        do{
-            materiasDescargadas = try context.fetch(Materia.fetchRequest())
-        } catch{
-            print("Error al recuperar materias")
-        }*/
+        let alerta = UIAlertController(title: "¿Deseas borrar la materia \(celda.nombreLabel.text!)?", message: "Tu progreso será perdido", preferredStyle: UIAlertControllerStyle.actionSheet)
+        alerta.addAction(UIAlertAction(title: "Borrar", style: UIAlertActionStyle.destructive, handler: {_ in
+            let indexPath = self.tableView.indexPath(for: celda)!
+            let coreData = celda.referenciaCD!
+            self.tableView(self.tableView, commit: .delete, forRowAt: indexPath)
+            self.context.delete(coreData)
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        }))
+        alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
+            print("Cancelado, nada se borrara.")
+        }))
+        self.present(alerta, animated: true, completion: nil)
     }
-    
-  
 
 }
 

@@ -1,3 +1,4 @@
+
 //
 //  MateriasDisponiblesViewController.swift
 //  ReforzaTecv1
@@ -31,7 +32,11 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // soluciona un detalle que, luego de cargar la vista tenias que darle un click para que saliera la lista
         tableView.reloadData()
+        if(materiasDescargadas.isEmpty){
+            mostrarEmptyView()
+        }
     }
     
     
@@ -157,17 +162,27 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         let url = URL(string: MateriaObj.direccion)
         let session = URLSession.shared
         let task = session.dataTask(with: url!, completionHandler: {data,response,error -> Void in
-            print("Creo que ya se descargo")
+            //task ejecutandose
             if(error != nil){
                 print(error.debugDescription)
+                print("Error al descargar la lista de materias")            }
+            else {
+                self.jsonParser(d: data!)
             }
-            self.jsonParser(d: data!)
-            //self.configurarTabla()
-            
         })
-        
         task.resume()
      
+    }
+    
+    // Le pone un mensaje a la table view diciendo que no se pudo recargar
+    func mostrarEmptyView() {
+        let etiqueta = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        etiqueta.textColor = UIColor.red
+        etiqueta.textAlignment = NSTextAlignment.center
+        etiqueta.numberOfLines = 2
+        etiqueta.text = "No se pudo conectar con el servidor.\n😥"
+        tableView.separatorStyle  = UITableViewCellSeparatorStyle.none
+        tableView.backgroundView = etiqueta
     }
     
   //esto mas bien descarga la materia parsea json e inicializa la tabla
