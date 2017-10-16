@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pv3-9h-bv0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dyw-rc-2Rk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -256,21 +256,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNs-l3-8si" userLabel="Linea">
-                                <rect key="frame" x="16" y="365" width="343" height="1"/>
-                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="zfR-bE-s6x"/>
-                                </constraints>
-                            </view>
-                            <collectionView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="naw-eQ-cI5">
-                                <rect key="frame" x="16" y="418" width="343" height="154"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="naw-eQ-cI5">
+                                <rect key="frame" x="16" y="365" width="343" height="153"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3Ci-DD-lw8">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="3Ci-DD-lw8">
                                     <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="50" height="1"/>
+                                    <size key="headerReferenceSize" width="50" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="20"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -283,28 +275,62 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collection_footer" id="ecx-zg-IgA">
-                                    <rect key="frame" x="0.0" y="50" width="343" height="1"/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collection_header" id="WNn-Ei-8Aj" userLabel="header">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collection_footer" id="ecx-zg-IgA" userLabel="footer">
+                                    <rect key="frame" x="0.0" y="50" width="343" height="20"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zrx-U8-3tC" userLabel="lineaParrafo">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
+                                            <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="ccB-b9-9Af"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Zrx-U8-3tC" secondAttribute="trailing" id="f05-aQ-yM5"/>
+                                        <constraint firstItem="Zrx-U8-3tC" firstAttribute="top" secondItem="ecx-zg-IgA" secondAttribute="top" id="oQI-UX-lbb"/>
+                                        <constraint firstItem="Zrx-U8-3tC" firstAttribute="leading" secondItem="ecx-zg-IgA" secondAttribute="leading" id="vZn-bF-YL6"/>
+                                    </constraints>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="pv3-9h-bv0" id="FLU-iP-3gO"/>
                                     <outlet property="delegate" destination="pv3-9h-bv0" id="ed3-I8-Ekd"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QM5-xU-LND">
+                                <rect key="frame" x="16" y="518" width="343" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="YsQ-A2-TLA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Revisar">
+                                    <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="jT9-1D-5KP" secondAttribute="trailing" id="5bD-gT-FlM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="dNs-l3-8si" secondAttribute="trailing" id="8ZI-01-hCA"/>
-                            <constraint firstItem="dNs-l3-8si" firstAttribute="top" secondItem="jT9-1D-5KP" secondAttribute="bottom" constant="50" id="Jot-AP-dr5"/>
+                            <constraint firstItem="UIn-yP-eBn" firstAttribute="top" secondItem="QM5-xU-LND" secondAttribute="bottom" constant="35" id="O5S-AA-OED"/>
+                            <constraint firstItem="QM5-xU-LND" firstAttribute="centerX" secondItem="LbY-Lt-WeO" secondAttribute="centerX" id="SIZ-6b-QnK"/>
                             <constraint firstItem="jT9-1D-5KP" firstAttribute="top" secondItem="oH3-HB-ddS" secondAttribute="bottom" constant="20" id="Yd0-xk-dpB"/>
-                            <constraint firstItem="dNs-l3-8si" firstAttribute="leading" secondItem="LbY-Lt-WeO" secondAttribute="leadingMargin" id="sBe-Io-4AF"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="naw-eQ-cI5" secondAttribute="leading" id="ejf-cK-Qxj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="naw-eQ-cI5" secondAttribute="trailing" id="hgn-SZ-8n9"/>
+                            <constraint firstItem="QM5-xU-LND" firstAttribute="width" secondItem="naw-eQ-cI5" secondAttribute="width" id="k5a-8I-3j2"/>
+                            <constraint firstItem="QM5-xU-LND" firstAttribute="top" secondItem="naw-eQ-cI5" secondAttribute="bottom" id="nh3-Mp-bNh"/>
                             <constraint firstItem="jT9-1D-5KP" firstAttribute="leading" secondItem="LbY-Lt-WeO" secondAttribute="leadingMargin" id="y2j-CG-XZx"/>
+                            <constraint firstItem="naw-eQ-cI5" firstAttribute="top" secondItem="jT9-1D-5KP" secondAttribute="bottom" constant="50" id="yFl-ga-rYj"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BotonRevisar" destination="QM5-xU-LND" id="vOL-hx-EJH"/>
+                        <outlet property="collectionView" destination="naw-eQ-cI5" id="jLZ-Rr-Klc"/>
                         <outlet property="preguntaTextView" destination="jT9-1D-5KP" id="BAc-v1-d5V"/>
                     </connections>
                 </viewController>
