@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */; };
-		4807010F1F8EC51A007DA534 /* BotonAjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807010E1F8EC51A007DA534 /* BotonAjustable.swift */; };
 		480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */; };
 		4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A63F1F298444003BD339 /* ContenidoMateria.swift */; };
 		4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A6411F2BB002003BD339 /* PDFWebViewController.swift */; };
@@ -37,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EjercicioOrdenarVC.swift; sourceTree = "<group>"; };
-		4807010E1F8EC51A007DA534 /* BotonAjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotonAjustable.swift; sourceTree = "<group>"; };
 		480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PalabraCollectionViewCell.swift; sourceTree = "<group>"; };
 		4818A63F1F298444003BD339 /* ContenidoMateria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContenidoMateria.swift; sourceTree = "<group>"; };
 		4818A6411F2BB002003BD339 /* PDFWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFWebViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */,
 				48A419781F31643F008AAE09 /* OpcionTableCell.swift */,
 				48A419791F31643F008AAE09 /* OpcionTableCell.xib */,
-				4807010E1F8EC51A007DA534 /* BotonAjustable.swift */,
 			);
 			name = Ejercicios;
 			sourceTree = "<group>";
@@ -227,7 +224,6 @@
 				480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */,
 				4818A6441F2BB743003BD339 /* Extensiones.swift in Sources */,
 				4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */,
-				4807010F1F8EC51A007DA534 /* BotonAjustable.swift in Sources */,
 				48F5BDD71F1C917700242E95 /* MisMateriasViewController.swift in Sources */,
 				B77A801C1F29164200B73C43 /* UnidadSeccion.swift in Sources */,
 				48A4197A1F31643F008AAE09 /* OpcionTableCell.swift in Sources */,
