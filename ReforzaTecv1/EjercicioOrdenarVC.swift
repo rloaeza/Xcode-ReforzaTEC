@@ -19,7 +19,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         
         var palabras: [UILabel] {
             didSet{
-                largo = 0
+                largo = -Fila.EspacioMinimoEntreCeldas // para no contar el espacio de la ultima palabra
                 for p in palabras{
                     largo += p.frame.size.width + Fila.EspacioMinimoEntreCeldas
                 }
@@ -35,7 +35,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             contiene = tipo
         }
         
-        func puedeCotnener(otra label: UILabel) -> Bool {
+        func puedeContener(otra label: UILabel) -> Bool {
             if(contiene == "opciones"){
                 return true
             }else {// respuestas
@@ -49,13 +49,17 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
     
     var IndiceSeccionDeOpciones: Int!
-    
+    var UltimaFilaUsada: Int = 0 {
+        didSet{
+            UltimaFilaUsada = (UltimaFilaUsada < 0) ? 0 : UltimaFilaUsada
+        }
+    }
     var AltoDeEtiqueta: CGFloat!
     
     var color : UIColor! = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
     
-    let respuesta: String = "Esto es un texto de prueba que escribo para probar como funciona mi algoritmo."
-    let relleno: String = "uno dos tres"
+    let RespuestaCorrecta: String = "Esto es un texto de prueba y no debe contener números."
+    let relleno: String = "uno dos tres cuatro 5"
     
     var dataSource: [Fila] = []
     
@@ -73,15 +77,15 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // y agregarlos como secciones vacias al principio del datasource
         
         // iniciando boton
-        BotonRevisar.addTarget(self, action: #selector(revisar), for: .touchDown)
+        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
         BotonRevisar.layer.cornerRadius = 10
         BotonRevisar.layer.borderWidth = 1.5
         BotonRevisar.layer.borderColor = color.cgColor
-        
+        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
         // inicializar data source
         // con seccion de opciones
         var seccionDeOpciones = Fila(tipo: "opciones")
-        let opcionesDeRespuesta = (respuesta + " " + relleno).components(separatedBy: " ")
+        let opcionesDeRespuesta = (RespuestaCorrecta + " " + relleno).components(separatedBy: " ").shuffled()
         for palabra in opcionesDeRespuesta{
             let etiqueta = nuevaLabel(palabra)
             seccionDeOpciones.palabras.append(etiqueta)
@@ -97,11 +101,47 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         IndiceSeccionDeOpciones = dataSource.count - 1
     }
     
-    func revisar() {
-        print("revisando las respuestas")
+    func accionDelBoton() {
+        if let titulo = BotonRevisar.titleLabel?.text{
+            switch titulo {
+            case "Revisar":
+                revisar()
+            case "Siguiente":
+                siguienteEjercicio()
+            default:
+                print("Texto del boton desconocido '\(titulo)'")
+            }
+        }
     }
     
+    func revisar() {
+        var respuestaDelUsuario: String = ""
+        for fila in dataSource{
+            if(fila.contiene == "opciones"){
+                break
+            }
+            for palabra in fila.palabras{
+                respuestaDelUsuario.append(palabra.text!)
+                respuestaDelUsuario.append(" ")
+            }
+        }
+        respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
+        print(respuestaDelUsuario)
+        BotonRevisar.setTitle("Siguiente", for: .normal)
+        
+        if(RespuestaCorrecta == respuestaDelUsuario){
+            // TODO: - manejar revision de una mejor manera
+            print("Acertaste!")
+            
+        }else {
+            print("fallaste!")
+            mostrarRespuesta()
+        }
+    }
     
+    func siguienteEjercicio() {
+        
+    }
  
     // Regresa una UILabel dada una palabra
     func nuevaLabel(_ titulo: String = "word") -> UILabel{
@@ -131,71 +171,73 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource[section].palabras.count
     }
-    /*
+    
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let seccionOrigen = indexPath.section
+        if(!BotonRevisar.isEnabled){
+            BotonRevisar.isEnabled = true
+        }
+        var filaOrigen = indexPath.section
         let posicionOrigen = indexPath.item
         var posicionDestino: Int
-        var seccionDestino: Int
+        var filaDestino: Int
         // si tocan una palabra en la seccion de opciones, esta se va a la primer fila, si esta ya esta llena a la siguente
         // y asi sucesivamente hasta encontrar una fila donde haya espacio
-        if(seccionOrigen == IndiceSeccionDeOpciones){
-            let etiquetaPorMover = dataSource[seccionOrigen].remove(at: posicionOrigen)
-            seccionDestino = 0
-            var largo: CGFloat
-            for seccion in 0..<(dataSource.count - 1){
-                largo = CGFloat(0)
-                for etiqueta in dataSource[seccion]{
-                    largo += etiqueta.frame.size.width + EspacioMinimoEntreCeldas
-                }
-                
-                if((largo + etiquetaPorMover.frame.size.width) < LargoDeRenglon){
+        if(filaOrigen == IndiceSeccionDeOpciones){
+            filaDestino = UltimaFilaUsada
+            let etiquetaPorMover = dataSource[filaOrigen].palabras.remove(at: posicionOrigen)
+            
+            for _ in UltimaFilaUsada...(dataSource.count - 2){
+                if(dataSource[UltimaFilaUsada].puedeContener(otra: etiquetaPorMover)){
+                    filaDestino = UltimaFilaUsada
                     break
+                }else{
+                    UltimaFilaUsada += 1
                 }
-                seccionDestino += 1
-                
             }
             // mover  en data source
-            dataSource[seccionDestino].append(etiquetaPorMover)
+            dataSource[filaDestino].palabras.append(etiquetaPorMover)
             // mover la celda en collectionview
-            posicionDestino = collectionView.numberOfItems(inSection: seccionDestino)
-            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section: seccionDestino))
+            posicionDestino = collectionView.numberOfItems(inSection: filaDestino)
+            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section: filaDestino))
             
             }
         
         // palabras tocadas en cualquier otra seccion regresaran a la seccion de opciones y se re organizan las palabras las 
         // palabras en las otras secciones
     
-        else  {
-            // mandar al fondo
-            posicionDestino = collectionView.numberOfItems(inSection:SeccionDeOpciones)
+        else  { // mandar al fondo
+            posicionDestino = collectionView.numberOfItems(inSection: IndiceSeccionDeOpciones)
             // en data source
-            let etiquetaPorMover = dataSource[seccionOrigen].remove(at: posicionOrigen)
-            dataSource[SeccionDeOpciones].append(etiquetaPorMover)
+            let etiquetaPorMover = dataSource[filaOrigen].palabras.remove(at: posicionOrigen)
+            dataSource[IndiceSeccionDeOpciones].palabras.append(etiquetaPorMover)
             // en collectionView
-            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section:SeccionDeOpciones))
+            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section:IndiceSeccionDeOpciones))
+            if(dataSource[filaOrigen].palabras.isEmpty){
+                UltimaFilaUsada -= 1
+            }
             
-            // TODO: - Bug
-            // intentar recorrer palabras que estan de la seccion origen hacia abajo
-            // a menos que la seccion siguiente sea la de opciones
-//            if(seccionOrigen + 1 != SeccionDeOpciones){
-//                return
-//            }
-            var largoFilaOrigen = CGFloat(0)
-            for p in dataSource[seccionOrigen]{
-                largoFilaOrigen += p.frame.size.width
+            // en el espacio que se libero, intentar encajar palabras de las filas de abajo
+            // a menos que la siguiente sea la fila de opciones
+            var filaSiguiente = filaOrigen + 1
+            while (!dataSource[filaSiguiente].palabras.isEmpty && dataSource[filaSiguiente].contiene == "respuestas") {
+                if(dataSource[filaOrigen].puedeContener(otra: dataSource[filaSiguiente].palabras.first!)){
+                    let pPorMover = dataSource[filaSiguiente].palabras.remove(at: 0)
+                    dataSource[filaOrigen].palabras.append(pPorMover)
+                    collectionView.moveItem(at:IndexPath(item: 0, section: filaSiguiente), to: IndexPath(item: collectionView.numberOfItems(inSection: filaOrigen), section: filaOrigen))
+                    
+                }else{
+                    filaOrigen += 1
+                    filaSiguiente += 1
+                }
             }
-                // si cabe la primer etiqueta de la fila que sigue ya la hicimos (otro movimiento)
-            if((dataSource[seccionOrigen + 1].count > 0) && ((largoFilaOrigen + dataSource[seccionOrigen + 1][0].frame.size.width) < LargoDeRenglon)){
-                let e = dataSource[seccionOrigen + 1].remove(at: 0)
-                dataSource[seccionOrigen].append(e)
-                let d = collectionView.numberOfItems(inSection: seccionOrigen)
-                collectionView.moveItem(at: IndexPath(item:0, section:seccionOrigen + 1), to: IndexPath(item:d, section:seccionOrigen))
+            if(dataSource[filaSiguiente].palabras.isEmpty){
+                UltimaFilaUsada -= 1
             }
+            
         }
     }
-    */
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let ancho = dataSource[indexPath.section].palabras[indexPath.item].frame.size.width
         return CGSize(width: ancho, height: AltoDeEtiqueta)
@@ -243,6 +285,47 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "collection_header", for: indexPath)
             return header
         }
+    }
+    
+    func mostrarRespuesta() {
+        collectionView.performBatchUpdates({
+            // borrar todo
+            var palabrasPorBorrarIndices: [IndexPath] = []
+            for fila in 0..<self.dataSource.count{
+                if(!self.dataSource[fila].palabras.isEmpty){
+                    for p in 0..<self.dataSource[fila].palabras.count{
+                        self.dataSource[fila].palabras.remove(at: 0)
+                        palabrasPorBorrarIndices.append(IndexPath(item: p, section: fila))
+                    }
+                }
+            }
+            self.collectionView.deleteItems(at: palabrasPorBorrarIndices)
+            //volver a llenar con las respuestas correctas
+            let palabrasCorrectas = self.RespuestaCorrecta.components(separatedBy: " ")
+            var palabrasPorInsertarIndices: [IndexPath] = []
+            var indiceP: Int = 0
+            var fila: Int = 0
+            
+            for p in palabrasCorrectas{
+                let label = self.nuevaLabel(p)
+                if(self.dataSource[fila].puedeContener(otra: label)){
+                    self.dataSource[fila].palabras.append(label)
+                    palabrasPorInsertarIndices.append(IndexPath(item: indiceP, section: fila))
+                    indiceP += 1
+                }else{
+                    fila += 1
+                    indiceP = 0
+                    self.dataSource[fila].palabras.append(label)
+                    palabrasPorInsertarIndices.append(IndexPath(item: indiceP, section: fila))
+                    indiceP += 1
+                }
+                
+            }
+            self.collectionView.insertItems(at: palabrasPorInsertarIndices)
+            
+        
+        
+        }, completion: nil)
     }
     
 }

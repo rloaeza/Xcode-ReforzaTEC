@@ -16,6 +16,8 @@ import UIKit
 //      y centrar el texto en ese espacio designado,lo mismo pensaba con las opciones de respuesta 
 
 class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    let RetrasoDeSegue: Int = 2
 //para no estar descomentando cosas y probar rapido con breakpoints
     var debugVar = false
    
@@ -24,13 +26,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     var color : UIColor!
     var opcionesDeRespuesta : [String] = ["1","2","3","4"]
-    var opcionesDePregunta : [String] = ["Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.","On the other hand I am a very short question.", "I am a question intended to be 2 at least lines high but who knows if I-ll be able to achive it huas huas huas ."]
     var respuesta : String = ""
   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        preguntaTextView.text = opcionesDePregunta.shuffled()[0]
+        preguntaTextView.text = Utils.preguntaRandom()
         respuesta = opcionesDeRespuesta.shuffled()[0]
         //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
         //por alguna razon el textview sale mas abajo, esto lo corrige
@@ -94,8 +95,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func cambiarEjercicio() {
-        self.performSegue(withIdentifier: "segueOrdenar", sender: self)
-        print("cambiando de segue")
+        tableView.allowsSelection = false
+        DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(RetrasoDeSegue)), execute: {
+            self.performSegue(withIdentifier: "segueOrdenar", sender: self)
+            print("cambiando de segue")
+        })
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

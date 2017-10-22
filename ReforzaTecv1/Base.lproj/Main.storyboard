@@ -292,7 +292,7 @@
                                     <outlet property="delegate" destination="pv3-9h-bv0" id="ed3-I8-Ekd"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QM5-xU-LND">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QM5-xU-LND">
                                 <rect key="frame" x="16" y="518" width="343" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="YsQ-A2-TLA"/>
