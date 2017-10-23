@@ -12,20 +12,17 @@ import UIKit
 class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BtnMateriaDelegate {
 
     @IBOutlet weak var tableView: CustomUITableView!
-    var materiasDescargadas : [MateriaObj] = []
+    var materiasDescargadas : [MateriaObj] = []// renombrar a dataSource
     let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-    
-   
+    var controlActualizar: UIRefreshControl!
     var lastCell : CustomTableViewCell2 = CustomTableViewCell2 ()
     var tagCeldaExpandida = -1
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //llenar materias de ejemplo desde la clase materia
-       // materiasDescargadas = MateriaObj.llenarConEjemplos()
-        //configurarTabla()
+
+        configurarTabla()
         descargarListaMaterias()//y configurar tabla
       
         
@@ -33,9 +30,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // soluciona un detalle que, luego de cargar la vista tenias que darle un click para que saliera la lista
-        tableView.reloadData()
         if(materiasDescargadas.isEmpty){
-            mostrarEmptyView()
+            mostrarVistaVacia(true)
+        }else{
+            tableView.reloadData()
         }
     }
     
@@ -82,10 +80,29 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         tableView.dataSource = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
-        
+        // aniade la cosa para recargar cuando deslizes hacia abajo
+        controlActualizar = UIRefreshControl()
+        controlActualizar.addTarget(self, action: #selector(actualizar(_:)), for: .valueChanged)
+        controlActualizar.tintColor = UIColor.orange
+        tableView.addSubview(controlActualizar)
+        // le pone un mensaje a mostrar si esta vacia
+        let etiqueta = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        etiqueta.textColor = UIColor.red
+        etiqueta.textAlignment = NSTextAlignment.center
+        etiqueta.numberOfLines = 3
+        etiqueta.text = "No se pudo conectar con el servidor.\n😥\nDesliza hacia abajo para actualizar."
+        tableView.separatorStyle  = UITableViewCellSeparatorStyle.none
+        tableView.backgroundView = etiqueta
+        tableView.backgroundView?.isHidden = true
+    }
+    
+    // Le pone un mensaje a la table view diciendo que no se pudo recargar
+    func mostrarVistaVacia(_ mostrar: Bool) {
+        tableView.backgroundView?.isHidden = !mostrar
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return materiasDescargadas.count
     }
     
@@ -119,6 +136,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
         }
     }
+   
     
     
     //MARK:- Mis metodos extras
@@ -168,32 +186,23 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     func descargarListaMaterias () {
         let url = URL(string: MateriaObj.direccion)
         let session = URLSession.shared
+        
         let task = session.dataTask(with: url!, completionHandler: {data,response,error -> Void in
+            self.materiasDescargadas.removeAll()
             //task ejecutandose
             if(error != nil){
                 print(error.debugDescription)
                 print("Error al descargar la lista de materias")            }
             else {
-                self.jsonParser(d: data!)
+                self.parsearJSON(d: data!)
             }
         })
         task.resume()
      
     }
     
-    // Le pone un mensaje a la table view diciendo que no se pudo recargar
-    func mostrarEmptyView() {
-        let etiqueta = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        etiqueta.textColor = UIColor.red
-        etiqueta.textAlignment = NSTextAlignment.center
-        etiqueta.numberOfLines = 2
-        etiqueta.text = "No se pudo conectar con el servidor.\n😥"
-        tableView.separatorStyle  = UITableViewCellSeparatorStyle.none
-        tableView.backgroundView = etiqueta
-    }
-    
   //esto mas bien descarga la materia parsea json e inicializa la tabla
-    func jsonParser(d: Data) {
+    func parsearJSON(d: Data) {
         var names = [String] ()
         var ids = [String] ()
         var descriptions = [String] ()
@@ -244,14 +253,29 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         }
         //por renombrar y removar cosas inesecarias
         materiasDescargadas = materiasParaMostrar
-        configurarTabla()
+        //configurarTabla()
         
     }
     
     func btnDescargarDelegate(_ row : CustomTableViewCell2) {
         guardarMateria(row)
     }
-    
+    func actualizar(_ controlActualizar: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.descargarListaMaterias()
+            self.tableView.reloadData()
+            self.controlActualizar.endRefreshing()
+            if(self.materiasDescargadas.isEmpty){
+                self.mostrarVistaVacia(true)
+            }else{
+                self.tableView.reloadData()
+                self.mostrarVistaVacia(false)
+            }
+        })
+        
+        
+        
+    }
    
 
 }

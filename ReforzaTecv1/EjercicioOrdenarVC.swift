@@ -48,6 +48,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var BotonRevisar: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    
     var IndiceSeccionDeOpciones: Int!
     var UltimaFilaUsada: Int = 0 {
         didSet{

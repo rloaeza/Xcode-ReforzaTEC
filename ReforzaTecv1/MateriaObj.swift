@@ -10,7 +10,7 @@
 import Foundation
 import UIKit.UIColor
 
-
+// cambiar a una struct
 class MateriaObj: NSObject {
         //201.134.65.227  die Schule
     // das Haus http://172.16.107.1/reforzatec/reforzatec.php?Actividad=1

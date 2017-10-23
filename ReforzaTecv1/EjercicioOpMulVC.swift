@@ -23,6 +23,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
    
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var BotonSiguiente: UIButton!
     
     var color : UIColor!
     var opcionesDeRespuesta : [String] = ["1","2","3","4"]
@@ -39,6 +40,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
         }
         // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
+        
+        BotonSiguiente.layer.cornerRadius = 20
+        BotonSiguiente.backgroundColor = color
+        BotonSiguiente.setTitleColor(UIColor.white, for: .normal)
+        BotonSiguiente.frame.origin.y = self.view.bounds.size.height
+        BotonSiguiente.alpha = 0
     }
     
     override func viewDidLoad() {
@@ -87,18 +94,18 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func revisar( celda : OpcionTableCell) {
         if celda.etiqueta.text == respuesta {
             celda.cambiarEstado(estado: posiblesEstados.acertado)
-            cambiarEjercicio()
+            mostrarBoton()
         }
         else {
             celda.cambiarEstado(estado: posiblesEstados.equivocado)
         }
     }
     
-    func cambiarEjercicio() {
+    func mostrarBoton() {
         tableView.allowsSelection = false
-        DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(RetrasoDeSegue)), execute: {
-            self.performSegue(withIdentifier: "segueOrdenar", sender: self)
-            print("cambiando de segue")
+        UIView.animate(withDuration: 1, animations: {
+            self.BotonSiguiente.frame.origin.y -= self.BotonSiguiente.bounds.size.height + 20
+            self.BotonSiguiente.alpha = 1
         })
         
     }
