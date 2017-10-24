@@ -42,10 +42,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
         
         BotonSiguiente.layer.cornerRadius = 20
-        BotonSiguiente.backgroundColor = color
-        BotonSiguiente.setTitleColor(UIColor.white, for: .normal)
+        BotonSiguiente.layer.borderColor = color.cgColor
+        BotonSiguiente.layer.borderWidth = 1.5
+        BotonSiguiente.setTitleColor(UIColor.black, for: .normal)
         BotonSiguiente.frame.origin.y = self.view.bounds.size.height
         BotonSiguiente.alpha = 0
+        BotonSiguiente.backgroundColor = UIColor.white
     }
     
     override func viewDidLoad() {

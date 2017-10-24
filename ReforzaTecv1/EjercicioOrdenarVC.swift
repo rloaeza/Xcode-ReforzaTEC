@@ -78,6 +78,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // y agregarlos como secciones vacias al principio del datasource
         
         // iniciando boton
+        BotonRevisar.backgroundColor = UIColor.white
         BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
         BotonRevisar.layer.cornerRadius = 10
         BotonRevisar.layer.borderWidth = 1.5
@@ -153,7 +154,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         label.backgroundColor = color
         
         label.adjustsFontForContentSizeCategory = false
-        label.adjustsFontSizeToFitWidth = false
+        label.adjustsFontSizeToFitWidth = false 
         label.sizeToFit()
         // añadirle un poco de padding
         label.frame.size.width += 15
