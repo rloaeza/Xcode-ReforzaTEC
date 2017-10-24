@@ -94,7 +94,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         if let c = color {
             UIApplication.shared.statusBarView?.backgroundColor = c
             self.navigationController?.navigationBar.tintColor = c
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : c]
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : c]
         }
     }
 

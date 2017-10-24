@@ -24,7 +24,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         //Restablece la barra de estado y el tinte a color transparente (lol)y negro, si no, cuando regresas de una materia, la barra conservaria el color pasado.
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.tintColor = color
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : color]
         //tal vez poner aqui lo de recuperar la informacion de Core
         recuperarData()
         tableView.reloadData()

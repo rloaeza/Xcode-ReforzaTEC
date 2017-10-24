@@ -26,7 +26,7 @@ class ExpandibleHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func selectHeaderAction (gestureRecognizer : UITapGestureRecognizer) {
+    @objc func selectHeaderAction (gestureRecognizer : UITapGestureRecognizer) {
         let cell = gestureRecognizer.view as! ExpandibleHeaderView
         delegate?.toggleSelection(header: self, section: cell.section)
         

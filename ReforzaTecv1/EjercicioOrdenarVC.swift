@@ -102,7 +102,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         IndiceSeccionDeOpciones = dataSource.count - 1
     }
     
-    func accionDelBoton() {
+    @objc func accionDelBoton() {
         if let titulo = BotonRevisar.titleLabel?.text{
             switch titulo {
             case "Revisar":

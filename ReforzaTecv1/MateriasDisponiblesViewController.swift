@@ -260,7 +260,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     func btnDescargarDelegate(_ row : CustomTableViewCell2) {
         guardarMateria(row)
     }
-    func actualizar(_ controlActualizar: UIRefreshControl) {
+    @objc func actualizar(_ controlActualizar: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.descargarListaMaterias()
             self.tableView.reloadData()
