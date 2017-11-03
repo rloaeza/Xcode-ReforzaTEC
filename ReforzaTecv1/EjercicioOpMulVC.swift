@@ -26,21 +26,22 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var BotonSiguiente: UIButton!
     
     var color : UIColor!
-    var opcionesDeRespuesta : [String] = ["1","2","3","4"]
-    var respuesta : String = ""
+    var opcionesDeRespuesta : [String] = ["incorrecto","incorrecto","incorrecto","correcto"]
+    var respuesta : String = "correcto"
+    var botonSigOculto: Bool!
   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        preguntaTextView.text = Utils.preguntaRandom()
-        respuesta = opcionesDeRespuesta.shuffled()[0]
+        preguntaTextView.text = "En esta parte es donde podremos encontrar la pregunta del ejercicio."//Utils.preguntaRandom()
+        //respuesta = opcionesDeRespuesta.shuffled()[0]
         //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
         //por alguna razon el textview sale mas abajo, esto lo corrige
         if(debugVar) {
             preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
         }
         // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
-        
+        botonSigOculto = true
         BotonSiguiente.layer.cornerRadius = 20
         BotonSiguiente.layer.borderColor = color.cgColor
         BotonSiguiente.layer.borderWidth = 1.5
@@ -54,7 +55,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         if (color) == nil {
             print("color nil")
-            color = UIColor.red
+            color = UIColor.purple
         }
         opcionesDeRespuesta = opcionesDeRespuesta.shuffled()
         //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
@@ -64,8 +65,10 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             preguntaTextView.isScrollEnabled = false
         }
         configurarTabla()
+      
     }
-    
+
+    // MARK:- TableView
     
     func configurarTabla() {
         //aqui da nil cuando esta aparte del storyboard
@@ -76,6 +79,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OpcionTableCell.reuseId, for:indexPath) as! OpcionTableCell
+        
         //aqui da nil
         cell.inicializar(titulo: opcionesDeRespuesta[indexPath.row], color: self.color)
         return cell
@@ -90,24 +94,62 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         revisar(celda: tableView.cellForRow(at: indexPath) as! OpcionTableCell)
     }
-   
+    // MARK:- Otros
     func revisar( celda : OpcionTableCell) {
-        if celda.etiqueta.text == respuesta {
-            celda.cambiarEstado(estado: posiblesEstados.acertado)
-            mostrarBoton()
-        }
-        else {
-            celda.cambiarEstado(estado: posiblesEstados.equivocado)
+        if(celda.etiqueta.text! == respuesta){
+            celda.saltar(retraso: 0, fin: mostrarBoton())
+        }else {
+            var celdaCorrecta = OpcionTableCell()
+            for i in 0..<opcionesDeRespuesta.count{
+                if(opcionesDeRespuesta[i] == respuesta){
+                    celdaCorrecta = tableView.cellForRow(at: IndexPath(row:i, section:0)) as! OpcionTableCell
+                    break
+                }
+            }
+            celda.agitar()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9, execute: {
+                celdaCorrecta.etiqueta.textColor = UIColor.white
+                celdaCorrecta.etiqueta.layer.borderColor = #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1)
+            })
+            //celdaCorrecta.marcar(bien: true)
+            //celdaCorrecta.saltar(retraso: 10.5, fin: mostrarBoton()) no se llama a tiempo el bloque de completion
+            UIView.animate(withDuration: 0.2, delay: 1, options: [.transitionFlipFromBottom], animations: {
+                celdaCorrecta.etiqueta.layer.backgroundColor = #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1)
+                celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1.1, y: 0.98)
+                //celdaCorrecta.(bien: true)
+            }, completion: {_ in
+               UIView.animate(withDuration: 0.1, animations: {
+                celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+               })
+                self.mostrarBoton()
+            })
+            
+//            UIView.animateKeyframes(withDuration: 0.3, delay: 3, options: [.calculationModeCubic], animations: {
+//                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 2/3, animations: {
+//                    celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1.1, y: 0.98)
+//                   // celdaCorrecta.marcar(bien: true)
+//                })
+//                UIView.addKeyframe(withRelativeStartTime: 2/3, relativeDuration: 1/3, animations: {
+//                    celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+//
+//                })
+//            }, completion: {(finalizo: Bool) in
+//                self.mostrarBoton()
+//                celdaCorrecta.marcar(bien: true)
+//            })
         }
     }
     
     func mostrarBoton() {
-        tableView.allowsSelection = false
-        UIView.animate(withDuration: 1, animations: {
+        if(!botonSigOculto) {return}
+        tableView.allowsSelection = true
+        UIView.animate(withDuration: 0.6, animations: {
             self.BotonSiguiente.frame.origin.y -= self.BotonSiguiente.bounds.size.height + 20
             self.BotonSiguiente.alpha = 1
+            self.botonSigOculto = false
         })
         
     }

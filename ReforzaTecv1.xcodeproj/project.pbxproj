@@ -17,6 +17,8 @@
 		4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */; };
 		4853D8611F23115C008FA029 /* CustomTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */; };
 		4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */; };
+		489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */; };
+		489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */; };
 		48A4197A1F31643F008AAE09 /* OpcionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A419781F31643F008AAE09 /* OpcionTableCell.swift */; };
 		48A4197B1F31643F008AAE09 /* OpcionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A419791F31643F008AAE09 /* OpcionTableCell.xib */; };
 		48F5BDD51F1C917700242E95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDD41F1C917700242E95 /* AppDelegate.swift */; };
@@ -45,6 +47,8 @@
 		4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell2.xib; sourceTree = "<group>"; };
 		4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell2.swift; sourceTree = "<group>"; };
 		4868E7071F70D0FE00135BEE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjercicioEscrituraVC.swift; sourceTree = "<group>"; };
+		489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjercicioVozVC.swift; sourceTree = "<group>"; };
 		48A419781F31643F008AAE09 /* OpcionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpcionTableCell.swift; path = ../OpcionTableCell.swift; sourceTree = "<group>"; };
 		48A419791F31643F008AAE09 /* OpcionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpcionTableCell.xib; path = ../OpcionTableCell.xib; sourceTree = "<group>"; };
 		48F5BDD11F1C917700242E95 /* ReforzaTecv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReforzaTecv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +82,8 @@
 		48E367C81F342E5300E3379A /* Ejercicios */ = {
 			isa = PBXGroup;
 			children = (
+				489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */,
+				489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */,
 				4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */,
 				483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */,
 				48A419781F31643F008AAE09 /* OpcionTableCell.swift */,
@@ -217,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */,
 				483241FE1F30314B00E360CC /* EjercicioOpMulVC.swift in Sources */,
 				48F5BDF21F1CB9A900242E95 /* CustomUITableView.swift in Sources */,
 				48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */,
@@ -230,6 +237,7 @@
 				48A4197A1F31643F008AAE09 /* OpcionTableCell.swift in Sources */,
 				4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */,
 				4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */,
+				489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */,
 				4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */,
 				48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */,
 				4853D8611F23115C008FA029 /* CustomTableViewCell2.swift in Sources */,

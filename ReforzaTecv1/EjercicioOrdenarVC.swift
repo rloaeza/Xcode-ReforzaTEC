@@ -47,6 +47,8 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var BotonRevisar: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var CalificacionImageView: UIImageView!
+    @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
     
     
     var IndiceSeccionDeOpciones: Int!
@@ -57,7 +59,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     }
     var AltoDeEtiqueta: CGFloat!
     
-    var color : UIColor! = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+    var color : UIColor!// = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
     
     let RespuestaCorrecta: String = "Esto es un texto de prueba y no debe contener números."
     let relleno: String = "uno dos tres cuatro 5"
@@ -101,6 +103,29 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // agregar la seccion de opciones de respuesta
         dataSource.append(seccionDeOpciones)
         IndiceSeccionDeOpciones = dataSource.count - 1
+        AlturaDeImagenConstraint.constant = 0
+        //CalificacionImageView.bounds.size.height = 0
+        CalificacionImageView.alpha = 0
+    }
+    
+    func nuevaLabel(_ titulo: String = "word") -> UILabel{
+        let label = UILabel()
+        label.text = titulo
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.backgroundColor = color
+        
+        label.adjustsFontForContentSizeCategory = false
+        label.adjustsFontSizeToFitWidth = false
+        label.sizeToFit()
+        // añadirle un poco de padding
+        label.frame.size.width += 15
+        label.frame.size.height += 15
+        label.layer.cornerRadius = 5
+        label.frame.origin.y -= 3
+        label.layer.masksToBounds = true
+        
+        return label
     }
     
     @objc func accionDelBoton() {
@@ -135,36 +160,30 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             // TODO: - manejar revision de una mejor manera
             print("Acertaste!")
             
+            
         }else {
             print("fallaste!")
+            CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
             mostrarRespuesta()
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.AlturaDeImagenConstraint.constant = 64
+            self.CalificacionImageView.alpha = 1
+        })
+        
+    }
+    // MARK:- Navegacion
+    func siguienteEjercicio() {
+        performSegue(withIdentifier: "segueEscritura", sender: self)
+    }
+ 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "segueEscritura"){
+            let vc = segue.destination as! EjercicioEscrituraVC
+            vc.color = self.color
         }
     }
     
-    func siguienteEjercicio() {
-        
-    }
- 
-    // Regresa una UILabel dada una palabra
-    func nuevaLabel(_ titulo: String = "word") -> UILabel{
-        let label = UILabel()
-        label.text = titulo
-        label.textAlignment = .center
-        label.textColor = UIColor.white
-        label.backgroundColor = color
-        
-        label.adjustsFontForContentSizeCategory = false
-        label.adjustsFontSizeToFitWidth = false 
-        label.sizeToFit()
-        // añadirle un poco de padding
-        label.frame.size.width += 15
-        label.frame.size.height += 15
-        label.layer.cornerRadius = 5
-        label.frame.origin.y -= 3
-        label.layer.masksToBounds = true
-
-        return label
-    }
     // MARK:- CollectionView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return dataSource.count
