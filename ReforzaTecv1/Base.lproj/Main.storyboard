@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dyw-rc-2Rk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Q2w-mz-ZxS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -494,6 +494,9 @@
                                     <constraint firstAttribute="height" constant="150" id="wua-sR-sg8"/>
                                 </constraints>
                                 <state key="normal" image="Microfono"/>
+                                <connections>
+                                    <action selector="accionDelBoton:" destination="Q2w-mz-ZxS" eventType="touchDown" id="7O1-8p-9Z6"/>
+                                </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mBk-XL-LTc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

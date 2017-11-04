@@ -158,11 +158,11 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         
         if(RespuestaCorrecta == respuestaDelUsuario){
             // TODO: - manejar revision de una mejor manera
-            print("Acertaste!")
+//            print("Acertaste!")
             
             
         }else {
-            print("fallaste!")
+//            print("fallaste!")
             CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
             mostrarRespuesta()
         }
