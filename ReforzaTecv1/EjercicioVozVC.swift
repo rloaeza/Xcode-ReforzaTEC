@@ -9,29 +9,42 @@
 import UIKit
 import Speech
 
-class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
+// TODO: Posible bug, si la respuesta correcta es 900, aceptar tambien novecientos
+
+class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {    
     
+    @IBOutlet weak var BotonMicrofonoMute: UIBarButtonItem!
     @IBOutlet weak var PretuntaTextView: UITextView!
     @IBOutlet weak var BotonRevisar: UIButton!
     @IBOutlet weak var BotonMicrofono: UIButton!
     @IBOutlet weak var EntradaField: UITextField!
     @IBOutlet weak var CalificacionImagenView: UIImageView!
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
+    @IBOutlet weak var IndicadorDeActividad: UIActivityIndicatorView!
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "es-MX"))
     private var solicitudDeReconocimiento: SFSpeechAudioBufferRecognitionRequest?
     private var tareaDeReconocimiento: SFSpeechRecognitionTask?
     private let motorDeAudio = AVAudioEngine()
     
+    private var RespuestaCorrecta:String = "900"
+    
     var color: UIColor! = UIColor.cyan
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        BotonMicrofonoMute.tintColor = color
+        IndicadorDeActividad.tintColor = color
+        IndicadorDeActividad.alpha = 0
         
+        EntradaField.text = ""
+        // para evitar que se muesre un teclado en el cmapo de texto
+        EntradaField.inputView = UIView()
 
         // iniciando boton
         BotonRevisar.backgroundColor = UIColor.white
-        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
+        BotonRevisar.addTarget(self, action: #selector(accionDelBotonRevisar), for: .touchDown)
         BotonRevisar.layer.cornerRadius = 10
         BotonRevisar.layer.borderWidth = 1.5
         BotonRevisar.layer.borderColor = color.cgColor
@@ -71,11 +84,11 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         
     }
     
-    @objc func accionDelBoton(sender: UIButton) {
+    @objc func accionDelBotonRevisar(sender: UIButton) {
         let titulo = sender.title(for: .normal)!
         switch titulo {
         case "Revisar":
-            revisarEjercicio()
+            mostrarCalificacion()
         case "Siguiente":
             siguienteEjercicio()
         default:
@@ -83,11 +96,15 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
   
-    @IBAction func accionDelBoton(_ sender: Any) {
+    @IBAction func accionDelBotonGrabar(_ sender: Any) {
+        // habilitar el boton revisar
+        BotonRevisar.isEnabled = true
+        
         if motorDeAudio.isRunning{
             motorDeAudio.stop()
-            print("Motor de audio detenido")
             solicitudDeReconocimiento?.endAudio()
+            print("terminando solicitud de reconocimiento")
+            // bloquear boton en lo que la solicitud de reconocmiento entrga su resultado final
             BotonMicrofono.isEnabled = false // ??
         } else{
             iniciarGrabacion()
@@ -95,8 +112,32 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
     
-    func revisarEjercicio() {
-        
+    @IBAction func MuteMicrofono(_ sender: Any) {
+        if(motorDeAudio.isRunning){
+            detenerGrabacion()
+        }
+        BotonMicrofono.isEnabled = false
+        BotonRevisar.isEnabled = true
+        self.BotonRevisar.setTitle("Siguiente", for: .normal)
+    }
+    
+    
+    
+    func respondioBien() -> Bool{
+        if let respuestaDelUsuario = EntradaField.text{
+            if(respuestaDelUsuario == RespuestaCorrecta){
+                return true
+            }
+        }
+        return false
+    }
+    
+    func mostrarCalificacion() {
+        if(respondioBien()){
+             CalificacionImagenView.image = #imageLiteral(resourceName: "correcto")
+        }else{
+             CalificacionImagenView.image = #imageLiteral(resourceName: "equivocado")
+        }
         UIView.animate(withDuration: 0.5, animations: {
             self.AlturaDeImagenConstraint.constant = 64
             self.CalificacionImagenView.alpha = 1
@@ -109,10 +150,6 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     // MARK:- Voz
-    
-    @IBAction func MuteMicrofono(_ sender: Any) {
-        print("No mas ejercicios de voz en un rato")
-    }
     
     func iniciarGrabacion(){
         if tareaDeReconocimiento != nil {
@@ -143,17 +180,15 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
             if resultado != nil{
                 self.EntradaField.text = resultado?.bestTranscription.formattedString
                 yaTermino = (resultado?.isFinal)!
-                
             }
-            if error != nil || yaTermino{
-                self.motorDeAudio.stop()
+            
+            if error != nil || yaTermino || self.respondioBien(){
+                self.detenerGrabacion()
                 nodoEntrada.removeTap(onBus: 0)
+                self.mostrarCalificacion()
                 
-                self.solicitudDeReconocimiento = nil
-                self.tareaDeReconocimiento  = nil
-                
-                self.BotonMicrofono.isEnabled = true
             }
+            
         })
         let formatoGrabacion = nodoEntrada.outputFormat(forBus: 0)
         nodoEntrada.installTap(onBus: 0, bufferSize: 1024, format: formatoGrabacion, block: {(buffer, when) in
@@ -163,12 +198,26 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         motorDeAudio.prepare()
         do {
             try 	motorDeAudio.start()
-            print("motor de audio iniciado")
+            self.IndicadorDeActividad.startAnimating()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.IndicadorDeActividad.alpha = 1
+            })
+            print("grabacion iniciada")
         }catch{
             print("no se pudo arrancar el motor de audio debido a un error")
         }
-        EntradaField.text = "...";
+        //EntradaField.text = "...";
     }
+    
+    func detenerGrabacion() {
+        motorDeAudio.stop()
+        solicitudDeReconocimiento = nil
+        tareaDeReconocimiento  = nil
+        print("grabacion detenida")
+        BotonMicrofono.isEnabled = true
+        IndicadorDeActividad.alpha = 0
+    }
+    
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         if available{
             BotonMicrofono.isEnabled = true

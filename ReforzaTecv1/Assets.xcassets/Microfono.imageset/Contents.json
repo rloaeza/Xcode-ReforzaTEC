@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "voice-recorder (2).png",
+      "filename" : "voice-recorder128.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "voice-recorder (1).png",
+      "filename" : "voice-recorder256.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "voice-recorder.png",
+      "filename" : "voice-recorder512.png",
       "scale" : "3x"
     }
   ],

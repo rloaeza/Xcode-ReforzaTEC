@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Q2w-mz-ZxS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dyw-rc-2Rk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -436,7 +436,7 @@
                         <outlet property="CalificacionImagenView" destination="OFp-pG-Uzs" id="zlT-63-Pfj"/>
                         <outlet property="EntradaField" destination="Glf-fm-X8B" id="neY-WH-90b"/>
                         <outlet property="preguntaTextView" destination="peh-9t-atE" id="Z8o-HB-M95"/>
-                        <segue destination="Q2w-mz-ZxS" kind="show" identifier="segueVoz" id="rzi-xP-nwg"/>
+                        <segue destination="Q2w-mz-ZxS" kind="show" identifier="segueVoz" id="zIo-th-EEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ud2-1H-5ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -468,57 +468,48 @@
                                 </state>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" bounces="NO" scrollEnabled="NO" indicatorStyle="black" keyboardDismissMode="onDrag" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyQ-6z-1Iy">
-                                <rect key="frame" x="16" y="50" width="343" height="123.5"/>
+                                <rect key="frame" x="16" y="94" width="343" height="123.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="18" minY="0.0" maxX="0.0" maxY="6"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="text" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cUl-E3-a8m">
-                                <rect key="frame" x="159.5" y="311" width="56" height="19"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUl-E3-a8m">
+                                <rect key="frame" x="173" y="298" width="29" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="correcto" translatesAutoresizingMaskIntoConstraints="NO" id="Vnd-8P-AS5" userLabel="calificacion">
-                                <rect key="frame" x="155" y="171" width="64" height="64"/>
+                                <rect key="frame" x="155" y="227.5" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="F7M-cb-s3t"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrD-Qe-sb5">
-                                <rect key="frame" x="112" y="350" width="150" height="150"/>
+                                <rect key="frame" x="112" y="335" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nrD-Qe-sb5" secondAttribute="height" multiplier="1:1" id="IA4-hP-Gtl"/>
                                     <constraint firstAttribute="height" constant="150" id="wua-sR-sg8"/>
                                 </constraints>
                                 <state key="normal" image="Microfono"/>
                                 <connections>
-                                    <action selector="accionDelBoton:" destination="Q2w-mz-ZxS" eventType="touchDown" id="7O1-8p-9Z6"/>
+                                    <action selector="accionDelBotonGrabar:" destination="Q2w-mz-ZxS" eventType="touchDown" id="iZv-cp-Mci"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mBk-XL-LTc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Voz" id="e4m-e4-fZI">
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="Njz-Bs-no1">
-                                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="MuteMicrofono:" destination="Q2w-mz-ZxS" id="F9k-kK-nTT"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7qs-Yg-dck">
+                                <rect key="frame" x="219" y="296" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="AsH-vA-Bu0" firstAttribute="top" secondItem="nrD-Qe-sb5" secondAttribute="bottom" constant="35" id="2Zs-5l-jIJ"/>
+                            <constraint firstItem="AsH-vA-Bu0" firstAttribute="top" secondItem="nrD-Qe-sb5" secondAttribute="bottom" constant="50" id="2Zs-5l-jIJ"/>
                             <constraint firstAttribute="trailing" secondItem="AsH-vA-Bu0" secondAttribute="trailing" constant="10" id="4Tc-Ad-6E6"/>
-                            <constraint firstItem="Vnd-8P-AS5" firstAttribute="top" secondItem="dyQ-6z-1Iy" secondAttribute="bottom" constant="-2.5" id="It4-5x-RqN"/>
+                            <constraint firstItem="7qs-Yg-dck" firstAttribute="leading" secondItem="cUl-E3-a8m" secondAttribute="trailing" constant="17" id="8jD-0F-Y3z"/>
+                            <constraint firstItem="Vnd-8P-AS5" firstAttribute="top" secondItem="dyQ-6z-1Iy" secondAttribute="bottom" constant="10" id="It4-5x-RqN"/>
                             <constraint firstItem="nrD-Qe-sb5" firstAttribute="top" secondItem="cUl-E3-a8m" secondAttribute="bottom" constant="20" id="MkE-VF-gF6"/>
+                            <constraint firstItem="nrD-Qe-sb5" firstAttribute="top" secondItem="7qs-Yg-dck" secondAttribute="bottom" constant="19" id="MtO-T9-S7s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dyQ-6z-1Iy" secondAttribute="trailing" id="UrU-VI-X4C"/>
                             <constraint firstItem="fRX-fc-oS9" firstAttribute="top" secondItem="AsH-vA-Bu0" secondAttribute="bottom" constant="28" id="X76-6L-H2h"/>
                             <constraint firstItem="cUl-E3-a8m" firstAttribute="centerX" secondItem="Oxf-8V-kyM" secondAttribute="centerX" id="aEz-HR-nNz"/>
@@ -530,13 +521,26 @@
                             <constraint firstItem="dyQ-6z-1Iy" firstAttribute="top" secondItem="ago-J7-79p" secondAttribute="bottom" constant="30" id="zRG-og-vFh"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Voz" id="Cfa-W8-Ie7">
+                        <barButtonItem key="rightBarButtonItem" image="Microfono_no_disp" id="5UQ-iz-kmz">
+                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="11"/>
+                            <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="MuteMicrofono:" destination="Q2w-mz-ZxS" id="MF5-Wz-8im"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="AlturaDeImagenConstraint" destination="F7M-cb-s3t" id="Zsj-BM-gbA"/>
                         <outlet property="BotonMicrofono" destination="nrD-Qe-sb5" id="qVK-XU-Xay"/>
+                        <outlet property="BotonMicrofonoMute" destination="5UQ-iz-kmz" id="T4q-FK-LfK"/>
                         <outlet property="BotonRevisar" destination="AsH-vA-Bu0" id="c5o-Cw-VHF"/>
                         <outlet property="CalificacionImagenView" destination="Vnd-8P-AS5" id="Dkk-GB-LGV"/>
                         <outlet property="EntradaField" destination="cUl-E3-a8m" id="Q0d-CV-hpe"/>
+                        <outlet property="IndicadorDeActividad" destination="7qs-Yg-dck" id="KeE-I0-rCw"/>
                         <outlet property="PretuntaTextView" destination="dyQ-6z-1Iy" id="as6-wC-PQE"/>
                     </connections>
                 </viewController>
@@ -547,6 +551,7 @@
     </scenes>
     <resources>
         <image name="Microfono" width="128" height="128"/>
+        <image name="Microfono_no_disp" width="25" height="25"/>
         <image name="correcto" width="128" height="128"/>
     </resources>
 </document>
