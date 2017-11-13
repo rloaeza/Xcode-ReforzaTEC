@@ -21,6 +21,11 @@
 		489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */; };
 		48A4197A1F31643F008AAE09 /* OpcionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A419781F31643F008AAE09 /* OpcionTableCell.swift */; };
 		48A4197B1F31643F008AAE09 /* OpcionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A419791F31643F008AAE09 /* OpcionTableCell.xib */; };
+		48EF394A1FB99666000325AB /* PreguntaATVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF39481FB99666000325AB /* PreguntaATVC.swift */; };
+		48EF394B1FB99666000325AB /* PreguntaATVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EF39491FB99666000325AB /* PreguntaATVC.xib */; };
+		48EF394E1FB9979D000325AB /* PreguntaOMTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */; };
+		48EF394F1FB9979D000325AB /* PreguntaOMTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */; };
+		48EF39511FB99F23000325AB /* EvaluacionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF39501FB99F23000325AB /* EvaluacionTVC.swift */; };
 		48F5BDD51F1C917700242E95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDD41F1C917700242E95 /* AppDelegate.swift */; };
 		48F5BDD71F1C917700242E95 /* MisMateriasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */; };
 		48F5BDDA1F1C917700242E95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDD81F1C917700242E95 /* Main.storyboard */; };
@@ -51,6 +56,11 @@
 		489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjercicioVozVC.swift; sourceTree = "<group>"; };
 		48A419781F31643F008AAE09 /* OpcionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpcionTableCell.swift; path = ../OpcionTableCell.swift; sourceTree = "<group>"; };
 		48A419791F31643F008AAE09 /* OpcionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpcionTableCell.xib; path = ../OpcionTableCell.xib; sourceTree = "<group>"; };
+		48EF39481FB99666000325AB /* PreguntaATVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntaATVC.swift; sourceTree = "<group>"; };
+		48EF39491FB99666000325AB /* PreguntaATVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreguntaATVC.xib; sourceTree = "<group>"; };
+		48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntaOMTVC.swift; sourceTree = "<group>"; };
+		48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreguntaOMTVC.xib; sourceTree = "<group>"; };
+		48EF39501FB99F23000325AB /* EvaluacionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluacionTVC.swift; sourceTree = "<group>"; };
 		48F5BDD11F1C917700242E95 /* ReforzaTecv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReforzaTecv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48F5BDD41F1C917700242E95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MisMateriasViewController.swift; sourceTree = "<group>"; };
@@ -96,8 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				4818A63F1F298444003BD339 /* ContenidoMateria.swift */,
+				48EF39481FB99666000325AB /* PreguntaATVC.swift */,
+				48EF39491FB99666000325AB /* PreguntaATVC.xib */,
+				48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */,
+				48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */,
 				B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */,
 				4818A6411F2BB002003BD339 /* PDFWebViewController.swift */,
+				48EF39501FB99F23000325AB /* EvaluacionTVC.swift */,
 				48E367C81F342E5300E3379A /* Ejercicios */,
 			);
 			name = Contenido;
@@ -208,8 +223,10 @@
 			files = (
 				48F5BDDF1F1C917700242E95 /* LaunchScreen.storyboard in Resources */,
 				48F5BDDC1F1C917700242E95 /* Assets.xcassets in Resources */,
+				48EF394F1FB9979D000325AB /* PreguntaOMTVC.xib in Resources */,
 				48A4197B1F31643F008AAE09 /* OpcionTableCell.xib in Resources */,
 				4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */,
+				48EF394B1FB99666000325AB /* PreguntaATVC.xib in Resources */,
 				4818A6461F2BC158003BD339 /* resume.pdf in Resources */,
 				48F5BDE91F1CAE9000242E95 /* CustomTableViewCell.xib in Resources */,
 				48F5BDDA1F1C917700242E95 /* Main.storyboard in Resources */,
@@ -223,7 +240,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48EF394A1FB99666000325AB /* PreguntaATVC.swift in Sources */,
 				489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */,
+				48EF39511FB99F23000325AB /* EvaluacionTVC.swift in Sources */,
 				483241FE1F30314B00E360CC /* EjercicioOpMulVC.swift in Sources */,
 				48F5BDF21F1CB9A900242E95 /* CustomUITableView.swift in Sources */,
 				48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */,
@@ -236,6 +255,7 @@
 				B77A801C1F29164200B73C43 /* UnidadSeccion.swift in Sources */,
 				48A4197A1F31643F008AAE09 /* OpcionTableCell.swift in Sources */,
 				4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */,
+				48EF394E1FB9979D000325AB /* PreguntaOMTVC.swift in Sources */,
 				4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */,
 				489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */,
 				4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */,

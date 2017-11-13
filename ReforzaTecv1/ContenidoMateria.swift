@@ -107,6 +107,9 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         case "Ejercicios":
             print("Abrir ejercicios")
             self.performSegue(withIdentifier: "segueEjercicios", sender: self)
+        case "Evaluación":
+            print("Abrir evaluacion")
+            self.performSegue(withIdentifier: "segueEvaluacion", sender: self)
         default:
             print("Actividad desconocida: '\(actividad)'")
         }
@@ -120,7 +123,9 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         case "segueWeb":
             let webView = segue.destination as! PDFWebViewController
             webView.color = self.color
-            
+        case "segueEvaluacion":
+            let evaluacionView = segue.destination as! EvaluacionTVC
+            evaluacionView.color = self.color
         default:
             print("Segue desconocido.")
         }
