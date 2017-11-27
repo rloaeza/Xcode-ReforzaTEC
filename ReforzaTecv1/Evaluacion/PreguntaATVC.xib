@@ -16,22 +16,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="301"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="300.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="301"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2UT-7t-25E">
-                        <rect key="frame" x="0.0" y="10" width="0.0" height="280.5"/>
+                        <rect key="frame" x="15" y="10" width="290" height="280.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="748" text="1. Aqui es donde va la pregunta, pero dime que pasa si esta tiene mucho texto" textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FoX-EK-jJ1">
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="260.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="242" verticalCompressionResistancePriority="730" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Escribe tu respuesta aqui" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-Wy-ufu">
-                                <rect key="frame" x="0.0" y="261.5" width="0.0" height="19"/>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="242" verticalCompressionResistancePriority="730" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Escribe tu respuesta aquí" textAlignment="center" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-Wy-ufu">
+                                <rect key="frame" x="0.0" y="280.5" width="290" height="0.0"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                         </subviews>
                     </stackView>
