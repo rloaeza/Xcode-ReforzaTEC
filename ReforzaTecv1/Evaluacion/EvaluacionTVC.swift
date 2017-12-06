@@ -186,7 +186,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         if(minutos == 0) {
             return " \(segundos % 60) segundos"
         } else{
-            return " \(minutos):\(segundos % 60) segundos"
+            return " \(minutos) minutos:\(segundos % 60) segundos"
         }
         
     }

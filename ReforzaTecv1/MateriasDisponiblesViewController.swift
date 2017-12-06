@@ -12,7 +12,7 @@ import UIKit
 class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BtnMateriaDelegate {
 
     @IBOutlet weak var tableView: CustomUITableView!
-    var materiasDescargadas : [MateriaObj] = []// renombrar a dataSource
+    var dataSource : [MateriaObj] = []
     let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var controlActualizar: UIRefreshControl!
     var lastCell : CustomTableViewCell2 = CustomTableViewCell2 ()
@@ -21,7 +21,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configurarTabla()
         descargarListaMaterias()//y configurar tabla
       
@@ -30,7 +30,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // soluciona un detalle que, luego de cargar la vista tenias que darle un click para que saliera la lista
-        if(materiasDescargadas.isEmpty){
+        if(dataSource.isEmpty){
             mostrarVistaVacia(true)
         }else{
             tableView.reloadData()
@@ -103,7 +103,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return materiasDescargadas.count
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -115,12 +115,12 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell2", for: indexPath) as! CustomTableViewCell2
     
         if !cell.cellExists {
-            cell.nombreLabel.text = materiasDescargadas[indexPath.row].mNombre
-            cell.descripcionTextView.text = materiasDescargadas[indexPath.row].mDescripcion
+            cell.nombreLabel.text = dataSource[indexPath.row].mNombre
+            cell.descripcionTextView.text = dataSource[indexPath.row].mDescripcion
             cell.cellExists = true
-            cell.detailsView.backgroundColor = Utils.colorHash(materiasDescargadas[indexPath.row].mNombre)
-            cell.titleView.backgroundColor = Utils.colorHash(materiasDescargadas[indexPath.row].mNombre)
-            cell.objMateria = materiasDescargadas[indexPath.row]
+            cell.detailsView.backgroundColor = Utils.colorHash(dataSource[indexPath.row].mNombre)
+            cell.titleView.backgroundColor = Utils.colorHash(dataSource[indexPath.row].mNombre)
+            cell.objMateria = dataSource[indexPath.row]
             cell.delegate = self
         }
         UIView.animate(withDuration: 0) {
@@ -132,7 +132,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete){
-            materiasDescargadas.remove(at: indexPath.row)
+            dataSource.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
         }
     }
@@ -167,12 +167,86 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         self.tableView.endUpdates()
     }
     
-    //agarra el MateriaObj de la celda y con ese guarda en core data las cosas
-    //y la remueve de la lista
+    /*
+     [
+     {
+     "nombre": "Unidad 1",
+     "descripcion": "Unidad 1",
+     "ejercicios": [
+     {
+     "pregunta": "\u00bfDe cu\u00e1ntos bytes se compone una direcci\u00f3n IP?",
+     "respuestas": "32|@4|16|8",
+     "tipo": "Opcion multiple"
+     },
+     {
+     "pregunta": "\u00bfLa siguiente m\u00e1scara 255.255.255.0 equivale a?",
+     "respuestas": "@\/24|32|20|16",
+     "tipo": "Opcion multiple"
+     }
+     ],
+     "evaluacion": [
+     
+     ],
+     "ejemplo": null,
+     "teoria": null
+     },
+     {
+     "nombre": "Unidad 2",
+     "descripcion": null,
+     "ejercicios": [
+     {
+     "pregunta": "Este ejercicio es de la unidad 2.",
+     "respuestas": "@correcto|incorrecto|incorrecto",
+     "tipo": "Opcion multiple"
+     }
+     ],
+     "evaluacion": [
+     
+     ],
+     "ejemplo": null,
+     "teoria": null
+     }
+     ]
+ */
+    
     func guardarMateria(_ row : CustomTableViewCell2){
+        
         //guardando en CoreData
         let objMateria = row.objMateria!
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let url = URL(string: MateriaObj.DESCARGA_UNIDAD + String(objMateria.id))
+        let session = URLSession.shared
+        let task = session.dataTask(with: url!, completionHandler: {data, response, error -> Void in
+            if(error != nil){
+                print(error.debugDescription)
+                print("Error al descargar la lista de materias")            }
+            else {
+                let arregloRaiz = try? JSONSerialization.jsonObject(with: data!, options: [])
+                if let unidadesJson = arregloRaiz as? [Any]{
+                    for unidadJson in unidadesJson{
+                        if let unidad = unidadJson as? [String: Any]{
+                            if let nombre = unidad["nombre"] as? String{
+                                print("nombre: \(nombre)")
+                            }
+                            if let descripcion = unidad["descripcion"] as? String {
+                                print("descripcion: \(descripcion)")
+                            }
+                            if let teoria = unidad["teoria"] as? String {
+                                print("teoria: \(teoria)")
+                            }
+                            if let ejemplo = unidad["ejemplo"] as? String {
+                                print("ejemplo: \(ejemplo)")
+                            }
+
+
+                        }
+                    }
+                }
+            }
+
+        })
+        task.resume()
+        
         let coreDataMateria = Materia(context:context)
         coreDataMateria.idMateria = Int32(objMateria.id)
         coreDataMateria.nombre = objMateria.mNombre
@@ -188,7 +262,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         let session = URLSession.shared
         
         let task = session.dataTask(with: url!, completionHandler: {data,response,error -> Void in
-            self.materiasDescargadas.removeAll()
+            self.dataSource.removeAll()
             //task ejecutandose
             if(error != nil){
                 print(error.debugDescription)
@@ -233,12 +307,12 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         }
         
         for i in 0...(ids.count-1){
-            materiasDescargadas.append(MateriaObj(id: Int(ids[i])!, nombre: names[i], descripcion: descriptions[i]))
+            dataSource.append(MateriaObj(id: Int(ids[i])!, nombre: names[i], descripcion: descriptions[i]))
         }
         
         var materiasParaMostrar = [MateriaObj] ()
         var guardar : Bool
-        for md in materiasDescargadas {
+        for md in dataSource {
             guardar = true
             for mg in materiasGuardadas{
                 if(md.id == Int(mg.idMateria)){
@@ -252,7 +326,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             }
         }
         //por renombrar y removar cosas inesecarias
-        materiasDescargadas = materiasParaMostrar
+        dataSource = materiasParaMostrar
         //configurarTabla()
         
     }
@@ -265,7 +339,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             self.descargarListaMaterias()
             self.tableView.reloadData()
             self.controlActualizar.endRefreshing()
-            if(self.materiasDescargadas.isEmpty){
+            if(self.dataSource.isEmpty){
                 self.mostrarVistaVacia(true)
             }else{
                 self.tableView.reloadData()

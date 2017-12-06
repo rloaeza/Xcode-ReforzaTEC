@@ -14,7 +14,8 @@ import UIKit.UIColor
 class MateriaObj: NSObject {
         //201.134.65.227  die Schule
     // das Haus http://172.16.107.1/reforzatec/reforzatec.php?Actividad=1
-     static let  direccion : String  = "http://172.16.107.1/reforzatec/reforzatec.php?Actividad=1"
+    static let  direccion : String  = "http://172.16.107.1/reforzatec/reforzatec.php?Actividad=1"
+    static let DESCARGA_UNIDAD: String = "http://172.16.107.1/reforzatec/reforzatec.php?Actividad=9&idMaterias="
     let mNombre : String
     let mDescripcion : String?
     var mColor : UIColor
