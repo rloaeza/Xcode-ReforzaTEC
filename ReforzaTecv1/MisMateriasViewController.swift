@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BtnBorrarMateriaDelegate {
     
@@ -32,16 +33,63 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //materiasDescargadas = MateriaObj.llenarConEjemplos()
+        // prueba de coredata Escribiendo
+//        print("Prueba de core data escribiendo \n")
+//
+//                let m = Materia(context: context)
+//                m.nombre = "materia65"
+//                let unidad4 = Unidad(context: context)
+//                unidad4.nombreUni = "unidad 5.661"
+//
+////                let unidad2 = Unidad(context: context)
+////                unidad2.nombreUni = "unidad 2.2"
+////
+////                let unidad3 = Unidad(context: context)
+////                unidad3.nombreUni = "unidad 3.2"
+//
+//                m.addToUnidades(unidad4)
+////                m.addToUnidades(unidad2)
+////                m.addToUnidades(unidad3)
+//
+//                unidad4.materia = m
+////                unidad2.materia = m
+////                unidad3.materia = m
+//
+//
+//                do{
+//                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+////                    try context.save()
+//                }catch{
+//                    print("error")
+//                }
+
+        print("Prueba de core data leyendo\n")
+        do{
+            let materiasEncontradas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
+            for materia in materiasEncontradas{
+//                let materia = materiaEncontrada as! Materia
+                print(materia.nombre ?? "materia sin nombre")
+                if let unidadesEncontradas = materia.unidades{
+                    for unidadEncontrada in unidadesEncontradas{
+                        let unidad = unidadEncontrada as! Unidad
+                        print(unidad.nombreUni ?? "unidad sin nombre")
+                    }
+                }else{
+                    print("Materia sin unidades")
+                }
+             print("///")
+            }
+        }catch{
+            print("Error al leer datos")
+        }
+        
         configurarTabla()
     }
     
     func recuperarData(){
+
         do {
-            materiasDescargadas = try context.fetch(Materia.fetchRequest())
-            for m in materiasDescargadas{
-                print("Recuperada la materia de \(m.nombre!)")
-            }
+            materiasDescargadas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
         } catch {
             print("Error al recuperar las materias")
         }
@@ -82,11 +130,11 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             cell.nombreLabel.text = m.nombre
             cell.descripcionTextView.text = m.descripcion
             cell.cellExists = true
-            cell.detailsView.backgroundColor = Utils.colorHash(m.nombre!)
+            cell.detailsView.backgroundColor = Utils.colorHash(m.nombre ?? "error" )
             cell.titleView.backgroundColor = cell.detailsView.backgroundColor
             cell.delegate = self
             cell.referenciaCD = m
-            //cell.openButton.addTarget(self, action: #selector(abrirContenido(sender:)), for: .touchUpInside)
+            
             //para saber cual boton pertenece a cual materia
             cell.openButton.tag = indexPath.row
             }
