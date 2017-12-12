@@ -39,24 +39,24 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     
     
     @IBAction func borrarTodo() {
-//        let alerta = UIAlertController(title: "Purgar CoreData", message: "Seguro borrar todo?", preferredStyle: UIAlertControllerStyle.alert)
-//        alerta.addAction(UIAlertAction(title: "Purgar", style: UIAlertActionStyle.destructive, handler: {_ in
-//            do{
-//                let materiasGuardadas = try self.context.fetch(Materia.fetchRequest()) as! [Materia]
-//                for m in materiasGuardadas {
-////                    print("Borrando \(m.nombre!)")
-//                    self.context.delete(m)
-//                }
-//                (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//                print("CoreData purgado")
-//            }catch {
-//                print("Error al tratar de borrar todas las materias")
-//            }
-//        }))
-//        alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
-//            print("Cancelado, nada se borrara.")
-//        }))
-//        self.present(alerta, animated: true, completion: nil)
+        let alerta = UIAlertController(title: "Purgar CoreData", message: "Seguro borrar todo?", preferredStyle: UIAlertControllerStyle.alert)
+        alerta.addAction(UIAlertAction(title: "Purgar", style: UIAlertActionStyle.destructive, handler: {_ in
+            do{
+                let materiasGuardadas = try self.context.fetch(Materia.fetchRequest()) as! [Materia]
+                for m in materiasGuardadas {
+                    print("Borrando \(m.nombre!)")
+                    self.context.delete(m)
+                }
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                print("CoreData purgado")
+            }catch {
+                print("Error al tratar de borrar todas las materias")
+            }
+        }))
+        alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
+            print("Cancelado, nada se borrara.")
+        }))
+        self.present(alerta, animated: true, completion: nil)
     }
     
     @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
@@ -168,10 +168,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     }
     
     func guardarMateria(_ row : CustomTableViewCell2){
-        /*
+        
         //guardando en CoreData
         let objMateria = row.objMateria!
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
         let url = URL(string: MateriaObj.DESCARGA_UNIDAD + String(objMateria.id))
         print(url!.absoluteString)
         let session = URLSession.shared
@@ -191,35 +191,35 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                 if let unidadesJson = arregloRaiz as? [Any]{
                     for unidadJson in unidadesJson{
                         if let unidad = unidadJson as? [String: Any]{
-                            let coreDataUnidad = UnidadMO(context: self.context)
+                            let coreDataUnidad = Unidad(context: self.context)
                             
                             if let nombre = unidad["nombre"] as? String{
                                 print("nombre: \(nombre)")
                                 coreDataUnidad.nombreUni = nombre
                             }
-                            if let descripcion = unidad["descripcion"] as? String {
-                                print("descripcion: \(descripcion)")
-                                coreDataUnidad.descripcionUni = descripcion
-                            }
-                            if let teoria = unidad["teoria"] as? String {
-                                print("teoria: \(teoria)")
-//                                let coreDataTeoria = Teoria(context: context)
-//                                coreDataTeoria.archivoTeoria = teoria
-//                                coreDataUnidad.teoria = coreDataTeoria
-                            }
-                            if let ejemplo = unidad["ejemplo"] as? String {
-                                print("ejemplo: \(ejemplo)")
-//                                let coreDataEjemplo = Ejemplos(context: context)
-//                                coreDataEjemplo.archivoEjemplos = ejemplo
-//                                coreDataUnidad.ejemplos = coreDataEjemplo
-                            }
+//                            if let descripcion = unidad["descripcion"] as? String {
+//                                print("descripcion: \(descripcion)")
+//                                coreDataUnidad.descripcionUni = descripcion
+//                            }
+//                            if let teoria = unidad["teoria"] as? String {
+//                                print("teoria: \(teoria)")
+////                                let coreDataTeoria = Teoria(context: context)
+////                                coreDataTeoria.archivoTeoria = teoria
+////                                coreDataUnidad.teoria = coreDataTeoria
+//                            }
+//                            if let ejemplo = unidad["ejemplo"] as? String {
+//                                print("ejemplo: \(ejemplo)")
+////                                let coreDataEjemplo = Ejemplos(context: context)
+////                                coreDataEjemplo.archivoEjemplos = ejemplo
+////                                coreDataUnidad.ejemplos = coreDataEjemplo
+//                            }
                             if let ejerciciosJson = unidad["ejercicios"] as? [Any]{
                                 for ejercicioJson in ejerciciosJson{
                                     if let ejercicio = ejercicioJson as? [String: Any]{
-                                        let coreDataEjercicio = EjercicioMO(context: self.context)
+                                        let coreDataEjercicio = Ejercicio(context: self.context)
                                         if let pregunta = ejercicio["pregunta"] as? String{
                                             print("pregunta \(pregunta)")
-                                            coreDataEjercicio.texto = pregunta
+                                            coreDataEjercicio.textos = pregunta
                                         }
                                         if let respuestas = ejercicio["respuestas"] as? String{
                                             print("respuestas \(respuestas)")
@@ -229,41 +229,40 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                                             print("tipo \(tipo)")
                                             coreDataEjercicio.tipo = tipo
                                         }
+                                        coreDataEjercicio.unidad = coreDataUnidad
                                         coreDataUnidad.addToEjercicios(coreDataEjercicio)
                                     }
                                 }
                             }
-                            if let evaluacionesJson = unidad["evaluacion"] as? [Any]{
-                                for evaluacionJson in evaluacionesJson{
-                                    if let evaluacion = evaluacionJson as? [String: Any]{
-                                        let coreDataEvaluacion = EvaluacionMO(context: self.context)
-                                        
-                                        if let idEvaluaciones = evaluacion ["idEvaluaciones"] as? Int32 {
-                                            print("idEvaluaciones: \(idEvaluaciones)")
-                                            coreDataEvaluacion.idEvaluacion = idEvaluaciones
-                                        }
-                                        if let texto = evaluacion["textos"] as? String{
-                                            print("texto \(texto)")
-                                            coreDataEvaluacion.texto = texto
-                                        }
-                                        if let respuesta = evaluacion["respuestas"] as? String {
-                                            print("respuesta \(respuesta)")
-                                            coreDataEvaluacion.respuestas = respuesta
-                                        }
-                                        coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)
-                                    }
-                                }
-                            }
-                            
+//                            if let evaluacionesJson = unidad["evaluacion"] as? [Any]{
+//                                for evaluacionJson in evaluacionesJson{
+//                                    if let evaluacion = evaluacionJson as? [String: Any]{
+//                                        let coreDataEvaluacion = EvaluacionMO(context: self.context)
+//
+//                                        if let idEvaluaciones = evaluacion ["idEvaluaciones"] as? Int32 {
+//                                            print("idEvaluaciones: \(idEvaluaciones)")
+//                                            coreDataEvaluacion.idEvaluacion = idEvaluaciones
+//                                        }
+//                                        if let texto = evaluacion["textos"] as? String{
+//                                            print("texto \(texto)")
+//                                            coreDataEvaluacion.texto = texto
+//                                        }
+//                                        if let respuesta = evaluacion["respuestas"] as? String {
+//                                            print("respuesta \(respuesta)")
+//                                            coreDataEvaluacion.respuestas = respuesta
+//                                        }
+//                                        coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)
+//                                    }
+//                                }
+//                            }
+                            coreDataUnidad.materia = coreDataMateria
                             coreDataMateria.addToUnidades(coreDataUnidad)
                         }
                     }
                 }
  
                 DispatchQueue.main.async {
-                    let c = UnidadMO(context: self.context)
-                    c.nombreUni = "test"
-                    coreDataMateria.addToUnidades(c)
+                   
                     (UIApplication.shared.delegate as! AppDelegate).saveContext()
 //                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
                     print("Materia de \(objMateria.mNombre) con la id:\(objMateria.id) guardada en CoreData!" )
@@ -274,7 +273,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             }
 
         })
-        task.resume()*/
+        task.resume()
     }
     
     func descargarListaMaterias () {
@@ -296,7 +295,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     }
     
   //parsea json e inicializa la tabla
-    func parsearJSON(d: Data) {/*
+    func parsearJSON(d: Data) {
         var names = [String] ()
         var ids = [String] ()
         var descriptions = [String] ()
@@ -348,7 +347,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         //por renombrar y removar cosas inesecarias
         dataSource = materiasParaMostrar
         //configurarTabla()
-        */
+        
     }
     
     func btnDescargarDelegate(_ row : CustomTableViewCell2) {
