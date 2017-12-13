@@ -324,9 +324,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             print("Error al tratar de comparar materias descargadas con guardadas")
             return
         }
-        
+        if(ids.count > 0){
         for i in 0...(ids.count-1){
             dataSource.append(MateriaObj(id: Int(ids[i])!, nombre: names[i], descripcion: descriptions[i]))
+        }
         }
         
         var materiasParaMostrar = [MateriaObj] ()

@@ -11,6 +11,8 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     
     var titulo : String = ""
     var color : UIColor!
+    var MateriaAbierta: Materia!
+    var ejerciciosPorAbrir: NSSet!
     
     
     var secciones = [UnidadSeccion(nil ,numeroUnidad: 1, expanded: false),
@@ -32,7 +34,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
 //MARK: - tableView Cositas
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return secciones.count
+        return MateriaAbierta.unidades?.count ?? 0
     }
 
 
@@ -44,6 +46,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
             cell.textLabel?.text = secciones[indexPath.section].material[indexPath.row]
+        
             return cell
 
     }
@@ -72,7 +75,8 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandibleHeaderView()
-        header.customInit(title: "Unidad \(section + 1)", section: section, delegate: self)
+        let uni = MateriaAbierta.unidades![section] as! Unidad
+        header.customInit(title: uni.nombreUni ?? "Unidad \(section)", section: section, delegate: self)
         return header
         
     }
@@ -106,6 +110,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
             print("Abrir ejercicios")
+            ejerciciosPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejercicios
             self.performSegue(withIdentifier: "segueEjercicios", sender: self)
         case "Evaluación":
             print("Abrir evaluacion")
@@ -120,6 +125,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         case "segueEjercicios":
             let ejerciciosView = segue.destination as! EjercicioOpMulVC
             ejerciciosView.color = self.color
+            ejerciciosView.Ejercicios = ejerciciosPorAbrir
         case "segueWeb":
             let webView = segue.destination as! PDFWebViewController
             webView.color = self.color
