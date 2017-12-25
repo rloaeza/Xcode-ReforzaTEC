@@ -20,26 +20,22 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     let RetrasoDeSegue: Int = 2
 //para no estar descomentando cosas y probar rapido con breakpoints
     var debugVar = false
+    var Ejercicios: NSSet?
+    var EjercicioActual: Ejercicio!
    
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var BotonSiguiente: UIButton!
     
     var color : UIColor!
-    var opcionesDeRespuesta : [String] = ["incorrecto","incorrecto","incorrecto","correcto"]
-    var respuesta : String = "correcto"
+    var opcionesDeRespuesta : [String]!// = ["incorrecto","incorrecto","incorrecto","correcto"]
+    var respuesta : String!// = "correcto"
     var botonSigOculto: Bool!
   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        preguntaTextView.text = "En esta parte es donde podremos encontrar la pregunta del ejercicio."//Utils.preguntaRandom()
-        //respuesta = opcionesDeRespuesta.shuffled()[0]
-        //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
-        //por alguna razon el textview sale mas abajo, esto lo corrige
-        if(debugVar) {
-            preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
-        }
+       
         // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
         botonSigOculto = true
         BotonSiguiente.layer.cornerRadius = 20
@@ -53,6 +49,26 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        EjercicioActual = Ejercicios!.allObjects[0] as! Ejercicio
+        preguntaTextView.text = EjercicioActual.textos ?? "error"//"En esta parte es donde podremos encontrar la pregunta del ejercicio."//Utils.preguntaRandom()
+        var  arreglo = EjercicioActual.respuestas!.characters.split{$0 == "|"}.map(String.init)
+        for a in arreglo{
+            if(a.contains("@")){
+                respuesta = a//.trimmingCharacters(in: ['@'])
+                break
+            }
+        }
+        
+        opcionesDeRespuesta = arreglo
+        //respuesta = opcionesDeRespuesta.shuffled()[0]
+        //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
+        //por alguna razon el textview sale mas abajo, esto lo corrige
+        if(debugVar) {
+            preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
+        }
+        
+        
+        
         if (color) == nil {
             print("color nil")
             color = UIColor.purple

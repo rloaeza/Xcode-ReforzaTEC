@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="16G1114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ejercicio" representedClassName="Ejercicio" syncable="YES" codeGenerationType="class">
         <attribute name="respuestas" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="textos" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,13 +16,16 @@
         <relationship name="unidades" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Unidad" inverseName="materia" inverseEntity="Unidad" syncable="YES"/>
     </entity>
     <entity name="Unidad" representedClassName="Unidad" syncable="YES" codeGenerationType="class">
+        <attribute name="descripcionUni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ejemplo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nombreUni" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teoria" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" syncable="YES"/>
         <relationship name="materia" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Materia" inverseName="unidades" inverseEntity="Materia" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Materia" positionX="-45" positionY="0" width="128" height="120"/>
-        <element name="Unidad" positionX="-18" positionY="27" width="128" height="90"/>
         <element name="Ejercicio" positionX="9" positionY="81" width="128" height="135"/>
+        <element name="Materia" positionX="-45" positionY="0" width="128" height="120"/>
+        <element name="Unidad" positionX="-18" positionY="27" width="128" height="135"/>
     </elements>
 </model>

@@ -85,6 +85,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         
         configurarTabla()
     }
+
     
     func recuperarData(){
 
@@ -169,6 +170,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
                 let selectedRow = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
                 contenidoView.titulo = selectedRow.nombreLabel.text!
                 contenidoView.color = selectedRow.detailsView.backgroundColor
+                contenidoView.MateriaAbierta = selectedRow.referenciaCD
             }
         }
     }

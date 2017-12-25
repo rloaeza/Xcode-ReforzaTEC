@@ -31,7 +31,6 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var descripcionTextView: UITextView!
     @IBOutlet weak var removeButton: UIButton!
 //    @IBOutlet weak var alturaConstrain: NSLayoutConstraint!
-    @IBOutlet weak var heightCons: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

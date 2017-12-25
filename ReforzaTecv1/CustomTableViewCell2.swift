@@ -54,6 +54,7 @@ class CustomTableViewCell2: UITableViewCell {
     
  
     func animate(duration : Double, c: @escaping () -> Void) {
+        print("esto se va a animar")
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModePaced, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: duration, animations: {
                 //esto evita que una celda sin descripcion se expanda, pero, aunque no tenga descripcion estaria bien que se expanda un poco

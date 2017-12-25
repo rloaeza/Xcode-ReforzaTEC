@@ -194,39 +194,40 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                             let coreDataUnidad = Unidad(context: self.context)
                             
                             if let nombre = unidad["nombre"] as? String{
-                                print("nombre: \(nombre)")
+//                                print("nombre: \(nombre)")
                                 coreDataUnidad.nombreUni = nombre
                             }
-//                            if let descripcion = unidad["descripcion"] as? String {
+                            if let descripcion = unidad["descripcion"] as? String {
 //                                print("descripcion: \(descripcion)")
-//                                coreDataUnidad.descripcionUni = descripcion
-//                            }
-//                            if let teoria = unidad["teoria"] as? String {
-//                                print("teoria: \(teoria)")
-////                                let coreDataTeoria = Teoria(context: context)
-////                                coreDataTeoria.archivoTeoria = teoria
-////                                coreDataUnidad.teoria = coreDataTeoria
-//                            }
-//                            if let ejemplo = unidad["ejemplo"] as? String {
-//                                print("ejemplo: \(ejemplo)")
-////                                let coreDataEjemplo = Ejemplos(context: context)
-////                                coreDataEjemplo.archivoEjemplos = ejemplo
-////                                coreDataUnidad.ejemplos = coreDataEjemplo
-//                            }
+                                coreDataUnidad.descripcionUni = descripcion
+                            }
+                            if let teoria = unidad["teoria"] as? String {
+                                print("teoria: \(teoria)")
+                                
+//                                let coreDataTeoria = Teoria(context: context)
+//                                coreDataTeoria.archivoTeoria = teoria
+//                                coreDataUnidad.teoria = coreDataTeoria
+                            }
+                            if let ejemplo = unidad["ejemplo"] as? String {
+                                print("ejemplo: \(ejemplo)")
+//                                let coreDataEjemplo = Ejemplos(context: context)
+//                                coreDataEjemplo.archivoEjemplos = ejemplo
+//                                coreDataUnidad.ejemplos = coreDataEjemplo
+                            }
                             if let ejerciciosJson = unidad["ejercicios"] as? [Any]{
                                 for ejercicioJson in ejerciciosJson{
                                     if let ejercicio = ejercicioJson as? [String: Any]{
                                         let coreDataEjercicio = Ejercicio(context: self.context)
                                         if let pregunta = ejercicio["pregunta"] as? String{
-                                            print("pregunta \(pregunta)")
+//                                            print("pregunta \(pregunta)")
                                             coreDataEjercicio.textos = pregunta
                                         }
                                         if let respuestas = ejercicio["respuestas"] as? String{
-                                            print("respuestas \(respuestas)")
+//                                            print("respuestas \(respuestas)")
                                             coreDataEjercicio.respuestas = respuestas
                                         }
                                         if let tipo = ejercicio["tipo"] as? String{
-                                            print("tipo \(tipo)")
+//                                            print("tipo \(tipo)")
                                             coreDataEjercicio.tipo = tipo
                                         }
                                         coreDataEjercicio.unidad = coreDataUnidad
@@ -324,9 +325,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             print("Error al tratar de comparar materias descargadas con guardadas")
             return
         }
-        
+        if(ids.count > 0){
         for i in 0...(ids.count-1){
             dataSource.append(MateriaObj(id: Int(ids[i])!, nombre: names[i], descripcion: descriptions[i]))
+        }
         }
         
         var materiasParaMostrar = [MateriaObj] ()
