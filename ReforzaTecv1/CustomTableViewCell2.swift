@@ -54,7 +54,6 @@ class CustomTableViewCell2: UITableViewCell {
     
  
     func animate(duration : Double, c: @escaping () -> Void) {
-        print("esto se va a animar")
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModePaced, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: duration, animations: {
                 //esto evita que una celda sin descripcion se expanda, pero, aunque no tenga descripcion estaria bien que se expanda un poco
@@ -62,11 +61,21 @@ class CustomTableViewCell2: UITableViewCell {
                 self.detailsView.isHidden = !self.detailsView.isHidden
                 //}
                 if self.detailsView.alpha == 1 {
+                    self.nombreLabel.numberOfLines = 1
                     self.detailsView.alpha = 0.5
+                    self.heightCons.constant = 80
                 }else {
+                    self.nombreLabel.numberOfLines = 0
+                    self.nombreLabel.sizeToFit()
+                    let constante = self.nombreLabel.frame.size.height
+//                    print("valor de la constante \(constante)")
+                    self.heightCons.constant = constante
+                    
                     self.detailsView.alpha = 1
+                    
                 }
             })
+            
         }, completion: { (finished : Bool) in
             //print("Animation completed")
             c()
