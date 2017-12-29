@@ -40,6 +40,8 @@ class CustomTableViewCell2: UITableViewCell {
 
     @IBOutlet weak var nombreLabel: UILabel!
     
+    var indicadorDeDescarga: UIActivityIndicatorView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = UITableViewCellSelectionStyle.none
@@ -47,11 +49,26 @@ class CustomTableViewCell2: UITableViewCell {
     }
  
     @IBAction func descargar(_ sender: Any) {
-        //print("Vamos a descargar la materia de \(nombreLabel.text!)")
-        
+
+//        indicarDescarga()
         delegate?.btnDescargarDelegate(self)
     }
     
+    func indicarDescarga() {
+        if(indicadorDeDescarga == nil){
+            indicadorDeDescarga = UIActivityIndicatorView.init(frame: downButton.frame)
+            indicadorDeDescarga.alpha  = 0
+            indicadorDeDescarga.color = UIColor.black
+            indicadorDeDescarga.startAnimating()
+            titleView.addSubview(indicadorDeDescarga)
+            
+            UIView.animate(withDuration: 0.4, animations: {
+                self.downButton.alpha = 0
+                self.indicadorDeDescarga.alpha = 1
+            })
+        }
+
+    }
  
     func animate(duration : Double, c: @escaping () -> Void) {
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModePaced, animations: {

@@ -13,7 +13,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     var color : UIColor!
     var MateriaAbierta: Materia!
     var ejerciciosPorAbrir: NSSet!
-    
+    var documentoPorAbrir: String!
     
     var secciones = [UnidadSeccion(nil ,numeroUnidad: 1, expanded: false),
                      UnidadSeccion(nil ,numeroUnidad: 2, expanded: false),
@@ -106,14 +106,17 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     func abrir (actividad: String, enUnidad: Int) {
         switch actividad {
         case "Teoria":
-            print("Abrir Teoria")
+            let uni = MateriaAbierta.unidades![enUnidad] as! Unidad
+            documentoPorAbrir = uni.teoria!
+            self.performSegue(withIdentifier: "segueWeb", sender: self)
+        case "Ejemplos":
+            let uni = MateriaAbierta.unidades![enUnidad] as! Unidad
+            documentoPorAbrir = uni.ejemplo!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
-            print("Abrir ejercicios")
             ejerciciosPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejercicios
             self.performSegue(withIdentifier: "segueEjercicios", sender: self)
         case "Evaluación":
-            print("Abrir evaluacion")
             self.performSegue(withIdentifier: "segueEvaluacion", sender: self)
         default:
             print("Actividad desconocida: '\(actividad)'")
@@ -129,6 +132,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         case "segueWeb":
             let webView = segue.destination as! PDFWebViewController
             webView.color = self.color
+            webView.archivoPorAbrir = documentoPorAbrir
         case "segueEvaluacion":
             let evaluacionView = segue.destination as! EvaluacionTVC
             evaluacionView.color = self.color

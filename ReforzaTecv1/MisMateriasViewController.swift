@@ -33,37 +33,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // prueba de coredata Escribiendo
-//        print("Prueba de core data escribiendo \n")
-//
-//                let m = Materia(context: context)
-//                m.nombre = "materia65"
-//                let unidad4 = Unidad(context: context)
-//                unidad4.nombreUni = "unidad 5.661"
-//
-////                let unidad2 = Unidad(context: context)
-////                unidad2.nombreUni = "unidad 2.2"
-////
-////                let unidad3 = Unidad(context: context)
-////                unidad3.nombreUni = "unidad 3.2"
-//
-//                m.addToUnidades(unidad4)
-////                m.addToUnidades(unidad2)
-////                m.addToUnidades(unidad3)
-//
-//                unidad4.materia = m
-////                unidad2.materia = m
-////                unidad3.materia = m
-//
-//
-//                do{
-//                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
-////                    try context.save()
-//                }catch{
-//                    print("error")
-//                }
-
-        print("Prueba de core data leyendo\n")
+ 
         do{
             let materiasEncontradas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
             for materia in materiasEncontradas{
@@ -211,6 +181,24 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         alerta.addAction(UIAlertAction(title: "Borrar", style: UIAlertActionStyle.destructive, handler: {_ in
             let indexPath = self.tableView.indexPath(for: celda)!
             let coreData = celda.referenciaCD!
+            if let NSSetUnidades = coreData.unidades{
+                for ns in NSSetUnidades{
+                    let uni = ns as! Unidad
+                    do{
+                        if let teoria = uni.teoria{
+                            try FileManager().removeItem(at: MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(teoria))
+                            print("archivo borrado \(teoria)")
+                        }
+                        if let ejemplo = uni.ejemplo{
+                            try FileManager().removeItem(at: MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(ejemplo))
+                            print("archivo borrado \(ejemplo)")
+                        }
+                    }catch (let ex) {
+                       print("error al borrar los archivos \(ex.localizedDescription)")
+                    }
+                }
+            }
+            
             self.tableView(self.tableView, commit: .delete, forRowAt: indexPath)
             self.context.delete(coreData)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()

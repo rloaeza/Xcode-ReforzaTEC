@@ -17,6 +17,7 @@ class MateriaObj: NSObject {
     static let HOST: String = "http://172.16.107.1/"
     static let  direccion : String  = HOST + "reforzatec/reforzatec.php?Actividad=1"
     static let DESCARGA_UNIDAD: String = HOST + "/reforzatec/reforzatec.php?Actividad=9&idMaterias="
+    static let DESCARGA_DOCUMENTOS_URL: String = HOST + "/reforzatec/documentos/";
     let mNombre : String
     let mDescripcion : String?
     var mColor : UIColor
@@ -61,6 +62,9 @@ class MateriaObj: NSObject {
         
     }
 
+    class func URL_DIRECTORIO_DOCUMENTOS() ->URL {
+         return FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
     
     
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */; };
 		480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */; };
+		480DEA3F1FF4C5B300939AE1 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480DEA3E1FF4C5B300939AE1 /* Downloader.swift */; };
 		4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A63F1F298444003BD339 /* ContenidoMateria.swift */; };
 		4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A6411F2BB002003BD339 /* PDFWebViewController.swift */; };
 		4818A6461F2BC158003BD339 /* resume.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4818A6451F2BC158003BD339 /* resume.pdf */; };
@@ -16,7 +17,6 @@
 		4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */; };
 		4853D8611F23115C008FA029 /* CustomTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */; };
 		48557FDE1FBED3BF00CD1A2B /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */; };
-		48557FE01FCC6DE800CD1A2B /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48557FDF1FCC6DE800CD1A2B /* DataModels.swift */; };
 		4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */; };
 		489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */; };
 		489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */; };
@@ -46,6 +46,7 @@
 /* Begin PBXFileReference section */
 		4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EjercicioOrdenarVC.swift; sourceTree = "<group>"; };
 		480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PalabraCollectionViewCell.swift; sourceTree = "<group>"; };
+		480DEA3E1FF4C5B300939AE1 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		4818A63F1F298444003BD339 /* ContenidoMateria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContenidoMateria.swift; sourceTree = "<group>"; };
 		4818A6411F2BB002003BD339 /* PDFWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFWebViewController.swift; sourceTree = "<group>"; };
 		4818A6451F2BC158003BD339 /* resume.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = resume.pdf; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReforzaTecv1-Bridging-Header.h"; sourceTree = "<group>"; };
 		48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
 		48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
-		48557FDF1FCC6DE800CD1A2B /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		4868E7071F70D0FE00135BEE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjercicioEscrituraVC.swift; sourceTree = "<group>"; };
 		489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjercicioVozVC.swift; sourceTree = "<group>"; };
@@ -160,6 +160,7 @@
 				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
 				48F5BDE61F1CAE9000242E95 /* CustomTableViewCell.swift */,
 				48F5BDE71F1CAE9000242E95 /* CustomTableViewCell.xib */,
+				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
 				4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */,
 				4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */,
 				48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */,
@@ -168,7 +169,6 @@
 				48F5BDD81F1C917700242E95 /* Main.storyboard */,
 				480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */,
 				48D73E651FBECCD3006D5EEE /* Extensiones.swift */,
-				48557FDF1FCC6DE800CD1A2B /* DataModels.swift */,
 				48F5BDF51F1D684300242E95 /* MateriaObj.swift */,
 				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
 				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
@@ -266,11 +266,11 @@
 				48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */,
 				B77A801E1F29191E00B73C43 /* ExpandibleHeaderView.swift in Sources */,
 				48F5BDE81F1CAE9000242E95 /* CustomTableViewCell.swift in Sources */,
+				480DEA3F1FF4C5B300939AE1 /* Downloader.swift in Sources */,
 				480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */,
 				48D73E661FBECCD3006D5EEE /* Extensiones.swift in Sources */,
 				4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */,
 				48F5BDD71F1C917700242E95 /* MisMateriasViewController.swift in Sources */,
-				48557FE01FCC6DE800CD1A2B /* DataModels.swift in Sources */,
 				B77A801C1F29164200B73C43 /* UnidadSeccion.swift in Sources */,
 				48557FDE1FBED3BF00CD1A2B /* DLRadioButton.m in Sources */,
 				48D73E621FBECC3D006D5EEE /* OpcionTableCell.swift in Sources */,

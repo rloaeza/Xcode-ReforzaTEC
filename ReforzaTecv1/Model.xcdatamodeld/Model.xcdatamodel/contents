@@ -19,7 +19,7 @@
         <attribute name="descripcionUni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ejemplo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nombreUni" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="teoria" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teoria" attributeType="String" syncable="YES"/>
         <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" syncable="YES"/>
         <relationship name="materia" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Materia" inverseName="unidades" inverseEntity="Materia" syncable="YES"/>
     </entity>

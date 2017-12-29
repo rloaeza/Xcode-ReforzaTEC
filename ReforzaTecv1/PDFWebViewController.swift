@@ -14,6 +14,7 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
     var color : UIColor!
     var webView: WKWebView!
     var titulo : String!
+    var archivoPorAbrir: String!
     
     
     override func loadView() {
@@ -29,23 +30,21 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
         navigationController?.navigationItem.backBarButtonItem?.title = ""
         colorear()
         cargarDoc()
-        if let t = titulo {
-            self.title = t
-        }
+        self.title = archivoPorAbrir
     }
 
     func cargarDoc() {
-        if let pdfURL = Bundle.main.url(forResource: "resume", withExtension: "pdf", subdirectory: nil, localization: nil)  {
+        
+         let pdfURL = MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(archivoPorAbrir)
+        //if let pdfURL = Bundle.main.url(forResource: "resume", withExtension: "pdf", subdirectory: nil, localization: nil)  {
             do {
                 let data = try Data(contentsOf: pdfURL)
                
                 webView.load(data, mimeType: "application/pdf", characterEncodingName:"", baseURL: pdfURL.deletingLastPathComponent())
             }catch {
-                
+                print("error al abrir el documento \(archivoPorAbrir)")
             }
-       //
- titulo = webView.title
-        }
+
     }	
 
     func colorear() {

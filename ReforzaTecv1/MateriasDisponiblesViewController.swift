@@ -168,12 +168,12 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     }
     
     func guardarMateria(_ row : CustomTableViewCell2){
-        
+        row.indicarDescarga()
         //guardando en CoreData
         let objMateria = row.objMateria!
 
         let url = URL(string: MateriaObj.DESCARGA_UNIDAD + String(objMateria.id))
-        print(url!.absoluteString)
+//        print(url!.absoluteString)
         let session = URLSession.shared
         let task = session.dataTask(with: url!, completionHandler: {data, response, error -> Void in
             if(error != nil){
@@ -181,6 +181,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                 print("Error al descargar la lista de materias")
             }
             else {
+                var archivosPorDescargar: [String] = []
                 // una materia
                 let coreDataMateria = Materia(context:self.context)
                 coreDataMateria.idMateria = Int32(objMateria.id)
@@ -201,19 +202,19 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
 //                                print("descripcion: \(descripcion)")
                                 coreDataUnidad.descripcionUni = descripcion
                             }
-                            if let teoria = unidad["teoria"] as? String {
+                            
+                            if let teoria = unidad["teoria"] as? String{
                                 print("teoria: \(teoria)")
-                                
-//                                let coreDataTeoria = Teoria(context: context)
-//                                coreDataTeoria.archivoTeoria = teoria
-//                                coreDataUnidad.teoria = coreDataTeoria
+                                coreDataUnidad.teoria = teoria
+                                archivosPorDescargar.append(teoria)
                             }
-                            if let ejemplo = unidad["ejemplo"] as? String {
+                            
+                            if let ejemplo = unidad["ejemplo"] as? String{
                                 print("ejemplo: \(ejemplo)")
-//                                let coreDataEjemplo = Ejemplos(context: context)
-//                                coreDataEjemplo.archivoEjemplos = ejemplo
-//                                coreDataUnidad.ejemplos = coreDataEjemplo
+                                coreDataUnidad.ejemplo = ejemplo
+                                archivosPorDescargar.append(ejemplo)
                             }
+                            
                             if let ejerciciosJson = unidad["ejercicios"] as? [Any]{
                                 for ejercicioJson in ejerciciosJson{
                                     if let ejercicio = ejercicioJson as? [String: Any]{
@@ -261,20 +262,38 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                         }
                     }
                 }
- 
-                DispatchQueue.main.async {
-                   
-                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                self.descargarArchivos(archivos: archivosPorDescargar, celdaPorQuitar: row)
+ // este bloque sera movido a la nueva funcion que intentara descargar los archivos, en caso de exito se ejecuta, caso contrario, pues no
+//                DispatchQueue.main.async {
 //                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
-                    print("Materia de \(objMateria.mNombre) con la id:\(objMateria.id) guardada en CoreData!" )
-                    //removiendo de la lista
-                    self.tableView(self.tableView, commit: .delete, forRowAt: self.tableView.indexPath(for: row)!)
-                }
- 
+////                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//                    print("Materia de \(objMateria.mNombre) con la id:\(objMateria.id) guardada en CoreData!" )
+//                    //removiendo de la lista
+////                    self.tableView(self.tableView, commit: .delete, forRowAt: self.tableView.indexPath(for: row)!)
+//                }
             }
 
         })
         task.resume()
+    }
+    
+    
+    func descargarArchivos(archivos: [String], celdaPorQuitar celda: CustomTableViewCell2){
+        let alFinalizar = {
+            DispatchQueue.main.async {
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                print("context de coredata guardado" )
+                //removiendo de la lista
+                self.tableView(self.tableView, commit: .delete, forRowAt: self.tableView.indexPath(for: celda)!)
+            }
+        }
+        
+        for archivo in archivos{
+            let urlLocal = MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(archivo)
+            Downloader.load(url: URL(string: MateriaObj.DESCARGA_DOCUMENTOS_URL + archivo)! , to: urlLocal, completion: {})
+        }
+        alFinalizar()
+    
     }
     
     func descargarListaMaterias () {
@@ -352,6 +371,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         
     }
     
+    //MARK:- Delegados
     func btnDescargarDelegate(_ row : CustomTableViewCell2) {
         guardarMateria(row)
     }
