@@ -39,7 +39,7 @@
 		48F5BDF21F1CB9A900242E95 /* CustomUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */; };
 		48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */; };
 		48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF51F1D684300242E95 /* MateriaObj.swift */; };
-		B77A801C1F29164200B73C43 /* UnidadSeccion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801B1F29164200B73C43 /* UnidadSeccion.swift */; };
+		B77A801C1F29164200B73C43 /* UnidadStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801B1F29164200B73C43 /* UnidadStruct.swift */; };
 		B77A801E1F29191E00B73C43 /* ExpandibleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +80,7 @@
 		48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITableView.swift; sourceTree = "<group>"; };
 		48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriasDisponiblesViewController.swift; sourceTree = "<group>"; };
 		48F5BDF51F1D684300242E95 /* MateriaObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaObj.swift; sourceTree = "<group>"; };
-		B77A801B1F29164200B73C43 /* UnidadSeccion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnidadSeccion.swift; sourceTree = "<group>"; };
+		B77A801B1F29164200B73C43 /* UnidadStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnidadStruct.swift; sourceTree = "<group>"; };
 		B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandibleHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +173,7 @@
 				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
 				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
 				4818A6451F2BC158003BD339 /* resume.pdf */,
-				B77A801B1F29164200B73C43 /* UnidadSeccion.swift */,
+				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
 				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
 			);
 			path = ReforzaTecv1;
@@ -271,7 +271,7 @@
 				48D73E661FBECCD3006D5EEE /* Extensiones.swift in Sources */,
 				4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */,
 				48F5BDD71F1C917700242E95 /* MisMateriasViewController.swift in Sources */,
-				B77A801C1F29164200B73C43 /* UnidadSeccion.swift in Sources */,
+				B77A801C1F29164200B73C43 /* UnidadStruct.swift in Sources */,
 				48557FDE1FBED3BF00CD1A2B /* DLRadioButton.m in Sources */,
 				48D73E621FBECC3D006D5EEE /* OpcionTableCell.swift in Sources */,
 				4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */,

@@ -15,15 +15,40 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     var ejerciciosPorAbrir: NSSet!
     var documentoPorAbrir: String!
     
-    var secciones = [UnidadSeccion(nil ,numeroUnidad: 1, expanded: false),
-                     UnidadSeccion(nil ,numeroUnidad: 2, expanded: false),
-                     UnidadSeccion(nil ,numeroUnidad: 3, expanded: false)]
+    var secciones: [UnidadStruct] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.allowsSelection = true
         colorear()
+        
+        // comprobar que cosas tiene y que no para es mostrar
+        let NSSetUnidades = MateriaAbierta.unidades ?? []
+        var i = 1
+        for NSUni in NSSetUnidades{
+            let uni = NSUni as! Unidad
+            let nombre = uni.nombreUni ?? ""
+            let descrip = uni.descripcionUni ?? ""
+            
+            var nuevaSeccion = UnidadStruct(nombre: nombre, descripcion: descrip, numero: i)
+            if let _ = uni.ejemplo{
+                nuevaSeccion.contenido.append("Ejemplos")
+            }
+            if let _ = uni.teoria{
+                nuevaSeccion.contenido.append("Teoria")
+            }
+            if let e = uni.ejercicios{
+                if (e.count != 0){
+                    nuevaSeccion.contenido.append("Ejercicios")
+                }
+            }
+            //TODO: Agregar evaluaciones al modelo CD
+            nuevaSeccion.contenido.append("Evaluación")
+            
+            secciones.append(nuevaSeccion)
+            i += 1
+        }
     }
     
  
@@ -39,13 +64,13 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return secciones[section].material.count
+        return secciones[section].contenido.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-            cell.textLabel?.text = secciones[indexPath.section].material[indexPath.row]
+            cell.textLabel?.text = secciones[indexPath.section].contenido[indexPath.row]
         
             return cell
 
@@ -86,7 +111,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         secciones[section].expanded = !secciones[section].expanded
         
         tableView.beginUpdates()
-        for i in 0..<secciones[section].material.count {
+        for i in 0..<secciones[section].contenido.count {
             tableView.reloadRows(at: [IndexPath(row: i, section: section)], with: .automatic)
         }
         tableView.endUpdates()
