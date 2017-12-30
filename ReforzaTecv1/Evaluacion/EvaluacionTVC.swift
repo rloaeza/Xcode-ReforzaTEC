@@ -18,33 +18,42 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         var indice: Int
         var texto: String
         var tipo: tipos
-        var respuesta: String
+        var respuestaCorrecta: String
         var opciones: [String]!
         var botones: [UIView]!
         var respuestaAbierta: String!
+        var estado: estados!
         enum tipos {
             case abierta
             case opcionM
+        }
+        enum estados {
+            case sinCalificar
+            case correcto
+            case incorrecto
         }
         // y practicamente este es el constructor para cuando es de abierta
         init(texto: String, respuesta: String, indice: Int) {
             self.indice = indice
             self.texto = texto
             self.tipo = .abierta
-            self.respuesta = respuesta
+            self.respuestaCorrecta = respuesta
+            self.respuestaAbierta = ""
             self.opciones = nil
             self.botones = nil
+            self.estado = .sinCalificar
         }
         // practicmente este es el constructor para cuando es de opcionM
         init(texto: String, respuesta: String, opciones: [String], ancho: CGFloat, color: UIColor, indice: Int) {
             self.indice = indice
             self.texto = texto
             self.tipo = .opcionM
-            self.respuesta = respuesta
+            self.respuestaCorrecta = respuesta
             self.opciones = opciones
             var todas = opciones
             todas.append(respuesta)
             self.botones = arregloDeBotones(con: todas, ancho: ancho, color: color)
+            self.estado = .sinCalificar
         }
         
         func arregloDeBotones(con strings: [String], ancho: CGFloat, color: UIColor)-> [UIView] {
@@ -60,6 +69,21 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 botones.append(radioButton)
             }
             return botones
+        }
+        mutating func esCorrecto() ->Bool{
+          switch self.tipo {
+             case .abierta:
+                if (respuestaCorrecta.caseInsensitiveCompare(respuestaAbierta) == ComparisonResult.orderedSame){
+                    estado = .correcto
+                    return true
+                }else{
+                    estado = .incorrecto
+                    return false
+                 }
+             case .opcionM:
+                estado = .correcto
+                return true
+             }
         }
     }
     
@@ -137,9 +161,22 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "preguntaAbierta", for: indexPath)as! PreguntaATVC
                 cell.PreguntaL.text = String(indexPath.row + 1) + ". " + p.texto
                 cell.color = color
-                cell.respuesta = p.respuesta
+                cell.respuestaCorrecta = p.respuestaCorrecta
+                cell.RespuestaTF.text = p.respuestaAbierta
                 cell.delegate = self
                 cell.indiceDataSource = p.indice
+                if(p.estado == .correcto){
+                    cell.RespuestaTF.textColor = UIColor.green
+                    cell.RespuestaTF.isEnabled = false
+                }else if(p.estado == .incorrecto){
+                    cell.RespuestaTF.textColor = UIColor.red
+                    cell.RespuestaTF.isEnabled = false
+                    let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: p.respuestaAbierta)
+                    attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
+                    cell.RespuestaTF.attributedText = attributedString
+                }else {
+                    cell.RespuestaTF.textColor = UIColor.purple
+                }
                 return cell
             case .opcionM:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "preguntaOpcion", for: indexPath)as! PreguntaOMTVC
@@ -156,7 +193,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     
     private func inicializarDataSource() {
         dataSource = []
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "todos", opciones: ["uno", "dos"], ancho: tableView.frame.width, color: color, indice: 0))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "3", opciones: ["1", "2"], ancho: tableView.frame.width, color: color, indice: 0))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "todos", opciones: ["uno", "dos"], ancho: tableView.frame.width, color: color, indice: 1))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Uno", indice: 2))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "México", indice: 3 ))
@@ -164,15 +201,20 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 5 ))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 6))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 7))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "si", opciones: ["no"], ancho: tableView.frame.width, color: color, indice: 8))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "tal vez", opciones: ["quiza"], ancho: tableView.frame.width, color: color, indice: 8))
         dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "si", opciones: ["no"], ancho: tableView.frame.width, color: color, indice: 9))
-        
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 10))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "sep", opciones: ["nao"], ancho: tableView.frame.width, color: color, indice: 11))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Azul", indice: 12))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 13 ))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 14))
+        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 15))
 //        dataSource = dataSource.shuffled()
     }
     
     // MARK:- Definicion de protocolos
     func guardar(respuestAbierta: String, en indice: Int) {
-        dataSource[indice].respuesta = respuestAbierta
+        dataSource[indice].respuestaAbierta = respuestAbierta
     }
     
     func guaradar(RespuestasMultiples: [UIView], en indice: Int) {
@@ -195,25 +237,13 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         var aciertos = 0
         var fallos = 0
         
-//        for i in 0...dataSource.count {
-//            switch(dataSource[i].tipo){
-//            case .abierta:
-//                let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as! PreguntaATVC
-//                if(cell.revisar()){
-//                    aciertos += 1
-//                }else {
-//                    fallos += 1
-//                }
-//            case .opcionM:
-//                let cell = tableView.cell(at: IndexPath(row: i, section: 0)) as! PreguntaOMTVC
-//                if(cell.revisar()){
-//                    aciertos += 1
-//                }else {
-//                    fallos += 1
-//                }
-//            }
-//        }
-            
+        for i in 0...(dataSource.count - 1){
+            if (dataSource[i].esCorrecto()){
+                aciertos += 1
+            }else {
+                fallos += 1
+            }
+        }
         
         
         AciertosL.text?.append(" \(aciertos)")

@@ -38,7 +38,7 @@ class MateriaObj: NSObject {
     
     
     
-    static func  llenarConEjemplos () -> [MateriaObj] {
+    class func  llenarConEjemplos () -> [MateriaObj] {
         var materiasDescargadas : [MateriaObj] = []
         
         materiasDescargadas.append(MateriaObj(id:0, nombre: "Ciencias", descripcion: "Aqui podras apredner los secretos de la lengua espanola asi como inglesa. lengua espanola asi como inglesa.lengua espanola asi como inglesa.lengua espanola asi como inglesa.lengua espanola asi como inglesa.vargua espanola asi como inglesa.lengua espanola asi como inglesa.lengua espanola asi como inglesa.lengua espanola asi como inglesa. lengua espanola asi como inglesa."))
@@ -50,7 +50,7 @@ class MateriaObj: NSObject {
         return materiasDescargadas
     }
     
-    static func ejemplos () {
+    class func ejemplos () {
         var materiasDescargadas : [MateriaObj] = []/*
         materiasDescargadas.append(MateriaObj(nombre: "Matematicas", descripcion: "Aqui podras apredner los secretos de la lengua espanola asi como inglesa."))
         materiasDescargadas.append(MateriaObj(nombre: "Redes", descripcion: "Por que existe esta materia?!?!"))
@@ -63,7 +63,7 @@ class MateriaObj: NSObject {
     }
 
     class func URL_DIRECTORIO_DOCUMENTOS() ->URL {
-         return FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+         return FileManager().urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
     
     

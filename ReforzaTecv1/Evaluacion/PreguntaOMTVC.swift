@@ -24,13 +24,13 @@ class PreguntaOMTVC: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    override func prepareForReuse() {        
         let botones = OpcionesSV.arrangedSubviews
         for boton in botones{
             boton.removeFromSuperview()
         }
         delegate?.guaradar(RespuestasMultiples: botones, en: indiceDataSource)
+        super.prepareForReuse()
     }
     
     func revisar() -> Bool{
