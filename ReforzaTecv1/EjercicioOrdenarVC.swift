@@ -50,7 +50,8 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var CalificacionImageView: UIImageView!
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
     
-    
+    var Ejercicios: [Ejercicio]!
+    var EjercicioActual: Ejercicio!    
     var IndiceSeccionDeOpciones: Int!
     var UltimaFilaUsada: Int = 0 {
         didSet{
@@ -61,8 +62,8 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     
     var color : UIColor!// = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
     
-    let RespuestaCorrecta: String = "Esto es un texto de prueba y no debe contener números."
-    let relleno: String = "uno dos tres cuatro 5"
+    var RespuestaCorrecta: String!
+    var relleno: String = ""
     
     var dataSource: [Fila] = []
     
@@ -74,7 +75,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         AltoDeEtiqueta = nuevaLabel().frame.size.height
         Fila.LargoMax = collectionView.frame.size.width
         
-        preguntaTextView.text = Utils.preguntaRandom()
+        EjercicioActual = Ejercicios.removeFirst()
+        preguntaTextView.text = EjercicioActual.textos!
+        RespuestaCorrecta = EjercicioActual.respuestas!
+        
         // calcular el numero de secciones para asi mostrar parrafos 
         // basandonos en el ancho de cada etiqueta mas el espacio entre ellas
         // y agregarlos como secciones vacias al principio del datasource
@@ -174,7 +178,42 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     }
     // MARK:- Navegacion
     func siguienteEjercicio() {
-        performSegue(withIdentifier: "segueEscritura", sender: self)
+        if let siguienteE = Ejercicios.first{
+            let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
+            var siguienteViewController: UIViewController?
+            switch siguienteE.tipo! {
+            case "Voz":
+                let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
+                eVoz.color = self.color
+                eVoz.Ejercicios = Ejercicios
+                siguienteViewController = eVoz
+            case "Opcion multiple":
+                let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
+                eOpMul.color = self.color
+                eOpMul.Ejercicios = Ejercicios
+                siguienteViewController = eOpMul
+            case "Ordenar oracion":
+                let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
+                eOrOr.color = self.color
+                eOrOr.Ejercicios = Ejercicios
+                siguienteViewController = eOrOr
+            case "Escritura":
+                let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
+                eEs.color = self.color
+                eEs.Ejercicios = Ejercicios
+                siguienteViewController = eEs
+            default:
+                print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
+            }
+            if let sViewC = siguienteViewController{
+                var stack = self.navigationController!.viewControllers
+                stack.popLast()
+                stack.append(sViewC)
+                self.navigationController?.setViewControllers(stack, animated: true)
+            }
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

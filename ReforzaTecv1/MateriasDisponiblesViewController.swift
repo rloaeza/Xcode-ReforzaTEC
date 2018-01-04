@@ -236,27 +236,27 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                                     }
                                 }
                             }
-//                            if let evaluacionesJson = unidad["evaluacion"] as? [Any]{
-//                                for evaluacionJson in evaluacionesJson{
-//                                    if let evaluacion = evaluacionJson as? [String: Any]{
-//                                        let coreDataEvaluacion = EvaluacionMO(context: self.context)
-//
-//                                        if let idEvaluaciones = evaluacion ["idEvaluaciones"] as? Int32 {
-//                                            print("idEvaluaciones: \(idEvaluaciones)")
-//                                            coreDataEvaluacion.idEvaluacion = idEvaluaciones
-//                                        }
-//                                        if let texto = evaluacion["textos"] as? String{
-//                                            print("texto \(texto)")
-//                                            coreDataEvaluacion.texto = texto
-//                                        }
-//                                        if let respuesta = evaluacion["respuestas"] as? String {
-//                                            print("respuesta \(respuesta)")
-//                                            coreDataEvaluacion.respuestas = respuesta
-//                                        }
-//                                        coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)
-//                                    }
-//                                }
-//                            }
+                            if let evaluacionesJson = unidad["evaluacion"] as? [Any]{
+                                for evaluacionJson in evaluacionesJson{
+                                    if let evaluacion = evaluacionJson as? [String: Any]{
+                                        let coreDataEvaluacion = Evaluacion(context: self.context)
+
+                                        if let texto = evaluacion["textos"] as? String{
+                                            print("texto \(texto)")
+                                            coreDataEvaluacion.pregunta = texto
+                                        }
+                                        if let respuesta = evaluacion["respuestas"] as? 	String {
+                                            print("respuesta \(respuesta)")
+                                            coreDataEvaluacion.respuestas = respuesta
+                                        }
+                                        if let puntaje = evaluacion["puntos"] as? Int16 {
+                                            print("puntaje \(puntaje)")
+                                            coreDataEvaluacion.puntos = puntaje
+                                        }
+                                        coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)
+                                    }
+                                }
+                            }
                             coreDataUnidad.materia = coreDataMateria
                             coreDataMateria.addToUnidades(coreDataUnidad)
                         }

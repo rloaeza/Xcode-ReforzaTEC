@@ -8,6 +8,12 @@
         <attribute name="vecesFallado" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="unidad" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Unidad" inverseName="ejercicios" inverseEntity="Unidad" syncable="YES"/>
     </entity>
+    <entity name="Evaluacion" representedClassName="Evaluacion" syncable="YES" codeGenerationType="class">
+        <attribute name="pregunta" attributeType="String" syncable="YES"/>
+        <attribute name="puntos" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="respuestas" attributeType="String" syncable="YES"/>
+        <relationship name="unidad" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Unidad" inverseName="evaluaciones" inverseEntity="Unidad" syncable="YES"/>
+    </entity>
     <entity name="Materia" representedClassName="Materia" syncable="YES" codeGenerationType="class">
         <attribute name="descripcion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fechaActualizacion" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -21,11 +27,14 @@
         <attribute name="nombreUni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teoria" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" syncable="YES"/>
+        <relationship name="evaluaciones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evaluacion" inverseName="unidad" inverseEntity="Evaluacion" syncable="YES"/>
         <relationship name="materia" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Materia" inverseName="unidades" inverseEntity="Materia" syncable="YES"/>
     </entity>
+    <fetchRequest name="FetchRequest" entity="Ejercicio" predicateString="vecesAcertado == 0"/>
     <elements>
         <element name="Ejercicio" positionX="9" positionY="81" width="128" height="135"/>
         <element name="Materia" positionX="-45" positionY="0" width="128" height="120"/>
-        <element name="Unidad" positionX="-18" positionY="27" width="128" height="135"/>
+        <element name="Unidad" positionX="-18" positionY="27" width="128" height="150"/>
+        <element name="Evaluacion" positionX="-18" positionY="90" width="128" height="105"/>
     </elements>
 </model>

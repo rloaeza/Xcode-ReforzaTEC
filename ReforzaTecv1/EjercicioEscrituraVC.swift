@@ -10,7 +10,7 @@ import UIKit
 
 class EjercicioEscrituraVC: UIViewController {
     
-    var color: UIColor!
+   
     
     @IBOutlet weak var BotonRevisar: UIButton!
     @IBOutlet weak var preguntaTextView: UITextView!
@@ -18,9 +18,15 @@ class EjercicioEscrituraVC: UIViewController {
     @IBOutlet weak var CalificacionImagenView: UIImageView!
     
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
+    var Ejercicios: [Ejercicio]!
+    var EjercicioActual: Ejercicio!
+    var color: UIColor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        EjercicioActual = Ejercicios.removeFirst()
+        preguntaTextView.text = EjercicioActual.textos!
+        
         // iniciando boton
         BotonRevisar.backgroundColor = UIColor.white
         BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
@@ -45,7 +51,7 @@ class EjercicioEscrituraVC: UIViewController {
             case "Siguiente":
                 siguienteEjercicio()
             default:
-                print("Wow, titulo desconocido para el boton")
+                print("Wow, titulo desconocido para el boton: \(titulo)")
         }
     
     }
@@ -68,7 +74,42 @@ class EjercicioEscrituraVC: UIViewController {
     }
     
     func siguienteEjercicio() {
-        performSegue(withIdentifier: "segueVoz", sender: self)
+        if let siguienteE = Ejercicios.first{
+            let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
+            var siguienteViewController: UIViewController?
+            switch siguienteE.tipo! {
+            case "Voz":
+                let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
+                eVoz.color = self.color
+                eVoz.Ejercicios = Ejercicios
+                siguienteViewController = eVoz
+            case "Opcion multiple":
+                let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
+                eOpMul.color = self.color
+                eOpMul.Ejercicios = Ejercicios
+                siguienteViewController = eOpMul
+            case "Ordenar oracion":
+                let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
+                eOrOr.color = self.color
+                eOrOr.Ejercicios = Ejercicios
+                siguienteViewController = eOrOr
+            case "Escritura":
+                let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
+                eEs.color = self.color
+                eEs.Ejercicios = Ejercicios
+                siguienteViewController = eEs
+            default:
+                print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
+            }
+            if let sViewC = siguienteViewController{
+                var stack = self.navigationController!.viewControllers
+                stack.popLast()
+                stack.append(sViewC)
+                self.navigationController?.setViewControllers(stack, animated: true)
+            }
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
 }

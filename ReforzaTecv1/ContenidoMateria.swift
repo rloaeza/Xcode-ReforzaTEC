@@ -6,13 +6,15 @@
 //  Copyright © 2017 TecUruapan. All rights reserved.
 //
 import UIKit
+import CoreData
 
 class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     
     var titulo : String = ""
     var color : UIColor!
     var MateriaAbierta: Materia!
-    var ejerciciosPorAbrir: NSSet!
+    var ejerciciosPorAbrir: [Ejercicio]!
+    var evaluacionPorAbrir: [Evaluacion]!
     var documentoPorAbrir: String!
     
     var secciones: [UnidadStruct] = []
@@ -43,8 +45,13 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
                     nuevaSeccion.contenido.append("Ejercicios")
                 }
             }
-            //TODO: Agregar evaluaciones al modelo CD
-            nuevaSeccion.contenido.append("Evaluación")
+            if let ev = uni.evaluaciones{
+                if (ev.count != 0){
+                    nuevaSeccion.contenido.append("Evaluación")
+                }
+            }
+            
+            
             
             secciones.append(nuevaSeccion)
             i += 1
@@ -131,29 +138,85 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     func abrir (actividad: String, enUnidad: Int) {
         switch actividad {
         case "Teoria":
-            let uni = MateriaAbierta.unidades![enUnidad] as! Unidad
-            documentoPorAbrir = uni.teoria!
+            documentoPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).teoria!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejemplos":
-            let uni = MateriaAbierta.unidades![enUnidad] as! Unidad
-            documentoPorAbrir = uni.ejemplo!
+            documentoPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejemplo!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
-            ejerciciosPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejercicios
-            self.performSegue(withIdentifier: "segueEjercicios", sender: self)
+            //MARK: Aqui podria agarrar solo 10 ejercicios a irlos pasando para mostrarlos
+            /*
+             func getData() {
+             let context = appDelegate.persistentContainer.viewContext
+             
+             let fetchRequest = NSFetchRequest<Expenses>(entityName: "Expenses")
+             let sort = NSSortDescriptor(key: #keyPath(Expenses.date), ascending: true)
+             fetchRequest.sortDescriptors = [sort]
+             do {
+             expenses = try context.fetch(fetchRequest)
+             } catch {
+             print("Cannot fetch Expenses")
+             }
+             }
+             */
+            let uniAbierta = MateriaAbierta.unidades![enUnidad] as! Unidad
+            let request = NSFetchRequest<Ejercicio>(entityName: "Ejercicio")
+            request.fetchLimit = 5
+            let sort = NSSortDescriptor(key: #keyPath(Ejercicio.vecesFallado), ascending: true)
+            request.sortDescriptors = [sort]
+            do{
+                ejerciciosPorAbrir = try uniAbierta.managedObjectContext?.fetch(request)
+                
+                //(MateriaAbierta.unidades![enUnidad] as! Unidad).ejercicios?.allObjects as! [Ejercicio]
+            }catch {
+                print("Error al recuperar los ejercicios")
+                return
+            }
+            abrirEjercicio()
         case "Evaluación":
+            evaluacionPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).evaluaciones?.allObjects as! [Evaluacion]
             self.performSegue(withIdentifier: "segueEvaluacion", sender: self)
         default:
             print("Actividad desconocida: '\(actividad)'")
         }
     }
     
+    func abrirEjercicio(){
+        let e =  ejerciciosPorAbrir.first!
+        let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
+        var siguienteViewController: UIViewController?
+        switch e.tipo!{
+            case "Voz":
+                let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
+                eVoz.color = self.color
+                eVoz.Ejercicios = ejerciciosPorAbrir
+                siguienteViewController = eVoz
+            case "Opcion multiple":
+                let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
+                eOpMul.color = self.color
+                eOpMul.Ejercicios = ejerciciosPorAbrir
+                siguienteViewController = eOpMul
+            case "Ordenar oracion":
+                let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
+                eOrOr.color = self.color
+                eOrOr.Ejercicios = ejerciciosPorAbrir
+                siguienteViewController = eOrOr
+            case "Escritura":
+                let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
+                eEs.color = self.color
+                eEs.Ejercicios = ejerciciosPorAbrir
+                siguienteViewController = eEs
+            default:
+                print("Tipo de ejercicio desconocido: \(e.tipo!)")
+        }
+        if let sViewC = siguienteViewController{
+            self.navigationController?.pushViewController(sViewC, animated: true)
+        }
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
-        case "segueEjercicios":
-            let ejerciciosView = segue.destination as! EjercicioOpMulVC
-            ejerciciosView.color = self.color
-            ejerciciosView.Ejercicios = ejerciciosPorAbrir
         case "segueWeb":
             let webView = segue.destination as! PDFWebViewController
             webView.color = self.color
@@ -161,6 +224,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
         case "segueEvaluacion":
             let evaluacionView = segue.destination as! EvaluacionTVC
             evaluacionView.color = self.color
+            evaluacionView.PreguntasEvaluacion = evaluacionPorAbrir
         default:
             print("Segue desconocido.")
         }

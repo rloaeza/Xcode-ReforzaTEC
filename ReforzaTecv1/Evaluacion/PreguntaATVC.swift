@@ -34,7 +34,6 @@ class PreguntaATVC: UITableViewCell, UITextFieldDelegate {
     @IBAction func textChanged(_ sender: Any) {
         let text = RespuestaTF.text ??  ""
         delegate?.guardar(respuestAbierta: text, en: indiceDataSource)
-        print(text)
     }
 
 }

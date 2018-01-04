@@ -20,7 +20,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     let RetrasoDeSegue: Int = 2
 //para no estar descomentando cosas y probar rapido con breakpoints
     var debugVar = false
-    var Ejercicios: NSSet?
+    var Ejercicios: [Ejercicio]!
     var EjercicioActual: Ejercicio!
    
     @IBOutlet weak var preguntaTextView: UITextView!
@@ -31,7 +31,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     var opcionesDeRespuesta : [String]!// = ["incorrecto","incorrecto","incorrecto","correcto"]
     var respuesta : String!// = "correcto"
     var botonSigOculto: Bool!
-  
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -49,12 +48,13 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        EjercicioActual = Ejercicios!.allObjects[0] as! Ejercicio
-        preguntaTextView.text = EjercicioActual.textos ?? "error"//"En esta parte es donde podremos encontrar la pregunta del ejercicio."//Utils.preguntaRandom()
+        EjercicioActual = Ejercicios.removeFirst()
+        preguntaTextView.text = EjercicioActual.textos ?? "error"
         var  arreglo = EjercicioActual.respuestas!.characters.split{$0 == "|"}.map(String.init)
-        for a in arreglo{
-            if(a.contains("@")){
-                respuesta = a//.trimmingCharacters(in: ['@'])
+        for i in 0...(arreglo.count - 1){
+            if(arreglo[i].starts(with: "@")){
+                arreglo[i].remove(at: arreglo[i].startIndex)
+                respuesta = arreglo[i]
                 break
             }
         }
@@ -66,8 +66,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         if(debugVar) {
             preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
         }
-        
-        
         
         if (color) == nil {
             print("color nil")
@@ -110,7 +108,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         revisar(celda: tableView.cellForRow(at: indexPath) as! OpcionTableCell)
     }
     // MARK:- Otros
@@ -140,6 +137,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                UIView.animate(withDuration: 0.1, animations: {
                 celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1, y: 1)
                })
+                
                 self.mostrarBoton()
             })
             
@@ -156,6 +154,44 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
 //                self.mostrarBoton()
 //                celdaCorrecta.marcar(bien: true)
 //            })
+        }
+    }
+    @IBAction func MostrarSiguiente(_ sender: Any) {
+        if let siguienteE = Ejercicios.first{
+            let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
+            var siguienteViewController: UIViewController?
+            switch siguienteE.tipo! {
+                case "Voz":
+                    let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
+                    eVoz.color = self.color
+                    eVoz.Ejercicios = Ejercicios
+                    siguienteViewController = eVoz
+                case "Opcion multiple":
+                    let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
+                    eOpMul.color = self.color
+                    eOpMul.Ejercicios = Ejercicios
+                    siguienteViewController = eOpMul
+                case "Ordenar oracion":
+                    let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
+                    eOrOr.color = self.color
+                    eOrOr.Ejercicios = Ejercicios
+                    siguienteViewController = eOrOr
+                case "Escritura":
+                    let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
+                    eEs.color = self.color
+                    eEs.Ejercicios = Ejercicios
+                    siguienteViewController = eEs
+                default:
+                    print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
+            }
+            if let sViewC = siguienteViewController{
+                var stack = self.navigationController!.viewControllers
+                stack.popLast()
+                stack.append(sViewC)
+                self.navigationController?.setViewControllers(stack, animated: true)
+            }
+        }else{
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

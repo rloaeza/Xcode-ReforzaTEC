@@ -81,8 +81,21 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                     return false
                  }
              case .opcionM:
-                estado = .correcto
-                return true
+                var estaBien = false
+                for v in botones{
+                    let boton = v as! DLRadioButton
+                    if(boton.isSelected){
+                        if(boton.titleLabel!.text! == respuestaCorrecta){
+                            estaBien = true
+                        }else {
+                            estaBien = false
+                            break
+                        }
+                    }
+                }
+            
+                estado = estaBien ? estados.correcto : estados.incorrecto
+                return estaBien
              }
         }
     }
@@ -99,6 +112,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     var horaInicial: NSDate!
     var dataSource: [PreguntaStruct]!
     var color: UIColor!
+    var PreguntasEvaluacion: [Evaluacion]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,11 +185,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 }else if(p.estado == .incorrecto){
                     cell.RespuestaTF.textColor = UIColor.red
                     cell.RespuestaTF.isEnabled = false
-                    let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: p.respuestaAbierta)
-                    attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
-                    cell.RespuestaTF.attributedText = attributedString
-                }else {
-                    cell.RespuestaTF.textColor = UIColor.purple
+                    cell.RespuestaTF.attributedText = tachar(string: p.respuestaAbierta)
                 }
                 return cell
             case .opcionM:
@@ -184,8 +194,19 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 cell.color = color
                 cell.delegate = self
                 cell.indiceDataSource = p.indice
-                for view in p.botones {
-                    cell.OpcionesSV.addArrangedSubview(view)
+                for case let boton as DLRadioButton in p.botones {
+                    if(p.estado == PreguntaStruct.estados.correcto && boton.isSelected){
+                        boton.tintColor = UIColor.green
+                        boton.setTitleColor(UIColor.green, for: [])
+                    }else if(p.estado == .incorrecto && boton.isSelected){
+                        boton.tintColor = UIColor.red
+                        boton.setTitleColor(UIColor.red, for: [])
+                        boton.setAttributedTitle(tachar(string: boton.titleLabel!.text!), for: [])
+                    }
+                    if(p.estado != PreguntaStruct.estados.sinCalificar){
+                        boton.isEnabled = false
+                    }
+                    cell.OpcionesSV.addArrangedSubview(boton)
                 }
                 return cell
         }
@@ -193,23 +214,26 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     
     private func inicializarDataSource() {
         dataSource = []
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "3", opciones: ["1", "2"], ancho: tableView.frame.width, color: color, indice: 0))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "todos", opciones: ["uno", "dos"], ancho: tableView.frame.width, color: color, indice: 1))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Uno", indice: 2))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "México", indice: 3 ))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Azul", indice: 4))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 5 ))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 6))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 7))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "tal vez", opciones: ["quiza"], ancho: tableView.frame.width, color: color, indice: 8))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "si", opciones: ["no"], ancho: tableView.frame.width, color: color, indice: 9))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 10))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(),respuesta: "sep", opciones: ["nao"], ancho: tableView.frame.width, color: color, indice: 11))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Azul", indice: 12))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 13 ))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 14))
-        dataSource.append(PreguntaStruct(texto: Utils.preguntaRandom(), respuesta: "Apio", indice: 15))
-//        dataSource = dataSource.shuffled()
+        var indice = 0
+        for p in PreguntasEvaluacion{
+            var  arreglo = p.respuestas!.characters.split{$0 == "|"}.map(String.init)
+            if(arreglo.count == 1){
+                var rCorrecta = arreglo.first!
+                rCorrecta.remove(at: rCorrecta.startIndex)
+                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, indice: indice))
+            }else{
+                var rCorrecta = ""
+                for i in 0...(arreglo.count - 1){
+                    if(arreglo[i].starts(with: "@")){
+                        rCorrecta = arreglo.remove(at: i)
+                        break
+                    }
+                }
+                rCorrecta.remove(at: rCorrecta.startIndex)
+                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: indice))
+            }
+            indice += 1
+        }
     }
     
     // MARK:- Definicion de protocolos
@@ -233,6 +257,12 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         
     }
     
+    func tachar(string: String) -> NSAttributedString{
+        let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: string)
+        attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
+        return attributedString
+    }
+    
     func contarAciertos() {
         var aciertos = 0
         var fallos = 0
@@ -248,6 +278,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         
         AciertosL.text?.append(" \(aciertos)")
         ErroresL.text?.append(" \(fallos)")
+        tableView.reloadData()
     }
     
 }
