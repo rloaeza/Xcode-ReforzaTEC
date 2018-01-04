@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "536717343.998991"
+            timestampString = "536800875.590177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "descargarArchivos(archivos:celdaPorQuitar:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "536717344.002769"
+            timestampString = "536800875.590887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "guardarMateria(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/Evaluacion/EvaluacionTVC.swift"
-            timestampString = "536717344.003604"
+            timestampString = "536797606.008345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/Evaluacion/EvaluacionTVC.swift"
-            timestampString = "536717344.005645"
+            timestampString = "536797606.008676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/ContenidoMateria.swift"
-            timestampString = "536717344.006214"
+            timestampString = "536797606.008772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -89,13 +89,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ReforzaTecv1/ContenidoMateria.swift"
-            timestampString = "536717344.013061"
+            filePath = "ReforzaTecv1/EjercicioOpMulVC.swift"
+            timestampString = "536797606.009313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "abrir(actividad:enUnidad:)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "MostrarSiguiente(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReforzaTecv1/MisMateriasViewController.swift"
+            timestampString = "536800875.591633"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "eliminarMateria(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -31,6 +31,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     var opcionesDeRespuesta : [String]!// = ["incorrecto","incorrecto","incorrecto","correcto"]
     var respuesta : String!// = "correcto"
     var botonSigOculto: Bool!
+    var contestoBien: Bool!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -113,8 +114,10 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     // MARK:- Otros
     func revisar( celda : OpcionTableCell) {
         if(celda.etiqueta.text! == respuesta){
+            contestoBien = true
             celda.saltar(retraso: 0, fin: mostrarBoton())
         }else {
+            contestoBien = false
             var celdaCorrecta = OpcionTableCell()
             for i in 0..<opcionesDeRespuesta.count{
                 if(opcionesDeRespuesta[i] == respuesta){
@@ -127,8 +130,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                 celdaCorrecta.etiqueta.textColor = UIColor.white
                 celdaCorrecta.etiqueta.layer.borderColor = #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1)
             })
-            //celdaCorrecta.marcar(bien: true)
-            //celdaCorrecta.saltar(retraso: 10.5, fin: mostrarBoton()) no se llama a tiempo el bloque de completion
+
             UIView.animate(withDuration: 0.2, delay: 1, options: [.transitionFlipFromBottom], animations: {
                 celdaCorrecta.etiqueta.layer.backgroundColor = #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1)
                 celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1.1, y: 0.98)
@@ -140,23 +142,24 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                 
                 self.mostrarBoton()
             })
-            
-//            UIView.animateKeyframes(withDuration: 0.3, delay: 3, options: [.calculationModeCubic], animations: {
-//                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 2/3, animations: {
-//                    celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1.1, y: 0.98)
-//                   // celdaCorrecta.marcar(bien: true)
-//                })
-//                UIView.addKeyframe(withRelativeStartTime: 2/3, relativeDuration: 1/3, animations: {
-//                    celdaCorrecta.etiqueta.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-//
-//                })
-//            }, completion: {(finalizo: Bool) in
-//                self.mostrarBoton()
-//                celdaCorrecta.marcar(bien: true)
-//            })
         }
     }
     @IBAction func MostrarSiguiente(_ sender: Any) {
+        print("veces acertadas \(EjercicioActual.vecesAcertado)")
+        print("veces falladas \(EjercicioActual.vecesFallado)")
+        if(contestoBien){
+            //guardar acierto
+            EjercicioActual.vecesAcertado += 1
+        } else{
+            //guardar fallo
+            EjercicioActual.vecesFallado += 1
+        }
+        do{
+            try EjercicioActual.managedObjectContext?.save()
+        }catch{
+            print("No se pudo guardar en CoreData")
+        }
+        
         if let siguienteE = Ejercicios.first{
             let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
             var siguienteViewController: UIViewController?

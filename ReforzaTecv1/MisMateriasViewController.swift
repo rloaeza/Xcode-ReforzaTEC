@@ -15,10 +15,9 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @IBOutlet weak var tableView: CustomUITableView!
     var materiasDescargadas : [Materia] = []
-    var lastCell : CustomTableViewCell = CustomTableViewCell ()//guarda la celda que esta expandida?
+    var lastCell : CustomTableViewCell?//   = CustomTableViewCell ()//guarda la celda que esta expandida?
     var tagCeldaExpandida = -1//identifica a la celda abierta
     
-    //deberia dejarle el color por defecto al tinte (azul) a los view controlers este y el de descargas? 
     //lo puse en view did appear por que en view did load no funcionaba?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,46 +25,29 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.tintColor = color
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : color]
-        //tal vez poner aqui lo de recuperar la informacion de Core
+        
+        
+        // hacer un struct y no pasar referencia de core data a la celda?
         recuperarData()
+
         tableView.reloadData()
+
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        do{
-            let materiasEncontradas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
-            for materia in materiasEncontradas{
-//                let materia = materiaEncontrada as! Materia
-                print(materia.nombre ?? "materia sin nombre")
-                if let unidadesEncontradas = materia.unidades{
-                    for unidadEncontrada in unidadesEncontradas{
-                        let unidad = unidadEncontrada as! Unidad
-                        print(unidad.nombreUni ?? "unidad sin nombre")
-                    }
-                }else{
-                    print("Materia sin unidades")
-                }
-             print("///")
-            }
-        }catch{
-            print("Error al leer datos")
-        }
-        
-        configurarTabla()
+        configurarTabla()   
     }
 
     
     func recuperarData(){
-
         do {
             materiasDescargadas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
         } catch {
             print("Error al recuperar las materias")
         }
     }
-    //Si el toque largo se hizo sobre una celda, esta se expandira
+    
     @IBAction func longTouchHandler(_ sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {
             var touchPoint = sender.location(in: self.view)
@@ -96,7 +78,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         
-        if !cell.cellExists {
+        //if !cell.cellExists {
             let m = materiasDescargadas[indexPath.row]
             cell.nombreLabel.text = m.nombre
             cell.descripcionTextView.text = m.descripcion
@@ -108,7 +90,8 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             
             //para saber cual boton pertenece a cual materia
             cell.openButton.tag = indexPath.row
-            }
+        //}
+        
         UIView.animate(withDuration: 0) {
             cell.contentView.layoutIfNeeded()
         }
@@ -120,7 +103,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if(editingStyle == .delete) {
+        if(editingStyle == .delete) {            
             materiasDescargadas.remove(at: indexPath.row)//tal vez esto deberia estar en eliminarMateria(celda)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
         }
@@ -151,21 +134,22 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.beginUpdates()
         let previousCellTag = tagCeldaExpandida
         
-        if lastCell.cellExists {
-            self.lastCell.animate(duration: 0.2, c: {
-                
-                self.view.layoutIfNeeded()
-            })
-            if numero == tagCeldaExpandida {//si la celda que quiere volver a abrirse ya esta abierta se cierra
-                tagCeldaExpandida = -1// menos uno indica que no hay celdas abiertas
-                lastCell = CustomTableViewCell()//seria mas rapido modificar lastCell.exists?
+        if lastCell != nil {
+            if lastCell!.cellExists {
+                self.lastCell!.animate(duration: 0.2, c: {
+                    self.view.layoutIfNeeded()
+                })
+                if numero == tagCeldaExpandida {//si la celda que quiere volver a abrirse ya esta abierta se cierra
+                    tagCeldaExpandida = -1// menos uno indica que no hay celdas abiertas
+                    lastCell = nil// = CustomTableViewCell()//seria mas rapido modificar lastCell.exists?
+                }
             }
         }
         
         if numero != previousCellTag {
             tagCeldaExpandida = numero
-            lastCell = tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as! CustomTableViewCell
-            self.lastCell.animate(duration: 0.2, c: {
+            lastCell = tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as? CustomTableViewCell
+            self.lastCell!.animate(duration: 0.2, c: {
                 self.view.layoutIfNeeded()
             })
         }
@@ -181,6 +165,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         alerta.addAction(UIAlertAction(title: "Borrar", style: UIAlertActionStyle.destructive, handler: {_ in
             let indexPath = self.tableView.indexPath(for: celda)!
             let coreData = celda.referenciaCD!
+        
             if let NSSetUnidades = coreData.unidades{
                 for ns in NSSetUnidades{
                     let uni = ns as! Unidad
@@ -198,15 +183,18 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
                     }
                 }
             }
-            
+            self.expandirCelda(numero: indexPath.row)
             self.tableView(self.tableView, commit: .delete, forRowAt: indexPath)
+            
             self.context.delete(coreData)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            //self.lastCell = nil
         }))
         alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
             print("Cancelado, nada se borrara.")
         }))
         self.present(alerta, animated: true, completion: nil)
+        
     }
 
 }

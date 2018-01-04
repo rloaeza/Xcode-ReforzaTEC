@@ -26,11 +26,10 @@
         <attribute name="ejemplo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nombreUni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teoria" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" syncable="YES"/>
+        <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" spotlightIndexingEnabled="YES" syncable="YES"/>
         <relationship name="evaluaciones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evaluacion" inverseName="unidad" inverseEntity="Evaluacion" syncable="YES"/>
         <relationship name="materia" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Materia" inverseName="unidades" inverseEntity="Materia" syncable="YES"/>
     </entity>
-    <fetchRequest name="FetchRequest" entity="Ejercicio" predicateString="vecesAcertado == 0"/>
     <elements>
         <element name="Ejercicio" positionX="9" positionY="81" width="128" height="135"/>
         <element name="Materia" positionX="-45" positionY="0" width="128" height="120"/>

@@ -15,7 +15,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     var dataSource : [MateriaObj] = []
     let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var controlActualizar: UIRefreshControl!
-    var lastCell : CustomTableViewCell2 = CustomTableViewCell2 ()
+    var lastCell : CustomTableViewCell2?// = CustomTableViewCell2 ()
     var tagCeldaExpandida = -1
     
     
@@ -114,7 +114,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell2", for: indexPath) as! CustomTableViewCell2
     
-        if !cell.cellExists {
+//        if !cell.cellExists {
             cell.nombreLabel.text = dataSource[indexPath.row].mNombre
             cell.descripcionTextView.text = dataSource[indexPath.row].mDescripcion
             cell.cellExists = true
@@ -122,7 +122,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             cell.titleView.backgroundColor = Utils.colorHash(dataSource[indexPath.row].mNombre)
             cell.objMateria = dataSource[indexPath.row]
             cell.delegate = self
-        }
+//        }
         UIView.animate(withDuration: 0) {
             cell.contentView.layoutIfNeeded()
         }
@@ -146,20 +146,22 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         
         let previousCellTag = tagCeldaExpandida
         
-        if lastCell.cellExists {
-            self.lastCell.animate(duration: 0.2, c: {
-                self.view.layoutIfNeeded()
-            })
-            if numero == tagCeldaExpandida {
-                tagCeldaExpandida = -1
-                lastCell = CustomTableViewCell2()
+        if lastCell != nil{
+            if lastCell!.cellExists {
+                self.lastCell!.animate(duration: 0.2, c: {
+                    self.view.layoutIfNeeded()
+                })
+                if numero == tagCeldaExpandida {
+                    tagCeldaExpandida = -1
+                    lastCell = nil//CustomTableViewCell2()
+                }
             }
         }
         
         if numero != previousCellTag {
             tagCeldaExpandida = numero
             lastCell = tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as! CustomTableViewCell2
-            self.lastCell.animate(duration: 0.2, c: {
+            self.lastCell!.animate(duration: 0.2, c: {
                 self.view.layoutIfNeeded()
             })
         }
@@ -263,14 +265,6 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                     }
                 }
                 self.descargarArchivos(archivos: archivosPorDescargar, celdaPorQuitar: row)
- // este bloque sera movido a la nueva funcion que intentara descargar los archivos, en caso de exito se ejecuta, caso contrario, pues no
-//                DispatchQueue.main.async {
-//                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
-////                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//                    print("Materia de \(objMateria.mNombre) con la id:\(objMateria.id) guardada en CoreData!" )
-//                    //removiendo de la lista
-////                    self.tableView(self.tableView, commit: .delete, forRowAt: self.tableView.indexPath(for: row)!)
-//                }
             }
 
         })

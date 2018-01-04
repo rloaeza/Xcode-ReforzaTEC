@@ -144,35 +144,21 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
             documentoPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejemplo!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
         case "Ejercicios":
-            //MARK: Aqui podria agarrar solo 10 ejercicios a irlos pasando para mostrarlos
-            /*
-             func getData() {
-             let context = appDelegate.persistentContainer.viewContext
-             
-             let fetchRequest = NSFetchRequest<Expenses>(entityName: "Expenses")
-             let sort = NSSortDescriptor(key: #keyPath(Expenses.date), ascending: true)
-             fetchRequest.sortDescriptors = [sort]
-             do {
-             expenses = try context.fetch(fetchRequest)
-             } catch {
-             print("Cannot fetch Expenses")
-             }
-             }
-             */
-            let uniAbierta = MateriaAbierta.unidades![enUnidad] as! Unidad
-            let request = NSFetchRequest<Ejercicio>(entityName: "Ejercicio")
-            request.fetchLimit = 5
-            let sort = NSSortDescriptor(key: #keyPath(Ejercicio.vecesFallado), ascending: true)
-            request.sortDescriptors = [sort]
-            do{
-                ejerciciosPorAbrir = try uniAbierta.managedObjectContext?.fetch(request)
-                
-                //(MateriaAbierta.unidades![enUnidad] as! Unidad).ejercicios?.allObjects as! [Ejercicio]
-            }catch {
-                print("Error al recuperar los ejercicios")
-                return
+            let uniAbierta = self.MateriaAbierta.unidades![enUnidad] as! Unidad
+            ejerciciosPorAbrir = uniAbierta.ejercicios!.allObjects as! [Ejercicio]
+            // ordenando para que primero salgan los que tienen mayor numero de veces falladas
+            ejerciciosPorAbrir.sort{ e1, e2 in
+                return e1.vecesFallado > e2.vecesFallado
             }
-            abrirEjercicio()
+            // solo mostrar 5 ejercicios
+            if(ejerciciosPorAbrir.count > 5){
+                var arregloTemporal: [Ejercicio] = []
+                for i in 0...4{
+                    arregloTemporal.append(ejerciciosPorAbrir[i])
+                }
+                ejerciciosPorAbrir = arregloTemporal
+            }
+            self.abrirEjercicio()
         case "Evaluación":
             evaluacionPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).evaluaciones?.allObjects as! [Evaluacion]
             self.performSegue(withIdentifier: "segueEvaluacion", sender: self)
