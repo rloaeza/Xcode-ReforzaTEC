@@ -74,11 +74,9 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
         opcionesDeRespuesta = opcionesDeRespuesta.shuffled()
         //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
-        if(debugVar){
-            preguntaTextView.translatesAutoresizingMaskIntoConstraints = true
-            preguntaTextView.sizeToFit()
-            preguntaTextView.isScrollEnabled = false
-        }
+        
+        preguntaTextView.sizeToFit()
+        
         configurarTabla()
       
     }
