@@ -26,7 +26,13 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var BotonSiguiente: UIButton!
+    @IBOutlet weak var AlturaTablaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ScrollView: UIScrollView!
     
+    @IBOutlet weak var AlturaVCConstraint: NSLayoutConstraint!
+    @IBOutlet weak var EspacioPreguntaTablaCotnstraint: NSLayoutConstraint!
+    
+    var Fondo: CGPoint!
     var color : UIColor!
     var opcionesDeRespuesta : [String]!// = ["incorrecto","incorrecto","incorrecto","correcto"]
     var respuesta : String!// = "correcto"
@@ -42,9 +48,9 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         BotonSiguiente.layer.borderColor = color.cgColor
         BotonSiguiente.layer.borderWidth = 1.5
         BotonSiguiente.setTitleColor(UIColor.black, for: .normal)
-        BotonSiguiente.frame.origin.y = self.view.bounds.size.height
+        //BotonSiguiente.frame.origin.y = self.view.bounds.size.height
         BotonSiguiente.alpha = 0
-        BotonSiguiente.backgroundColor = UIColor.white
+        
     }
     
     override func viewDidLoad() {
@@ -76,9 +82,11 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
         
         preguntaTextView.sizeToFit()
-        
+        AlturaTablaConstraint.constant = CGFloat(80 * tableView.numberOfRows(inSection: 0))
+        EspacioPreguntaTablaCotnstraint.constant = CGFloat(self.view.frame.size.height / 10)
+        Fondo = CGPoint(x:0, y: BotonSiguiente.frame.origin.y + BotonSiguiente.frame.size.height  * 2)
+        AlturaVCConstraint.constant = Fondo.y
         configurarTabla()
-      
     }
 
     // MARK:- TableView
@@ -200,7 +208,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         if(!botonSigOculto) {return}
         tableView.allowsSelection = true
         UIView.animate(withDuration: 0.6, animations: {
-            self.BotonSiguiente.frame.origin.y -= self.BotonSiguiente.bounds.size.height + 20
+            self.ScrollView.scrollToView(view: self.BotonSiguiente, animated: true)
             self.BotonSiguiente.alpha = 1
             self.botonSigOculto = false
         })
@@ -217,3 +225,4 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
 }
+
