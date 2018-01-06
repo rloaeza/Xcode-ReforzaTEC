@@ -26,11 +26,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var preguntaTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var BotonSiguiente: UIButton!
-    @IBOutlet weak var AlturaTablaConstraint: NSLayoutConstraint!
-    @IBOutlet weak var ScrollView: UIScrollView!
     
+    @IBOutlet weak var AlturaTablaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ScrollView: UIScrollView!    
     @IBOutlet weak var AlturaVCConstraint: NSLayoutConstraint!
     @IBOutlet weak var EspacioPreguntaTablaCotnstraint: NSLayoutConstraint!
+    @IBOutlet weak var EspacioBotonTablaConstraint: NSLayoutConstraint!
     
     var Fondo: CGPoint!
     var color : UIColor!
@@ -67,12 +68,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
         
         opcionesDeRespuesta = arreglo
-        //respuesta = opcionesDeRespuesta.shuffled()[0]
-        //cuando el textview esta sobre la tabla en el arbol de componentes del main.storybaord
-        //por alguna razon el textview sale mas abajo, esto lo corrige
-        if(debugVar) {
-            preguntaTextView.setContentOffset(CGPoint.zero, animated: false)
-        }
         
         if (color) == nil {
             print("color nil")
@@ -84,6 +79,12 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         preguntaTextView.sizeToFit()
         AlturaTablaConstraint.constant = CGFloat(80 * tableView.numberOfRows(inSection: 0))
         EspacioPreguntaTablaCotnstraint.constant = CGFloat(self.view.frame.size.height / 10)
+        // para pantallas largas
+        if self.view.bounds.size.height > 600{
+            let espacioLibre = self.view.frame.size.height - AlturaTablaConstraint.constant
+            EspacioBotonTablaConstraint.constant = espacioLibre / 3
+        }
+        
         Fondo = CGPoint(x:0, y: BotonSiguiente.frame.origin.y + BotonSiguiente.frame.size.height  * 2)
         AlturaVCConstraint.constant = Fondo.y
         configurarTabla()

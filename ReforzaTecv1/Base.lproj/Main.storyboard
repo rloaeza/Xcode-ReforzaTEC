@@ -268,6 +268,7 @@
                         <outlet property="AlturaTablaConstraint" destination="y16-5c-Gix" id="Jhv-tL-C9J"/>
                         <outlet property="AlturaVCConstraint" destination="NRT-Ch-9wJ" id="oJ1-Ue-MsL"/>
                         <outlet property="BotonSiguiente" destination="9Og-t4-7hl" id="gQI-KI-oCa"/>
+                        <outlet property="EspacioBotonTablaConstraint" destination="0Tq-Ef-xc5" id="HD7-YJ-X85"/>
                         <outlet property="EspacioPreguntaTablaCotnstraint" destination="1Gk-Nt-aGJ" id="dAA-o0-ffY"/>
                         <outlet property="ScrollView" destination="5GH-NA-LyY" id="oBI-P6-ZYK"/>
                         <outlet property="preguntaTextView" destination="u1v-VG-IEB" id="kZU-xd-Gue"/>
@@ -276,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aku-xE-naF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4386" y="-10"/>
+            <point key="canvasLocation" x="4897" y="-77"/>
         </scene>
         <!--Evaluacion-->
         <scene sceneID="2qv-9q-5Eg">
@@ -497,7 +498,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="na6-T7-heI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5261.6000000000004" y="94.902548725637189"/>
+            <point key="canvasLocation" x="5588" y="-227"/>
         </scene>
         <!--Escritura-->
         <scene sceneID="mfy-8z-gic">
