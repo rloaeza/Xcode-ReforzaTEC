@@ -16,7 +16,8 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     struct Fila{
         static let EspacioMinimoEntreCeldas = CGFloat(5)
         static var LargoMax: CGFloat?
-        
+        var largo: CGFloat
+        let contiene: String
         var palabras: [UILabel] {
             didSet{
                 largo = -Fila.EspacioMinimoEntreCeldas // para no contar el espacio de la ultima palabra
@@ -25,20 +26,18 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
                 }
             }
         }
-        
-        var largo: CGFloat
-        let contiene: String
-        
         init (tipo: String){
             palabras = []
             largo = 0
             contiene = tipo
         }
-        
         func puedeContener(otra label: UILabel) -> Bool {
             if(contiene == "opciones"){
                 return true
             }else {// respuestas
+                print("largo maximo de la fila: \(Fila.LargoMax!)")
+                print("largo actual de la fila: \(largo)")
+                print("largo de la etiqueta a agregar: \(label.frame.size.width)" )
                 return Fila.LargoMax! > (largo + label.frame.size.width)
             }
         }
@@ -48,8 +47,11 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var BotonRevisar: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var CalificacionImageView: UIImageView!
+    
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var AlturaViewControllerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var AlturaCollectionViewConstraint: NSLayoutConstraint!
     var Ejercicios: [Ejercicio]!
     var EjercicioActual: Ejercicio!    
     var IndiceSeccionDeOpciones: Int!
@@ -64,8 +66,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     
     var RespuestaCorrecta: String!
     var relleno: String = ""
-    
     var dataSource: [Fila] = []
+    
+    let EspacioEntreRenglones = CGFloat(15)
+    let EspacioEntreSecciones = CGFloat(60)
     
     
     
@@ -73,27 +77,28 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         AltoDeEtiqueta = nuevaLabel().frame.size.height
+        //print("collectionView.frame.size.width: \(collectionView.frame.size.width)")
         Fila.LargoMax = collectionView.frame.size.width
         
         EjercicioActual = Ejercicios.removeFirst()
         preguntaTextView.text = EjercicioActual.textos!
-        RespuestaCorrecta = EjercicioActual.respuestas!
+        
+        var  arreglo = EjercicioActual.respuestas!.characters.split{$0 == "|"}.map(String.init)
+        // removiendo el @
+        arreglo[0].remove(at: arreglo[0].startIndex)
+        RespuestaCorrecta = arreglo.removeFirst()
+        
         
         // calcular el numero de secciones para asi mostrar parrafos 
         // basandonos en el ancho de cada etiqueta mas el espacio entre ellas
         // y agregarlos como secciones vacias al principio del datasource
         
-        // iniciando boton
-        BotonRevisar.backgroundColor = UIColor.white
-        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
-        BotonRevisar.layer.cornerRadius = 10
-        BotonRevisar.layer.borderWidth = 1.5
-        BotonRevisar.layer.borderColor = color.cgColor
-        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
+        
         // inicializar data source
         // con seccion de opciones
         var seccionDeOpciones = Fila(tipo: "opciones")
-        let opcionesDeRespuesta = (RespuestaCorrecta + " " + relleno).components(separatedBy: " ").shuffled()
+        var opcionesDeRespuesta = RespuestaCorrecta.components(separatedBy: " ") + arreglo
+        opcionesDeRespuesta.shuffle()
         for palabra in opcionesDeRespuesta{
             let etiqueta = nuevaLabel(palabra)
             seccionDeOpciones.palabras.append(etiqueta)
@@ -107,9 +112,27 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // agregar la seccion de opciones de respuesta
         dataSource.append(seccionDeOpciones)
         IndiceSeccionDeOpciones = dataSource.count - 1
+        
+        // calculando altura de las cosas
+        preguntaTextView.sizeToFit()
+        
+        AlturaCollectionViewConstraint.constant = ((AltoDeEtiqueta.magnitude + EspacioEntreRenglones) * CGFloat(dataSource.count)) + EspacioEntreSecciones + 60
+        
+        // ocultando la imagen
         AlturaDeImagenConstraint.constant = 0
-        //CalificacionImageView.bounds.size.height = 0
         CalificacionImageView.alpha = 0
+        print(AlturaViewControllerConstraint.constant)
+        AlturaViewControllerConstraint.constant =  BotonRevisar.frame.origin.y + BotonRevisar.frame.size.height  * 2
+        print(AlturaViewControllerConstraint.constant)
+        print(self.view.frame.size.height)
+        
+        // iniciando boton
+        BotonRevisar.backgroundColor = UIColor.white
+        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
+        BotonRevisar.layer.cornerRadius = 10
+        BotonRevisar.layer.borderWidth = 1.5
+        BotonRevisar.layer.borderColor = color.cgColor
+        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
     }
     
     func nuevaLabel(_ titulo: String = "word") -> UILabel{
@@ -159,21 +182,27 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
         print(respuestaDelUsuario)
         BotonRevisar.setTitle("Siguiente", for: .normal)
-        
+
         if(RespuestaCorrecta == respuestaDelUsuario){
-            // TODO: - manejar revision de una mejor manera
-//            print("Acertaste!")
-            
-            
+            CalificacionImageView.image = #imageLiteral(resourceName: "correcto")
+            EjercicioActual.vecesAcertado += 1
         }else {
 //            print("fallaste!")
             CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
+            EjercicioActual.vecesFallado += 1
             mostrarRespuesta()
         }
         UIView.animate(withDuration: 0.3, animations: {
             self.AlturaDeImagenConstraint.constant = 64
             self.CalificacionImageView.alpha = 1
         })
+        print("Veces acertado: \(EjercicioActual.vecesAcertado)")
+        print("Veces fallado: \(EjercicioActual.vecesFallado)")
+        do{
+            try EjercicioActual.managedObjectContext?.save()
+        }catch{
+            print("No se pudo guardar en CoreData la calificacion del ejercicio")
+        }
         
     }
     // MARK:- Navegacion
@@ -306,10 +335,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if(section == (collectionView.numberOfSections - 2)){
             // espacio entre la secion de respuestas y la de opcionnes
-            return CGSize.init(width: collectionView.frame.size.width, height: 60)
+            return CGSize.init(width: collectionView.frame.size.width, height: EspacioEntreSecciones)
         }
         else {// espacio normal entre renglones
-            return CGSize.init(width: collectionView.frame.size.width, height: 15)
+            return CGSize.init(width: collectionView.frame.size.width, height: EspacioEntreRenglones)
         }
     }
     

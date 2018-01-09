@@ -152,8 +152,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     @IBAction func MostrarSiguiente(_ sender: Any) {
-        print("veces acertadas \(EjercicioActual.vecesAcertado)")
-        print("veces falladas \(EjercicioActual.vecesFallado)")
         if(contestoBien){
             //guardar acierto
             EjercicioActual.vecesAcertado += 1
@@ -207,7 +205,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func mostrarBoton() {
         if(!botonSigOculto) {return}
-        tableView.allowsSelection = true
         UIView.animate(withDuration: 0.6, animations: {
             self.ScrollView.scrollToView(view: self.BotonSiguiente, animated: true)
             self.BotonSiguiente.alpha = 1
