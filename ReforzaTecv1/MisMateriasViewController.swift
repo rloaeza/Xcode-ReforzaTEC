@@ -1,4 +1,4 @@
-//
+			//
 //  ViewController.swift
 //  ReforzaTecv1
 //
@@ -33,13 +33,17 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.reloadData()
 
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurarTabla()   
+        configurarTabla()
+        let botonInfo = UIButton.init(type: .infoLight)
+        botonInfo.addTarget(self, action: #selector(mostrarInfo), for: .touchUpInside)
+        let barButton = UIBarButtonItem.init(customView: botonInfo)
+        self.navigationItem.leftBarButtonItem = barButton
     }
-
-    
+ 
     func recuperarData(){
         do {
             materiasDescargadas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
@@ -129,7 +133,8 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     //MARK:- Cosas extra
-    
+
+
     func expandirCelda(numero : Int) {
         self.tableView.beginUpdates()
         let previousCellTag = tagCeldaExpandida
@@ -157,6 +162,51 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.endUpdates()
     }
 
+    
+    @objc func mostrarInfo() {
+        let alerta = UIAlertController(title: nil , message: nil, preferredStyle: .actionSheet)
+        // enviar comentarios
+        alerta.addAction(UIAlertAction(title:"Enviar comentarios", style: .default, handler: {_ in
+            self.preguntarComentarios()
+        }))
+        
+        // mostrar creditos
+        alerta.addAction(UIAlertAction(title:"Licencias de terceros", style: .default, handler: { _ in
+            self.mostrarCreditos()
+        }))
+        
+        // cancelar
+        alerta.addAction(UIAlertAction(title:"Ocultar", style: .cancel, handler: nil))
+        self.present(alerta, animated: true, completion: nil)
+    }
+    
+    func preguntarComentarios() {
+        print("enviando comentarios al servidor")
+        let comentariosAlert = UIAlertController(title: "¿Qué piensas de la aplicación?", message: nil, preferredStyle: .alert)
+        comentariosAlert.addAction(UIAlertAction(title: "Enviar", style: .default, handler: {(resultado: UIAlertAction) -> Void in
+            if let comentario = comentariosAlert.textFields?.first!.text{
+                print("Enviando: \(comentario)")
+            }
+        }
+        ))
+        comentariosAlert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        
+        comentariosAlert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "No incluyas datos personales"
+            textField.returnKeyType = UIReturnKeyType.done
+            
+        })
+        
+        self.present(comentariosAlert, animated: true, completion: nil)
+    }
+    
+    func mostrarCreditos() {
+        let creditosAlert = UIAlertController(title: "Mostrar licencias", message: "por enlistar terceros", preferredStyle: .alert)
+        creditosAlert.addAction(UIAlertAction(title: "Ocultar", style: .default, handler: nil))
+        self.present(creditosAlert, animated: true, completion: nil)
+    }
+    
+    
     //Cumpliendo con el delegado del CustomTableView para que al darle en el boton de borrar de la celda se llame aqui esto y se borre
     //Elimina la materia de coreData y la celda del tableview
     //primero muestra
