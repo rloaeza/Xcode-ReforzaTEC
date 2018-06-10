@@ -1,11 +1,4 @@
-//
-//  Materia.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 7/17/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
-//Por hacer: remover la m
+
 
 import Foundation
 import UIKit.UIColor

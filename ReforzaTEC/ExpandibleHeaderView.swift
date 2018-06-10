@@ -1,10 +1,3 @@
-//
-//  ExpandibleHeaderRow.swift
-//  ReforzaTecv1
-//
-//  Created by Delfin: Verano Científico on 26/07/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
 
 import UIKit
 

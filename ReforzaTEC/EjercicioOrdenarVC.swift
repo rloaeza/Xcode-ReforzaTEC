@@ -1,10 +1,4 @@
-//
-//  EjercicioOrdenarVC.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 10/7/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import UIKit
 // TODO:- Bugs

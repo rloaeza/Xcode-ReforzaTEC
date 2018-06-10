@@ -1,10 +1,4 @@
-//
-//  UIApplication+StatusBarView.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 7/28/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import UIKit
 //Permite cambiar de color a la barra de estado facilmente

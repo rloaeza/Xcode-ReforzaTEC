@@ -427,11 +427,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReforzaTecv1/Evaluacion",
 				);
-				INFOPLIST_FILE = ReforzaTecv1/Info.plist;
+				INFOPLIST_FILE = ReforzaTEC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTEC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTEC/Evaluacion/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -449,11 +449,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReforzaTecv1/Evaluacion",
 				);
-				INFOPLIST_FILE = ReforzaTecv1/Info.plist;
+				INFOPLIST_FILE = ReforzaTEC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTEC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTEC/Evaluacion/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};

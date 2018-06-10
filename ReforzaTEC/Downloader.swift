@@ -1,10 +1,4 @@
-//
-//  Downloader.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 12/28/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import Foundation
 

@@ -1,10 +1,4 @@
-//
-//  OpcionTableCell.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 8/1/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import UIKit
 

@@ -1,10 +1,4 @@
-//
-//  CustomTableViewCell2TableViewCell.swift
-//  ReforzaTecv1
-//
-//  Created by Delfin: Verano Científico on 21/07/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import UIKit
 
