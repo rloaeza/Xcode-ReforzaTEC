@@ -137,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				48F5BDD21F1C917700242E95 /* Products */,
-				48F5BDD31F1C917700242E95 /* ReforzaTecv1 */,
+				48F5BDD31F1C917700242E95 /* ReforzaTEC */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,7 +149,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		48F5BDD31F1C917700242E95 /* ReforzaTecv1 */ = {
+		48F5BDD31F1C917700242E95 /* ReforzaTEC */ = {
 			isa = PBXGroup;
 			children = (
 				48E367C91F342E9C00E3379A /* Contenido */,
@@ -173,7 +173,7 @@
 				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
 				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
 			);
-			path = ReforzaTecv1;
+			path = ReforzaTEC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
