@@ -1,10 +1,4 @@
-//
-//  EvaluacionTVC.swift
-//  ReforzaTecv1
-//
-//  Created by Omar Rico on 11/13/17.
-//  Copyright © 2017 TecUruapan. All rights reserved.
-//
+
 
 import UIKit
 // Guarda las datos de celdas en el data soruce antes de que sean reutilizadas por la table view
