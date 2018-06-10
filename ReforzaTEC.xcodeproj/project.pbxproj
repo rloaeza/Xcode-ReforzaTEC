@@ -65,7 +65,7 @@
 		48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntaOMTVC.swift; sourceTree = "<group>"; };
 		48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreguntaOMTVC.xib; sourceTree = "<group>"; };
 		48EF39501FB99F23000325AB /* EvaluacionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluacionTVC.swift; sourceTree = "<group>"; };
-		48F5BDD11F1C917700242E95 /* ReforzaTecv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReforzaTecv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F5BDD11F1C917700242E95 /* ReforzaTEC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReforzaTEC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48F5BDD41F1C917700242E95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MisMateriasViewController.swift; sourceTree = "<group>"; };
 		48F5BDD91F1C917700242E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 		48F5BDD21F1C917700242E95 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				48F5BDD11F1C917700242E95 /* ReforzaTecv1.app */,
+				48F5BDD11F1C917700242E95 /* ReforzaTEC.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,9 +179,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		48F5BDD01F1C917700242E95 /* ReforzaTecv1 */ = {
+		48F5BDD01F1C917700242E95 /* ReforzaTEC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 48F5BDE31F1C917700242E95 /* Build configuration list for PBXNativeTarget "ReforzaTecv1" */;
+			buildConfigurationList = 48F5BDE31F1C917700242E95 /* Build configuration list for PBXNativeTarget "ReforzaTEC" */;
 			buildPhases = (
 				48F5BDCD1F1C917700242E95 /* Sources */,
 				48F5BDCE1F1C917700242E95 /* Frameworks */,
@@ -191,9 +191,9 @@
 			);
 			dependencies = (
 			);
-			name = ReforzaTecv1;
+			name = ReforzaTEC;
 			productName = ReforzaTecv1;
-			productReference = 48F5BDD11F1C917700242E95 /* ReforzaTecv1.app */;
+			productReference = 48F5BDD11F1C917700242E95 /* ReforzaTEC.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +214,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 48F5BDCC1F1C917700242E95 /* Build configuration list for PBXProject "ReforzaTecv1" */;
+			buildConfigurationList = 48F5BDCC1F1C917700242E95 /* Build configuration list for PBXProject "ReforzaTEC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -227,7 +227,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				48F5BDD01F1C917700242E95 /* ReforzaTecv1 */,
+				48F5BDD01F1C917700242E95 /* ReforzaTEC */,
 			);
 		};
 /* End PBXProject section */
@@ -429,7 +429,7 @@
 				);
 				INFOPLIST_FILE = ReforzaTecv1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTecv1;
+				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTEC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -451,7 +451,7 @@
 				);
 				INFOPLIST_FILE = ReforzaTecv1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTecv1;
+				PRODUCT_BUNDLE_IDENTIFIER = appsmoviles.ReforzaTEC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -462,7 +462,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		48F5BDCC1F1C917700242E95 /* Build configuration list for PBXProject "ReforzaTecv1" */ = {
+		48F5BDCC1F1C917700242E95 /* Build configuration list for PBXProject "ReforzaTEC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				48F5BDE11F1C917700242E95 /* Debug */,
@@ -471,7 +471,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		48F5BDE31F1C917700242E95 /* Build configuration list for PBXNativeTarget "ReforzaTecv1" */ = {
+		48F5BDE31F1C917700242E95 /* Build configuration list for PBXNativeTarget "ReforzaTEC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				48F5BDE41F1C917700242E95 /* Debug */,
