@@ -12,11 +12,14 @@ import UIKit.UIColor
 
 // cambiar a una struct
 class MateriaObj: NSObject {
-        //201.134.65.227  die Schule
+    
     // das Haus http://172.16.107.1/reforzatec/reforzatec.php?Actividad=1
-    static let HOST: String = "http://172.16.107.1/"
-    static let  direccion : String  = HOST + "reforzatec/reforzatec.php?Actividad=1"
-    static let DESCARGA_UNIDAD: String = HOST + "/reforzatec/reforzatec.php?Actividad=9&idMaterias="
+    //static let HOST: String = "http://172.16.107.1/"
+    // exterior
+    //static let HOST: String = "http://192.168.1.109/"
+    static let HOST: String = "http://201.134.65.227/"
+    static let  direccion : String  = HOST + "reforzatec/reforzatec-ios.php?Actividad=1"
+    static let DESCARGA_UNIDAD: String = HOST + "/reforzatec/reforzatec-ios.php?Actividad=9&idMaterias="
     static let DESCARGA_DOCUMENTOS_URL: String = HOST + "/reforzatec/documentos/";
     let mNombre : String
     let mDescripcion : String?

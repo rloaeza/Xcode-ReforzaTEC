@@ -82,7 +82,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         // para pantallas largas
         if self.view.bounds.size.height > 600{
             let espacioLibre = self.view.frame.size.height - AlturaTablaConstraint.constant
-            EspacioBotonTablaConstraint.constant = espacioLibre / 3
+            EspacioBotonTablaConstraint.constant = espacioLibre / 5
         }
         
         Fondo = CGPoint(x:0, y: BotonSiguiente.frame.origin.y + BotonSiguiente.frame.size.height  * 2)
